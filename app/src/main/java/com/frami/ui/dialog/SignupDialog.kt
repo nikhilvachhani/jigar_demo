@@ -1,6 +1,8 @@
 package com.frami.ui.dialog
 
 import android.app.Activity
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import com.frami.BuildConfig
@@ -17,6 +19,7 @@ import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalClientException
 import com.microsoft.identity.client.exception.MsalException
 import com.microsoft.identity.client.exception.MsalServiceException
+
 
 class SignupDialog(
     private val mActivity: Activity,
@@ -53,7 +56,11 @@ class SignupDialog(
             this.dismiss()
             onDialogActionListener?.onLoginDialogClose()
         }
-        bindingSheet!!.btnSignupWithEmail.setOnClickListener {
+        bindingSheet!!.btnCancel.setOnClickListener {
+            this.dismiss()
+            onDialogActionListener?.onLoginDialogClose()
+        }
+        bindingSheet!!.cvEmail.setOnClickListener {
             if (b2cApp == null) {
                 return@setOnClickListener;
             }
@@ -134,6 +141,10 @@ class SignupDialog(
                     displayError(exception)
                 }
             })
+
+        val content = SpannableString(mActivity.getString(R.string.cancel))
+        content.setSpan(UnderlineSpan(), 0, content.length, 0)
+        bindingSheet?.btnCancel?.text = content
     }
 
     interface OnDialogActionListener {

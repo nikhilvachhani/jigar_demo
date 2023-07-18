@@ -286,7 +286,16 @@
         <item name="android:backgroundTint">@color/dividerF4</item>
         <item name="android:fontFamily">@font/sf_pro_regular</item>
         <item name="android:textColor">@color/colorHeaderText</item>
-        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:paddingVertical" tools:targetApi="o">4dp</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">10dp</item>
+    </style>
+
+    <style name="BorderlessButton.LightThemeColor.2" parent="@style/Widget.BorderlessButton">
+        <item name="android:backgroundTint">@color/lightThemeColor_2</item>
+        <item name="android:fontFamily">@font/sf_pro_regular</item>
+        <item name="android:textColor">@color/colorHeaderText</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:paddingVertical" tools:targetApi="o">4dp</item>
         <item name="android:paddingHorizontal" tools:targetApi="o">10dp</item>
     </style>

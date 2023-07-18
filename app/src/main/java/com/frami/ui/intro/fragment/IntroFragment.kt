@@ -1,20 +1,31 @@
 package com.frami.ui.intro.fragment
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.frami.BR
 import com.frami.R
+import com.frami.data.model.user.User
 import com.frami.databinding.FragmentIntroBinding
 import com.frami.ui.base.BaseFragment
+import com.frami.ui.dialog.LoginDialog
+import com.frami.ui.dialog.SignupDialog
 import com.google.android.material.tabs.TabLayoutMediator
+import com.microsoft.identity.client.IAuthenticationResult
 
 class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>(),
-    IntroFragmentNavigator {
+    IntroFragmentNavigator, SignupDialog.OnDialogActionListener,
+    LoginDialog.OnDialogActionListener {
 
     private var mViewBinding: FragmentIntroBinding? = null
     override fun getBindingVariable(): Int = BR.introFragmentViewModel
@@ -70,6 +81,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
 
         mViewBinding!!.pagerIntro.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                mViewBinding!!.ivIntro.setImageResource(getViewModel().getInfoModels(requireActivity())[position].image)
                 val isLastPOS =
                     (position == (getViewModel().getInfoModels(requireActivity()).size - 1))
                 getViewModel().isLastPosition.set(isLastPOS)
@@ -82,7 +94,8 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
             override fun onPageScrollStateChanged(state: Int) {
                 log("onPageScrollStateChanged STATE $state")
                 if (getViewModel().isLastPosition.get() && state == 1) {
-                    mViewBinding!!.tvSkip.performClick()
+                    //TODO
+//                    mViewBinding!!.tvSkip.performClick()
                 }
             }
         })
@@ -92,13 +105,24 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
             p.setMargins(6, 0, 6, 0)
             tab.requestLayout()
         }
+
+        val content = SpannableString(requireActivity().getString(R.string.log_in))
+        content.setSpan(UnderlineSpan(), 0, content.length, 0)
+        mViewBinding?.tvLogin?.text = content
     }
 
     private fun clickListener() {
         mViewBinding!!.tvSkip.setOnClickListener {
-            getViewModel().saveIsAppTutorialDone(true)
+            //TODO
+//            getViewModel().saveIsAppTutorialDone(true)
             mNavController?.navigate(R.id.toLoginSignupActivity)
             activity?.finish() //Added because popUpToInclusive="true" not working properly
+        }
+        mViewBinding!!.btnSignUp.setOnClickListener {
+            openSignupDialog()
+        }
+        mViewBinding!!.tvLogin.setOnClickListener {
+            openLoginDialog()
         }
     }
 
@@ -107,4 +131,57 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
 
         activity?.finish()
     }
+
+    private fun openSignupDialog() {
+        val signupDialog = SignupDialog(requireActivity(), this)
+        signupDialog.show()
+    }
+
+    private fun openLoginDialog() {
+        val loginDialog = LoginDialog(requireActivity(), this)
+        loginDialog.show()
+    }
+
+    override fun onLoginSuccess(result: IAuthenticationResult) {
+        getViewModel().setAccessToken(result.accessToken)
+        getViewModel().setTokenExpiresOn(result.expiresOn.time)
+        getViewModel().validateUser()
+    }
+
+    override fun onLoginDialogClose() {
+
+    }
+
+    override fun onShowLoadingDialog(isShow: Boolean) {
+        if (isShow) {
+            showLoading()
+        } else {
+            hideLoading()
+        }
+    }
+
+    override fun onShowMessage(message: String) {
+        showMessage(message)
+    }
+
+    override fun validateSuccess(user: User?) {
+        if (user != null) {
+            authFlow(user, false, wearableDeviceActivityResultLauncher, null)
+        } else {
+            navigateToLogin()
+        }
+    }
+
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    var wearableDeviceActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback<ActivityResult> { result ->
+            getViewModel().getUserLiveData().observe(
+                viewLifecycleOwner,
+                Observer { user ->
+                    if (user != null) {
+                        authFlow(user, false, null, null)
+                    }
+                })
+        })
 }

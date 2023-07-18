@@ -57,7 +57,7 @@ class LoginDialog(
             this.dismiss()
             onDialogActionListener?.onLoginDialogClose()
         }
-        bindingSheet!!.btnLoginWithEmail.setOnClickListener {
+        bindingSheet!!.cvEmail.setOnClickListener {
             if (b2cApp == null) {
                 return@setOnClickListener;
             }

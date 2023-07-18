@@ -67,6 +67,10 @@
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
     <string name="apple">Apple</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_apple">Continue with Apple</string>
+    <string name="continue_with_email">Continue with Email</string>
     <string name="or">Or</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -113,6 +117,7 @@
     <string name="join_now">JOIN NOW</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="welcome_to">Welcome to</string>
+    <string name="create_an_account">Create an account</string>
     <string name="sign_up_with">Sign up with</string>
     <string name="show_all">Show all</string>
     <string name="join_community_with_code">Join community with code</string>

@@ -23,6 +23,7 @@
     <dimen name="toolbar_subtitle_text_size">12sp</dimen>
     <dimen name="floating_label_size">14sp</dimen>
     <dimen name="card_content_padding">16dp</dimen>
+    <dimen name="card_content_padding_8dp">8dp</dimen>
     <dimen name="dashboard_item_image_max_size">130dp</dimen>
 
     <!--Text Size-->

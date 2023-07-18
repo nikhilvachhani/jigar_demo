@@ -49,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_intro_1"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/guidelineCenter"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart" />
@@ -58,9 +59,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/guidelineCenter">
@@ -79,8 +80,11 @@
                 style="@style/TextViewStyleBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="@{introSliderFragmentViewModel.titleText}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
                 tools:text="@string/na" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -92,6 +96,7 @@
                 android:lines="5"
                 android:paddingVertical="10dp"
                 android:text="@{introSliderFragmentViewModel.infoText}"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_regular"
                 app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
                 app:layout_constraintStart_toStartOf="@id/guidelineStart"
