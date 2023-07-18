@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.post.create.adapter.EditPostPhotoAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="activityPhotos"
+            type="com.frami.data.model.post.create.PostPhotos" />
+
+        <variable
+            name="size"
+            type="Integer" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginEnd="6dp"
+        app:cardCornerRadius="13dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:cardUseCompatPadding="false">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvPhotoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/dividerF4"
+                app:cardCornerRadius="13dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                tools:visibility="visible">
+                <!--loadImageUri="@{activityPhotos.thumbnailUri != null ?  activityPhotos.thumbnailUri : activityPhotos.uri != null ? activityPhotos.uri : null}"-->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/ic_add_profile_photo" />
+
+                <!--                <androidx.appcompat.widget.AppCompatImageView-->
+                <!--                    loadImage="@{activityPhotos.url.empty ? null : activityPhotos.url}"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="250dp"-->
+                <!--                    android:adjustViewBounds="true"-->
+                <!--                    android:scaleType="fitXY"-->
+                <!--                    android:visibility="@{activityPhotos.url.empty ? View.GONE : View.VISIBLE, default=gone}"-->
+                <!--                    tools:src="@drawable/ic_add_profile_photo"-->
+                <!--                    tools:visibility="visible" />-->
+
+                <!--                <androidx.appcompat.widget.AppCompatImageView-->
+                <!--                    android:id="@+id/photo"-->
+                <!--                    loadImageUri="@{activityPhotos.uri != null ? activityPhotos.uri : null}"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="250dp"-->
+                <!--                    android:adjustViewBounds="true"-->
+                <!--                    android:scaleType="fitXY"-->
+                <!--                    android:visibility="@{activityPhotos.uri == null  ? View.GONE : View.VISIBLE, default=gone}"-->
+                <!--                    tools:src="@drawable/ic_add_profile_photo" />-->
+                <!--                android:visibility="@{activityPhotos.uri == null  ? activityPhotos.thumbnailUri == null ? View.GONE :  View.VISIBLE : View.VISIBLE, default=gone}"-->
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play_circle_filled_24"
+                android:visibility="@{activityPhotos.mediaType.equalsIgnoreCase(AppConstants.MEDIA_TYPE.VIDEO) ? View.VISIBLE : View.GONE, default=gone}"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDeletePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_delete_photo" />
+
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

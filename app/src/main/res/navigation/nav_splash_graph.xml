@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.frami.ui.start.fragment.SplashFragment"
+        android:label=""
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/toIntroActivity"
+            app:destination="@id/introActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toLoginSignupActivity"
+            app:destination="@id/loginSignupActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toWearableActivity"
+            app:destination="@id/wearableActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/splashFragment" />
+        <action
+            android:id="@+id/toDashboardActivity"
+            app:destination="@id/dashboardActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toPersonalityInfoActivity"
+            app:destination="@id/personalityInfoActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <activity
+        android:id="@+id/introActivity"
+        android:name="com.frami.ui.intro.IntroActivity"
+        android:label=""
+        tools:layout="@layout/fragment_intro" />
+    <activity
+        android:id="@+id/loginSignupActivity"
+        android:name="com.frami.ui.loginsignup.LoginSignupActivity"
+        android:label=""
+        tools:layout="@layout/fragment_login_option" />
+    <activity
+        android:id="@+id/dashboardActivity"
+        android:name="com.frami.ui.dashboard.DashboardActivity"
+        android:label=""
+        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/personalityInfoActivity"
+        android:name="com.frami.ui.personalityinfo.PersonalityInfoActivity"
+        android:label=""
+        tools:layout="@layout/fragment_personality_info" />
+    <activity
+        android:id="@+id/wearableActivity"
+        android:name="com.frami.ui.settings.wearable.WearableActivity"
+        android:label=""
+        tools:layout="@layout/fragment_wearable" />
+</navigation>

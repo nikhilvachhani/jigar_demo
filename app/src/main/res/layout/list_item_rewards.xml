@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.explore.adapter.RewardsAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="rewardsData"
+            type="com.frami.data.model.rewards.RewardsData" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/card_round_corner"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="8dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvRewardsImage"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/card_round_corner"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPhoto"
+                    loadImage="@{rewardsData.rewardImagesUrl.size() > 0 ? rewardsData.rewardImagesUrl[0] : null}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/dummy_rewards_1" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--            <View-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:background="@drawable/ic_semi_transparent_bg_rounded_corner"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/cvRewardsImage"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="@id/cvRewardsImage" />-->
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivNew"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_new_rewards"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cvRewardsImage" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@{rewardsData.status.equalsIgnoreCase(AppConstants.REWARD_STATUS.Locked) ? @drawable/ic_reward_lock : rewardsData.status.equalsIgnoreCase(AppConstants.REWARD_STATUS.UnLockable) ? @drawable/ic_reward_lock_open : null}"
+                android:visibility="@{rewardsData.status.equalsIgnoreCase(AppConstants.REWARD_STATUS.Locked) || rewardsData.status.equalsIgnoreCase(AppConstants.REWARD_STATUS.UnLockable) ? View.VISIBLE:View.GONE, default=gone}"
+                app:layout_constraintBottom_toBottomOf="@id/cvRewardsImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cvRewardsImage" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clActivated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#C4C4C4"
+                android:padding="8dp"
+                android:visibility="@{rewardsData.status.equalsIgnoreCase(AppConstants.REWARD_STATUS.Activated) || rewardsData.status.equalsIgnoreCase(AppConstants.REWARD_STATUS.Expired) ? View.VISIBLE:View.GONE, default=gone}"
+                app:layout_constraintBottom_toBottomOf="@id/cvRewardsImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cvRewardsImage">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvActivated"
+                    style="@style/TextViewStyleSemiBold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{rewardsData.status}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:textAllCaps="true"
+                    tools:text="@string/na" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvActivatedDate"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{rewardsData.getDate()}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:textSize="@dimen/text_size_xsmall"
+                    android:visibility="@{rewardsData.expiryDate != null ? View.VISIBLE : View.GONE, default=gone}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvActivated"
+                    tools:text="@string/na"
+                    tools:visibility="visible"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@{rewardsData.title}"
+                android:textColor="@color/colorSubHeaderText"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvRewardsImage"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPoints"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@{rewardsData.points+(rewardsData.points > 1 ? ` Points`:` Point`)}"
+                android:textColor="@color/colorSubHeaderText"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="@{rewardsData.points == 0 ? View.INVISIBLE:View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                tools:text="@string/na" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

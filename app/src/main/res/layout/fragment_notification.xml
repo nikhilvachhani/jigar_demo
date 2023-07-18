@@ -1,0 +1,160 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.notification.NotificationFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.frami.ui.notification.NotificationFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBg">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar_title_center"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clNotifications"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_bottom_sheet"
+            android:paddingTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineStartInner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineEndInner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAll"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@{viewModel.isAll == AppConstants.NOTIFICATION_TYPE.ALL ? @drawable/ic_selected_left_rounded_corner : @drawable/ic_non_selected_left_rounded_corner}"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingVertical="15dp"
+                android:text="@string/all"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_medium"
+                app:layout_constraintEnd_toStartOf="@id/tvRequests"
+                app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRequests"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@{viewModel.isAll == AppConstants.NOTIFICATION_TYPE.REQUESTS ? @drawable/ic_selected_right_rounded_corner : @drawable/ic_non_selected_right_rounded_corner}"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingVertical="15dp"
+                android:text="@string/requests"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_medium"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                app:layout_constraintStart_toEndOf="@id/tvAll"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextViewStyleRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_notification_unread_dot_bg"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@{viewModel.unreadRequestCount.toString()}"
+                android:textColor="@color/white"
+                android:visibility="@{viewModel.unreadRequestCount > 0 ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintBottom_toBottomOf="@id/tvRequests"
+                app:layout_constraintEnd_toEndOf="@id/tvRequests"
+                app:layout_constraintTop_toTopOf="@id/tvRequests"
+                tools:text="6"
+                tools:visibility="visible" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAll">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:visibility="@{viewModel.isDataEmpty ? View.GONE : View.VISIBLE, default=visible }"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_item_parent_notifications" />
+
+                <include
+                    android:id="@+id/emptyView"
+                    layout="@layout/layout_empty_list"
+                    android:visibility="@{viewModel.isDataEmpty ? View.VISIBLE : View.GONE, default=gone }" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

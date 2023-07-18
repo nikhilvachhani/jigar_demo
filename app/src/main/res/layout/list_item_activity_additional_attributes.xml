@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.home.LabelValueData" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="4dp"
+        android:background="@drawable/edittext_border_selected"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAttributeTitle"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@{data.label}"
+            android:textColor="@color/colorSubHeaderText"
+            app:autoSizePresetSizes="@array/attribute_text_sizes"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@id/tvAttributeValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAttributeValue"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="end|center_vertical"
+            android:maxLines="1"
+            android:text="@{data.value}"
+            android:textColor="@color/colorSubHeaderText"
+            app:autoSizePresetSizes="@array/attribute_text_sizes"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvAttributeTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Time 41h 11m" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -1,0 +1,363 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.challenges.create.CreateChallengeStep3Fragment">
+
+    <data>
+
+        <variable
+            name="ccViewModel"
+            type="com.frami.ui.challenges.create.CreateChallengeFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.graphics.Color" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBg">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@string/create_a_new_challenge"
+            android:textSize="@dimen/text_size_xxlarge"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineStartInner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineEndInner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDuration"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/duration"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clDuration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDuration">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/duration"
+                            android:minHeight="30dp"
+                            android:text="@{ccViewModel.selectedDuration != null ? ccViewModel.selectedDuration.value : ``}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvStartDate"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/start_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clDuration" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvSDD"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toStartOf="@id/cvSMM"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvStartDate">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:gravity="center"
+                            android:hint="@string/dd"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@{ccViewModel.startDateDay != null ? String.valueOf(ccViewModel.startDateDay) : ``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_regular" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvSMM"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toStartOf="@id/cvSYYYY"
+                        app:layout_constraintStart_toEndOf="@id/cvSDD"
+                        app:layout_constraintTop_toBottomOf="@id/tvStartDate">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:gravity="center"
+                            android:hint="@string/mm"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@{ccViewModel.startDateMonth != null ? String.valueOf(ccViewModel.startDateMonth) : ``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_regular" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvSYYYY"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cvSMM"
+                        app:layout_constraintTop_toBottomOf="@id/tvStartDate">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:gravity="center"
+                            android:hint="@string/yyyy"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@{ccViewModel.startDateYear != null ? String.valueOf(ccViewModel.startDateYear):``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_regular" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvEndDate"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/end_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cvSDD" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvEDD"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toStartOf="@id/cvSMM"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvEndDate">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvSelectDD"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:gravity="center"
+                            android:hint="@string/dd"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@{ccViewModel.endDateDay != null ? String.valueOf(ccViewModel.endDateDay) : ``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_regular" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvEMM"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toStartOf="@id/cvEYYYY"
+                        app:layout_constraintStart_toEndOf="@id/cvEDD"
+                        app:layout_constraintTop_toBottomOf="@id/tvEndDate">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvSelectMM"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:gravity="center"
+                            android:hint="@string/mm"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@{ccViewModel.endDateMonth != null ? String.valueOf(ccViewModel.endDateMonth) : ``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_regular" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvEYYYY"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cvEMM"
+                        app:layout_constraintTop_toBottomOf="@id/tvEndDate">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvSelectYYYY"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:gravity="center"
+                            android:hint="@string/yyyy"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@{ccViewModel.endDateYear != null ? String.valueOf(ccViewModel.endDateYear):``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_regular" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNext"
+                        style="@style/BorderlessButton.ThemeColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/next"
+                        app:cornerRadius="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvEDD" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

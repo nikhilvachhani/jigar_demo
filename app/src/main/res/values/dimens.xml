@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2018 Mukesh Solanki
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="activity_margin">25dp</dimen>
+    <dimen name="activity_margin_20">20dp</dimen>
+    <dimen name="vertical_content_margin">14dp</dimen>
+    <dimen name="toolbar_title_text_size">20sp</dimen>
+    <dimen name="toolbar_subtitle_text_size">12sp</dimen>
+    <dimen name="floating_label_size">14sp</dimen>
+    <dimen name="card_content_padding">16dp</dimen>
+    <dimen name="dashboard_item_image_max_size">130dp</dimen>
+
+    <!--Text Size-->
+    <dimen name="text_size_xxxlarge">32sp</dimen>
+    <dimen name="text_size_xxlarge">24sp</dimen>
+    <dimen name="text_size_xlarge">22sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_regular">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_xsmall">12sp</dimen>
+    <dimen name="text_size_xxsmall">10sp</dimen>
+    <dimen name="text_size_xxxsmall">8sp</dimen>
+
+    <!--Drawable Icon Padding-->
+    <dimen name="no_padding">0dp</dimen>
+    <dimen name="drawable_padding_4">4dp</dimen>
+    <dimen name="drawable_padding">10dp</dimen>
+    <dimen name="drawable_padding_14">14dp</dimen>
+
+    <!-- Bottom Menu Override -->
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+    <dimen name="action_bar_height">80dp</dimen>
+
+    <dimen name="menu_item_icon_size">24dp</dimen>
+
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_margin_half">4dp</dimen>
+    <dimen name="card_margin_left">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_elevation_1">1dp</dimen>
+    <dimen name="card_round_corner_4">4dp</dimen>
+    <dimen name="card_round_corner_8">8dp</dimen>
+    <dimen name="card_round_corner">12dp</dimen>
+    <dimen name="card_round_corner_16">16dp</dimen>
+    <dimen name="card_round_corner_18">18dp</dimen>
+    <dimen name="card_round_corner_28">28dp</dimen>
+    <dimen name="card_round_corner_30">30dp</dimen>
+
+    <dimen name="recyclerview_margin">7dp</dimen>
+    <dimen name="recyclerview_item_margin">8dp</dimen>
+    <dimen name="recyclerview_item_padding">16dp</dimen>
+    <dimen name="activity_padding">16dp</dimen>
+
+    <dimen name="av_default_border_width">1dp</dimen>
+    <dimen name="av_default_height">75dp</dimen>
+    <dimen name="av_default_width">75dp</dimen>
+    <dimen name="event_menu_peek_height">95dp</dimen>
+    <dimen name="round_list_image_width">56dp</dimen>
+    <dimen name="round_list_image_height">56dp</dimen>
+
+    <dimen name="zero">0dp</dimen>
+    <dimen name="list_item_dimen">55dp</dimen>
+    <dimen name="list_item_margin">8dp</dimen>
+    <dimen name="list_item_spacing">2dp</dimen>
+
+    <dimen name="radius25">25dp</dimen>
+    <dimen name="radius30">30dp</dimen>
+    <dimen name="radius18">18dp</dimen>
+    <dimen name="radius12">12dp</dimen>
+    <dimen name="horizontal_padding">20dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_60">60dp</dimen>
+</resources>

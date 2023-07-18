@@ -1,0 +1,459 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.events.create.CreateEventStep2Fragment">
+
+    <data>
+
+        <variable
+            name="ceViewModel"
+            type="com.frami.ui.events.create.CreateEventFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="android.graphics.Color" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBg">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@string/create_new_event"
+            android:textSize="@dimen/text_size_xxlarge"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineStartInner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineEndInner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvActivityType"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/activity_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                        android:id="@+id/clActivityType"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="10dp"-->
+                    <!--                        android:background="@drawable/edittext_border"-->
+                    <!--                        android:padding="10dp"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@id/tvActivityType">-->
+
+                    <!--                        <com.google.android.material.card.MaterialCardView-->
+                    <!--                            android:id="@+id/cvIcon"-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            app:cardBackgroundColor="@{ceViewModel.selectedActivityTypes != null ? !TextUtils.isEmpty(ceViewModel.selectedActivityTypes.color)?Color.parseColor(ceViewModel.selectedActivityTypes.color):@color/themeColor:@color/themeColor}"-->
+                    <!--                            app:cardCornerRadius="28dp"-->
+                    <!--                            app:cardElevation="0dp"-->
+                    <!--                            app:cardMaxElevation="0dp"-->
+                    <!--                            app:cardUseCompatPadding="false"-->
+                    <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent">-->
+
+                    <!--                            <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:paddingStart="12dp"-->
+                    <!--                                android:paddingTop="6dp"-->
+                    <!--                                android:paddingEnd="12dp"-->
+                    <!--                                android:paddingBottom="6dp">-->
+
+                    <!--                                <androidx.appcompat.widget.AppCompatImageView-->
+                    <!--                                    loadImage="@{ceViewModel.selectedActivityTypes != null ? ceViewModel.selectedActivityTypes.icon : null}"-->
+                    <!--                                    android:layout_width="22dp"-->
+                    <!--                                    android:layout_height="16dp"-->
+                    <!--                                    android:adjustViewBounds="true"-->
+                    <!--                                    app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                                    app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                    app:layout_constraintTop_toTopOf="parent"-->
+                    <!--                                    tools:src="@drawable/ic_all" />-->
+
+                    <!--                            </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <!--                        </com.google.android.material.card.MaterialCardView>-->
+
+                    <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                    <!--                            style="@style/TextViewStyleRegular"-->
+                    <!--                            android:layout_width="0dp"-->
+                    <!--                            android:layout_height="0dp"-->
+                    <!--                            android:layout_marginStart="10dp"-->
+                    <!--                            android:drawableEnd="@drawable/ic_dropdown"-->
+                    <!--                            android:gravity="start|center_vertical"-->
+                    <!--                            android:text="@{ceViewModel.selectedActivityTypes != null ? ceViewModel.selectedActivityTypes.name : ``}"-->
+                    <!--                            android:textSize="@dimen/text_size_small"-->
+                    <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                            app:layout_constraintStart_toEndOf="@id/cvIcon"-->
+                    <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clActivityType"
+                        handleEnable="@{!ceViewModel.activityTypesList.empty}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvActivityType">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{TextUtils.isEmpty(ceViewModel.selectedActivityNames)? @string/all : ceViewModel.selectedActivityNames}"
+                            android:textSize="@dimen/text_size_medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/cvIcon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            app:cardBackgroundColor="@{ceViewModel.selectedActivityTypes != null ? !TextUtils.isEmpty(ceViewModel.selectedActivityTypes.color)?Color.parseColor(ceViewModel.selectedActivityTypes.color):@color/themeColor:@color/themeColor}"
+                            app:cardCornerRadius="28dp"
+                            app:cardElevation="0dp"
+                            app:cardMaxElevation="0dp"
+                            app:cardUseCompatPadding="false"
+                            app:layout_constraintEnd_toStartOf="@id/ivDropDown"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="12dp"
+                                android:paddingBottom="6dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    loadActivityTypeImage="@{ceViewModel.selectedActivityTypes != null ? ceViewModel.selectedActivityTypes.icon : null}"
+                                    android:layout_width="22dp"
+                                    android:layout_height="16dp"
+                                    android:adjustViewBounds="true"
+                                    android:visibility="@{ceViewModel.selectedActivityTypes == null || TextUtils.isEmpty(ceViewModel.selectedActivityTypes.icon)? View.GONE : View.VISIBLE}"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:src="@drawable/ic_all" />
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="16dp"
+                                    android:padding="4dp"
+                                    android:src="@drawable/ic_all"
+                                    android:visibility="@{ceViewModel.selectedActivityTypes == null ? View.VISIBLE : View.GONE}"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:src="@drawable/ic_all" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivDropDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_dropdown"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvOrganizer"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/organizer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clActivityType" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clOrganizer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvOrganizer">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivOrganizer"
+                            loadCircleImage="@{ceViewModel.selectedOrganizer != null ? ceViewModel.selectedOrganizer.imageUrl : null}"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:backgroundTint="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="10dp"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/select_organizer"
+                            android:text="@{ceViewModel.selectedOrganizer != null ? ceViewModel.selectedOrganizer.name : ``}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivOrganizer"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvEventType"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/event_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clOrganizer" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clEventType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvEventType">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/select_event_type"
+                            android:minHeight="30dp"
+                            android:text="@{ceViewModel.selectedEventType != null ? ceViewModel.selectedEventType.value : ``}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvVenue"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/add_venue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clEventType" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clVenue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvVenue">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/etVenue"
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_location_point"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:drawablePadding="@dimen/drawable_padding"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/address"
+                            android:maxLength="500"
+                            android:minHeight="48dp"
+                            android:padding="10dp"
+                            android:text="@{ceViewModel.selectedVenue != null ? ceViewModel.selectedVenue.name:``}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvLinkToWebsite"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/link_to_website"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clVenue" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clLinkToWebsite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvLinkToWebsite">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etLinkToWebsite"
+                            style="@style/EditTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/link_to_website_hint"
+                            android:inputType="text"
+                            android:maxLength="100"
+                            android:minHeight="48dp"
+                            android:padding="10dp"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNext"
+                        style="@style/BorderlessButton.ThemeColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/next"
+                        app:cornerRadius="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clLinkToWebsite" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

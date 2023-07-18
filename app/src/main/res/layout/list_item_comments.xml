@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.comments.adapter.CommentsAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="isReplayShow"
+            type="Boolean" />
+
+        <variable
+            name="isPostComment"
+            type="Boolean" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.activity.comment.CommentData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="4dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUser"
+            loadCircleImage="@{data.profilePhotoUrl}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="start|center_vertical"
+            android:text="@{data.userName}"
+            android:textColor="@color/colorSubHeaderText"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintTop_toTopOf="@id/ivUser"
+            tools:text="@string/na" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDescription"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:autoLink="web"
+            android:gravity="start|center_vertical"
+            android:text="@{data.content}"
+            android:textSize="@dimen/text_size_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="@string/na" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvReplay"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/reply"
+            android:textColor="@color/themeColor"
+            android:textSize="@dimen/text_size_xsmall"
+            android:visibility="@{isReplayShow &amp;&amp; isPostComment ? View.VISIBLE:View.GONE, default=gone}"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            tools:text="@string/reply"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvReplies"
+            style="@style/TextViewStyleRegular"
+            handleEnable="@{isReplayShow}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@{(data.replyCount > 0 ? data.replyCount+` `:``) + (data.replyCount > 1 ? @string/replies : @string/reply)}"
+            android:textColor="@color/colorSubHeaderText"
+            android:textSize="@dimen/text_size_xsmall"
+            android:visibility="@{isPostComment &amp;&amp; data.replyCount > 0 ? View.VISIBLE:View.GONE, default=gone}"
+            app:layout_constraintStart_toEndOf="@id/tvReplay"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            tools:text="@string/reply"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

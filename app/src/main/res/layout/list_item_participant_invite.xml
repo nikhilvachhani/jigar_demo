@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.explore.adapter.ChallengesAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.invite.ParticipantData" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="size"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivParticipant"
+            loadCircleImage="@{data.profilePhotoUrl}"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="start|center_vertical"
+            android:text="@{data.userName}"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnInvite"
+            app:layout_constraintStart_toEndOf="@id/ivParticipant"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/na" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnInvite"
+            style="@style/BorderlessButton.Regular"
+            handleEnable="@{!data.isNotEditable}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@{data.isNotEditable ?@color/lightButtonBg : data.selected?@color/lightThemeColor:@color/themeColor}"
+            android:padding="6dp"
+            android:text="@{data.isNotEditable ? @string/invited : data.selected?@string/remove:@string/invite}"
+            android:textColor="@{data.isNotEditable ?@color/themeColor:@color/white }"
+            android:visibility="@{data.isLoggedInUser || data.isInviteNotVisible ? View.GONE:View.VISIBLE}"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

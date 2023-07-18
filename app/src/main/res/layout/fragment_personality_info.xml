@@ -1,0 +1,483 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.personalityinfo.personalinfo.PersonalInfoFragment">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.frami.ui.personalityinfo.personalinfo.PersonalInfoFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@string/personal_info"
+            android:textSize="@dimen/text_size_xxlarge"
+            android:visibility="@{viewModel.isFromEdit ? View.VISIBLE : View.GONE,default=gone}"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
+
+        <View
+            android:id="@+id/mViewProgress1"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/themeColor"
+            android:visibility="@{viewModel.isFromEdit ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@id/mViewProgress2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <View
+            android:id="@+id/mViewProgress2"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="2dp"
+            android:background="@color/inactiveColor"
+            android:visibility="@{viewModel.isFromEdit ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mViewProgress1"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/mViewProgress1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAddProfilePhoto"
+                    loadCircleImage="@{viewModel.user!=null?viewModel.user.profilePhotoUrl:null}"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_add_profile_photo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAddProfilePhoto"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/add_profile_photo"
+                    android:textColor="@color/colorSubHeaderText"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAddProfilePhoto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivAddProfilePhoto"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clFN"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:padding="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivAddProfilePhoto">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFN"
+                        style="@style/EditTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_user"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:hint="@string/enter_first_name"
+                        android:inputType="textCapWords"
+                        android:maxLength="50"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clLN"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:padding="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clFN">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLN"
+                        style="@style/EditTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_user"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:hint="@string/enter_last_name"
+                        android:inputType="textCapWords"
+                        android:maxLength="50"
+                        android:minHeight="48dp"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvGender"
+                    style="@style/TextViewStyleSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/gender"
+                    android:textColor="@color/colorHeaderText"
+                    app:layout_constraintBottom_toBottomOf="@id/llGender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/llGender" />
+
+                <LinearLayout
+                    android:id="@+id/llGender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvGender"
+                    app:layout_constraintTop_toBottomOf="@+id/clLN">
+
+                    <LinearLayout
+                        android:id="@+id/llMale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@{viewModel.genderSelected == AppConstants.GENDER.MALE ? @drawable/bg_theme_color:@drawable/edittext_border}"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="10dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivMale"
+                            imageTint="@{viewModel.genderSelected == AppConstants.GENDER.MALE ? @color/white:@color/colorSubHeaderText}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_male" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvMale"
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/male"
+                            android:textColor="@{viewModel.genderSelected == AppConstants.GENDER.MALE ? @color/white:@color/colorSubHeaderText}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clNationalId" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llFeMale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@{viewModel.genderSelected == AppConstants.GENDER.FEMALE ? @drawable/bg_theme_color:@drawable/edittext_border}"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="10dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivFeMale"
+                            imageTint="@{viewModel.genderSelected == AppConstants.GENDER.FEMALE ? @color/white:@color/colorSubHeaderText}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_female" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvFeMale"
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/female"
+                            android:textColor="@{viewModel.genderSelected == AppConstants.GENDER.FEMALE ? @color/white:@color/colorSubHeaderText}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clNationalId" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llOther"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@{viewModel.genderSelected == AppConstants.GENDER.OTHER ? @drawable/bg_theme_color:@drawable/edittext_border}"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="10dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivOther"
+                            imageTint="@{viewModel.genderSelected == AppConstants.GENDER.OTHER ? @color/white:@color/colorSubHeaderText}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_gender_other" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvOther"
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/other"
+                            android:textColor="@{viewModel.genderSelected == AppConstants.GENDER.OTHER ? @color/white:@color/colorSubHeaderText}"
+                            android:textSize="@dimen/text_size_small"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/clNationalId" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDOB"
+                    style="@style/TextViewStyleSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/date_of_birth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llGender" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvDD"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toStartOf="@id/cvMM"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDOB">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSelectDD"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:gravity="center"
+                        android:hint="@string/dd"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@{viewModel.birthDay != null ? String.valueOf(viewModel.birthDay) : ``}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_regular" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvMM"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toStartOf="@id/cvYYYY"
+                    app:layout_constraintStart_toEndOf="@id/cvDD"
+                    app:layout_constraintTop_toBottomOf="@id/tvDOB">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSelectMM"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:gravity="center"
+                        android:hint="@string/mm"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@{viewModel.birthMonth != null ? String.valueOf(viewModel.birthMonth) : ``}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_regular" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvYYYY"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="@dimen/card_elevation"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cvMM"
+                    app:layout_constraintTop_toBottomOf="@id/tvDOB">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSelectYYYY"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:gravity="center"
+                        android:hint="@string/yyyy"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@{viewModel.birthYear != null ? String.valueOf(viewModel.birthYear):``}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_regular" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNationality"
+                    style="@style/TextViewStyleSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/nationality"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvDD" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clCountry"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNationality">
+
+                    <!--roundedRadius="@{@dimen/radius25}"-->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivCountryFlag"
+                        loadImage="@{viewModel.selectedCountry != null ? viewModel.selectedCountry.image : null}"
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvCountry"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:drawableEnd="@drawable/ic_dropdown"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/select_nationality"
+                        android:text="@{viewModel.selectedCountry != null ? viewModel.selectedCountry.name : ``}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivCountryFlag"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    style="@style/BorderlessButton.ThemeColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/next"
+                    android:visibility="@{viewModel.isFromEdit ? View.GONE : View.VISIBLE}"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clCountry" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

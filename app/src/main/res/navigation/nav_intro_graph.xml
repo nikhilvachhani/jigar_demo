@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/introFragment">
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.frami.ui.intro.fragment.IntroFragment"
+        android:label=""
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/toLoginSignupActivity"
+            app:destination="@id/loginSignupActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/introFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <activity
+        android:id="@+id/loginSignupActivity"
+        android:name="com.frami.ui.loginsignup.LoginSignupActivity"
+        android:label=""
+        tools:layout="@layout/fragment_login_option" />
+</navigation>

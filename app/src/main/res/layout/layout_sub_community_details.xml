@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.explore.adapter.ChallengesAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="isShowAllDetails"
+            type="Boolean" />
+
+        <variable
+            name="isSubCommunity"
+            type="Boolean" />
+
+        <variable
+            name="communityName"
+            type="String" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.community.subcommunity.SubCommunityData" />
+    </data>
+
+    <merge tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvCommunityImage"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/card_round_corner"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCommunityImage"
+                loadFullWidthImage="@{data.subCommunityImageUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/dummy_challenge_full_width" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLines="2"
+            android:text="@{data!= null ? data.subCommunityName : ``}"
+            android:textColor="@color/colorSubHeaderText"
+            android:textSize="@dimen/text_size_xxlarge"
+            app:layout_constraintEnd_toStartOf="@id/ivEditCommunity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvCommunityImage"
+            tools:text="@string/na" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivEditCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_fi_edit"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintEnd_toStartOf="@id/ivDeleteCommunity"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            tools:visibility="gone" />
+        <!--        android:visibility="@{isShowAllDetails &amp;&amp; data.isLoggedInUser ? View.VISIBLE : View.GONE, default=gone}"-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivDeleteCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_delete_forever"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            tools:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDescription"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{data != null ? !TextUtils.isEmpty(data.description) ? data.description:`` :``}"
+            android:textColor="@color/colorSubHeaderText"
+            android:visibility="@{isShowAllDetails?View.GONE:View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="@string/na" />
+
+        <com.frami.utils.widget.viewmorelinetextview.MoreLineTextView
+            android:id="@+id/tvDescriptionViewMore"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{data != null ? !TextUtils.isEmpty(data.description) ? data.description:`` :``}"
+            android:textColor="@color/colorSubHeaderText"
+            android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:readMoreMaxLine="4"
+            tools:text="@string/na" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:visibility="@{(isSubCommunity || isShowAllDetails)?View.VISIBLE:View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionViewMore"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_item_detail_menu" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOrganizer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corner_bg_grey"
+            android:padding="10dp"
+            android:visibility="@{isSubCommunity || isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvMenu">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivOrganizer"
+                loadCircleImage="@{data.communityImageUrl}"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOrganizerTitle"
+                style="@style/TextViewStyleSemiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:maxLines="2"
+                android:text="@{`Organizer: `+data.communityName}"
+                android:textColor="@color/colorHeaderText"
+                android:textSize="@dimen/text_size_xsmall"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivOrganizer"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/na" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAttributes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="6dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivOrganizer"
+                app:layout_constraintTop_toBottomOf="@id/tvOrganizerTitle"
+                app:spanCount="3"
+                tools:itemCount="3"
+                tools:listitem="@layout/list_item_activity_attributes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatistics"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_statistics"
+            android:drawableEnd="@drawable/ic_forward"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:gravity="start|center_vertical"
+            android:paddingVertical="8dp"
+            android:text="@string/statistics"
+            android:visibility="@{isSubCommunity ?View.VISIBLE: isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clOrganizer" />
+
+        <View
+            android:id="@+id/mViewBelowStatistics"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/dividerF4"
+            android:visibility="@{isSubCommunity ?View.VISIBLE: isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatistics" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubCommunities"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_community"
+            android:drawableEnd="@drawable/ic_forward"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:gravity="start|center_vertical"
+            android:paddingVertical="8dp"
+            android:text="@string/sub_communities"
+            android:visibility="@{isSubCommunity ?View.GONE: isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mViewBelowStatistics" />
+
+        <View
+            android:id="@+id/mViewBelowSubCommunities"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/dividerF4"
+            android:visibility="@{isSubCommunity ?View.GONE: isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubCommunities" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMember"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/members"
+            android:textSize="@dimen/text_size_small"
+            android:visibility="@{data.invitedPeoples.size() > 0?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mViewBelowSubCommunities" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvParticipant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:visibility="@{data.invitedPeoples.size() > 0?View.VISIBLE:View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMember"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_item_participant" />
+        <!--android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvParticipant">
+
+            <include
+                android:id="@+id/layoutPost"
+                layout="@layout/layout_post"
+                app:postType="@{AppConstants.POST_TYPE.SubCommunity}"
+                app:user="@{data.user}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </merge>
+</layout>

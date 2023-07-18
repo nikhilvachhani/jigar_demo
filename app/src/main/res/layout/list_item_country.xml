@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="isShowCountryCode"
+            type="Boolean" />
+
+        <variable
+            name="countryData"
+            type="com.frami.data.model.lookup.CountryData" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--roundedRadius="@{@dimen/radius25}"-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCountryFlag"
+            loadImage="@{countryData.image}"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCountryCode"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.8"
+            android:background="?attr/selectableItemBackground"
+            android:padding="10dp"
+            android:text="@{countryData.code}"
+            android:textColor="@color/colorHeaderText"
+            android:textSize="@dimen/text_size_xsmall"
+            android:visibility="@{isShowCountryCode?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/tvCountryName"
+            app:layout_constraintStart_toEndOf="@+id/ivCountryFlag"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/na" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCountryName"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="start|center_vertical"
+            android:padding="10dp"
+            android:text="@{countryData.name}"
+            android:textColor="@color/colorHeaderText"
+            android:textSize="@dimen/text_size_xsmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvCountryCode"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/na" />
+
+
+    </LinearLayout>
+</layout>

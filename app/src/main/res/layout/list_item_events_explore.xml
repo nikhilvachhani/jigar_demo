@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.explore.adapter.EventsAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="eventsData"
+            type="com.frami.data.model.explore.EventsData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp">
+
+        <include
+            android:id="@+id/layoutEvent"
+            layout="@layout/layout_item_events"
+            android:visibility="@{TextUtils.isEmpty(eventsData.eventId) ? View.GONE : View.VISIBLE, default=visible}"
+            app:eventsData="@{eventsData}" />
+
+        <include
+            android:id="@+id/seeMore"
+            layout="@layout/layout_see_more"
+            android:visibility="@{TextUtils.isEmpty(eventsData.eventId) ? View.VISIBLE : View.GONE, default=gone}" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

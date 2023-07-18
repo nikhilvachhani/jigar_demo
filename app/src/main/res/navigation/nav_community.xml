@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/communityFragment">
+
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.frami.ui.community.fragment.CommunityFragment"
+        android:label=""
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/toCreateCommunityStep1Fragment"
+            app:destination="@id/createCommunityStep1Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toCommunityDetailsFragment"
+            app:destination="@id/communityDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCommunityStep1Fragment"
+        android:name="com.frami.ui.community.create.CreateCommunityStep1Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_community_step1">
+        <action
+            android:id="@+id/toCreateCommunityStep2Fragment"
+            app:destination="@id/createCommunityStep2Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCommunityStep2Fragment"
+        android:name="com.frami.ui.community.create.CreateCommunityStep2Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_community_step1">
+        <action
+            android:id="@+id/toInviteParticipantFragment"
+            app:destination="@id/inviteParticipantFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toSuccessFragment"
+            app:destination="@id/successFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/inviteParticipantFragment"
+        android:name="com.frami.ui.invite.participant.InviteParticipantFragment"
+        android:label=""
+        tools:layout="@layout/fragment_invite_participant"></fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.frami.ui.community.success.SuccessFragment"
+        android:label=""
+        tools:layout="@layout/fragment_success" />
+    <fragment
+        android:id="@+id/communitySearchFragment"
+        android:name="com.frami.ui.community.search.CommunitySearchFragment"
+        android:label=""
+        tools:layout="@layout/fragment_community_search">
+        <action
+            android:id="@+id/toCommunityDetailsFragment"
+            app:destination="@id/communityDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/communityDetailsFragment"
+        android:name="com.frami.ui.community.details.CommunityDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_community_details">
+        <action
+            android:id="@+id/toParticipantFragment"
+            app:destination="@id/participantFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toSubCommunityListFragment"
+            app:destination="@id/subCommunityListFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/subCommunityListFragment"
+        android:name="com.frami.ui.community.subcommunity.SubCommunityListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_sub_community_list">
+        <action
+            android:id="@+id/toCommunitySearchFragment"
+            app:destination="@id/communitySearchFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toSubCommunityDetailsFragment"
+            app:destination="@id/subCommunityDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/subCommunityDetailsFragment"
+        android:name="com.frami.ui.community.subcommunity.details.SubCommunityDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_sub_community_details">
+        <action
+            android:id="@+id/toParticipantFragment"
+            app:destination="@id/participantFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantFragment"
+        android:name="com.frami.ui.challenges.participants.ParticipantFragment"
+        android:label=""
+        tools:layout="@layout/fragment_participant" />
+</navigation>

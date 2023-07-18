@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="activityTypes"
+            type="com.frami.data.model.home.ActivityTypes" />
+
+        <variable
+            name="isSelectable"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:padding="2dp">
+<!--        app:cardBackgroundColor="@{!TextUtils.isEmpty(activityTypes.color)?Color.parseColor(activityTypes.color):@color/themeColor}"-->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardUseCompatPadding="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/card_round_corner_28"
+                android:paddingHorizontal="12dp"
+                android:gravity="center"
+                android:background="@{isSelectable ? activityTypes.isSelected?@drawable/selected_theme_dark_color:@drawable/selected_theme_light_color : @drawable/selected_theme_light_color}"
+                tools:background="@drawable/selected_theme_dark_color"
+                android:paddingBottom="2dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPhoto"
+                    loadActivityTypeImage="@{activityTypes.icon}"
+                    android:layout_width="16dp"
+                    tintColor="@{isSelectable ? activityTypes.isSelected?@color/white:@color/dark_green : @color/dark_green}"
+                    android:layout_height="16dp"
+                    android:adjustViewBounds="true"
+                    tools:src="@drawable/ic_all" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="6dp"
+                    tools:text="All"
+                    android:text="@{activityTypes.name}"
+                    android:gravity="center"
+                    tools:textColor="@color/white"
+                    android:textColor="@{isSelectable ? activityTypes.isSelected?@color/white:@color/dark_green : @color/dark_green}"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/text_size_small"
+                    style="@style/TextViewStyleRegular"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

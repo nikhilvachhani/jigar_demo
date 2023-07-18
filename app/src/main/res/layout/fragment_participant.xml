@@ -1,0 +1,160 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.challenges.participants.ParticipantFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.frami.ui.challenges.participants.ParticipantFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBg">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@{viewModel.type == AppConstants.IS_FROM.COMMUNITY || viewModel.type == AppConstants.IS_FROM.SUB_COMMUNITY ? @string/members:@string/participants}"
+            android:textSize="@dimen/text_size_xxlarge"
+            app:layout_constraintEnd_toStartOf="@id/cvAddMoreParticipant"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout"
+            tools:text="@string/na" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cvAddMoreParticipant"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_fi_add"
+            android:visibility="@{(viewModel.type == AppConstants.IS_FROM.CHALLENGE ? viewModel.isLoggedInUser() : true) &amp;&amp; !viewModel.hideMoreParticipantInvite ? View.VISIBLE:View.GONE,default=gone}"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAccepted"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@{viewModel.participantHeader == AppConstants.PARTICIPANT_HEADER.ACCEPTED ? @drawable/ic_selected_left_rounded_corner : @drawable/ic_non_selected_left_rounded_corner}"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="15dp"
+            android:text="@string/accepted"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="@{viewModel.type == AppConstants.IS_FROM.COMMUNITY || viewModel.type == AppConstants.IS_FROM.SUB_COMMUNITY ? View.GONE : View.VISIBLE, default=gone}"
+            app:layout_constraintEnd_toStartOf="@id/tvMaybe"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMaybe"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@{viewModel.participantHeader == AppConstants.PARTICIPANT_HEADER.NO_RESPONSE_OR_MAYBE ? @drawable/ic_selected_right_rounded_corner : @drawable/ic_non_selected_right_rounded_corner}"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="15dp"
+            android:text="@{viewModel.type == AppConstants.IS_FROM.CHALLENGE ? @string/no_response : @string/not_accepted}"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="@{viewModel.type == AppConstants.IS_FROM.COMMUNITY || viewModel.type == AppConstants.IS_FROM.SUB_COMMUNITY? View.GONE : View.VISIBLE, default=gone}"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/tvAccepted"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="@string/na"
+            tools:visibility="visible" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_bottom_sheet"
+            android:requiresFadingEdge="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAccepted">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:visibility="@{viewModel.isDataEmpty ? View.GONE : View.VISIBLE, default=visible }"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_item_participant_with_name"
+                    tools:visibility="gone" />
+
+                <include
+                    android:id="@+id/emptyView"
+                    layout="@layout/layout_empty_list"
+                    android:visibility="@{viewModel.isDataEmpty ? View.VISIBLE : View.GONE, default=gone }" />
+            </LinearLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

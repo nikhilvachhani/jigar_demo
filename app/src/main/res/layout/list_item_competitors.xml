@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.challenges.details.adapter.CompetitorAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.challenge.CompetitorData" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="size"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            loadCircleImage="@{data.communityImage}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="@{position &lt; 5?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnViewAll"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circular_shape_light_grey_bg"
+            android:gravity="center"
+            android:text="@{`+`+(size-position)}"
+            android:textSize="@dimen/text_size_xsmall"
+            android:visibility="@{position >= 5?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

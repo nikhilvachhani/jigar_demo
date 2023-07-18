@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.post.adapter.PostAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="isShowAll"
+            type="Boolean" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.post.PostData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/layoutPost"
+            layout="@layout/layout_post_item"
+            app:data="@{data}"
+            app:isShowEditOption="@{true}" />
+
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/tvShowAll"-->
+        <!--            style="@style/BorderlessButton.LightThemeColor"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginVertical="10dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:text="@string/show_all"-->
+        <!--            android:textColor="@color/themeColor"-->
+        <!--            android:textSize="@dimen/text_size_small"-->
+        <!--            android:visibility="@{isShowAll ? View.VISIBLE : View.GONE, default=gone}"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/clPost"-->
+        <!--            tools:visibility="visible" />-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tvShowAll"
+            style="@style/BorderlessButton.Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/lightThemeColor"
+            android:text="@string/view_all_post"
+            android:textColor="@color/themeColor"
+            android:visibility="@{isShowAll ? View.VISIBLE : View.GONE, default=gone}"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clPost"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

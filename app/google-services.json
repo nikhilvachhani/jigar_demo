@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "397860790181",
+    "project_id": "frami-4ffec",
+    "storage_bucket": "frami-4ffec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397860790181:android:384ff6101b63c5e24e924c",
+        "android_client_info": {
+          "package_name": "com.framiactivity.frami"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397860790181-pk11dv5pm0oe1vio58l70ark1ohs12i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvqmInfB0xYMoFDPf5vSZ_bPZVxOkQPzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397860790181-pk11dv5pm0oe1vio58l70ark1ohs12i1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "397860790181-clfqsmnk42qd6clph514utt79icr8i6o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.framiactivity.frami"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397860790181:android:414f4fedb41afbbd4e924c",
+        "android_client_info": {
+          "package_name": "com.framiactivity.frami.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397860790181-pk11dv5pm0oe1vio58l70ark1ohs12i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvqmInfB0xYMoFDPf5vSZ_bPZVxOkQPzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397860790181-pk11dv5pm0oe1vio58l70ark1ohs12i1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "397860790181-clfqsmnk42qd6clph514utt79icr8i6o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.framiactivity.frami"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/loginOptionFragment">
+
+    <fragment
+        android:id="@+id/loginOptionFragment"
+        android:name="com.frami.ui.loginsignup.option.LoginOptionFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login_option">
+        <action
+            android:id="@+id/toDashboardActivity"
+            app:destination="@id/dashboardActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toPersonalityInfoActivity"
+            app:destination="@id/personalityInfoActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toWearableActivity"
+            app:destination="@id/wearableActivity"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+
+    <activity
+        android:id="@+id/dashboardActivity"
+        android:name="com.frami.ui.dashboard.DashboardActivity"
+        android:label=""
+        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/wearableActivity"
+        android:name="com.frami.ui.settings.wearable.WearableActivity"
+        android:label=""
+        tools:layout="@layout/fragment_wearable" />
+    <activity
+        android:id="@+id/personalityInfoActivity"
+        android:name="com.frami.ui.personalityinfo.PersonalityInfoActivity"
+        android:label=""
+        tools:layout="@layout/fragment_personality_info" />
+</navigation>

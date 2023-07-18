@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.home.LabelValueData" />
+
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="viewIsVisible"
+            type="Boolean" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLabel"
+            style="@style/TextViewStyleBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@{data.label}"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/medium_light_green"
+            android:textSize="@dimen/text_size_xsmall"
+            tools:text="Time"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvValue"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/dark_green"
+            android:text="@{data.value}"
+            android:includeFontPadding="false"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/text_size_xlarge"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabel"
+            tools:text="123432" />
+
+        <View
+            android:id="@+id/viewEnd"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/light_green_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/tvValue"
+            android:visibility="@{viewIsVisible?View.VISIBLE:View.INVISIBLE}"
+            tools:visibility="visible" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/actionEdit"
+        android:title="@string/edit"
+        android:visible="false"
+        tools:visible="true" />
+    <item
+        android:id="@+id/actionDelete"
+        android:title="@string/delete"
+        android:visible="false"
+        tools:visible="true" />
+    <item
+        android:id="@+id/actionShare"
+        android:title="@string/share"
+        android:visible="true"
+        tools:visible="true" />
+    <item
+        android:id="@+id/actionTurnOnNotification"
+        android:title="@string/turn_on_notifications"
+        android:visible="false"
+        tools:visible="true" />
+    <item
+        android:id="@+id/actionTurnOffNotification"
+        android:title="@string/turn_off_notifications"
+        android:visible="false"
+        tools:visible="true" />
+    <item
+        android:id="@+id/actionUnJoin"
+        android:title="@string/un_join"
+        android:visible="false"
+        tools:visible="true" />
+</menu>

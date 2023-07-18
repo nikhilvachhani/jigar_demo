@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">@color/themeColor</color>
+    <color name="themeColor">#01635D</color>
+    <color name="lightThemeColor">#BAE0D5</color>
+    <color name="lightButtonBg">#F2FBF7</color>
+
+    <!--    <color name="inactiveColor">#D9E8E7</color>-->
+    <color name="inactiveThemeColor">#9DD3C3</color>
+    <color name="activeIndicatorColor">#9DD3C3</color>
+    <color name="inactiveIndicatorColor">#679491</color>
+    <color name="inactiveColor">#E9E9E9</color>
+    <color name="black">#121212</color>
+    <color name="hint">#4D4D4D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="screen_bg">#f5fbf9</color>
+    <color name="transparent">#00000000</color>
+    <color name="ripple">#D9E8E7</color>
+    <color name="theme_color_alpha22">#2201635D</color>
+
+    <color name="colorHeaderText">@color/black</color>
+    <color name="colorSubHeaderText">#4D4D4D</color>
+    <color name="colorText9B">#9B9B9B</color>
+    <color name="colorTransparentBlack">#82000000</color>
+    <color name="facebook">#3B5998</color>
+    <color name="google">#F13939</color>
+    <color name="dividerF4">#F4F4F4</color>
+    <color name="relax_grey">#DED2D1</color>
+    <color name="lightYellow">#FFDB98</color>
+    <color name="lightGreyC4">#C4C4C4</color>
+    <color name="lightGrey33C4">#33C4C4C4</color>
+    <color name="lightBg">#F7FBFA</color>
+    <color name="blue">#0049FF</color>
+    <color name="dark_green">#014C48</color>
+
+    <color name="medium_light_green">#34706d</color>
+    <color name="light_green">#C4E5DB</color>
+    <color name="light_green_divider">#CEE9E1</color>
+    <color name="dark_to_light_green">#C0E272</color>
+    <color name="disable_green">#b3c9c8</color>
+    <color name="red">#ff0000</color>
+    <color name="red_join">#E1352B</color>
+    <color name="redLogout">#F91D1D</color>
+    <color name="transparent69">#69000000</color>
+    <color name="rank1">#FFFFF1</color>
+    <color name="rank2">#F5F5F5</color>
+    <color name="rank3">#F3EDE7</color>
+    <color name="ratingSelected">#EDAE38</color>
+    <color name="post_comment_border">#DCD3D1</color>
+    <color name="redProgress">#FF5C33</color>
+    <color name="lightPink">#FF6666</color>
+    <color name="blue22">#224DB9</color>
+</resources>
+
+    <!--Transparency-->
+    <!--    100% — FF-->
+    <!--    95% — F2-->
+    <!--    90% — E6-->
+    <!--    85% — D9-->
+    <!--    80% — CC-->
+    <!--    75% — BF-->
+    <!--    70% — B3-->
+    <!--    65% — A6-->
+    <!--    60% — 99-->
+    <!--    55% — 8C-->
+    <!--    50% — 80-->
+    <!--    45% — 73-->
+    <!--    40% — 66-->
+    <!--    35% — 59-->
+    <!--    30% — 4D-->
+    <!--    25% — 40-->
+    <!--    20% — 33-->
+    <!--    15% — 26-->
+    <!--    10% — 1A-->
+    <!--    5% — 0D-->
+    <!--    0% — 00-->

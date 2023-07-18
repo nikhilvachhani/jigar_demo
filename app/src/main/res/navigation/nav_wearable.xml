@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/wearableFragment">
+
+    <fragment
+        android:id="@+id/wearableFragment"
+        android:name="com.frami.ui.settings.wearable.fragment.WearableFragment"
+        android:label=""
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/toWebFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toWearableConnectedSuccessFragment"
+            app:destination="@id/wearableConnectedSuccessFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.frami.ui.settings.wearable.fragment.WebFragment"
+        tools:layout="@layout/fragment_web_view">
+
+    </fragment>
+    <fragment
+        android:id="@+id/wearableConnectedSuccessFragment"
+        android:name="com.frami.ui.settings.wearable.success.WearableConnectedSuccessFragment"
+        tools:layout="@layout/fragment_wearable_connected_success">
+
+    </fragment>
+</navigation>

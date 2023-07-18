@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.home.adapter.ActivityAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.home.ActivityData" />
+    </data>
+
+    <merge tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/card_round_corner"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUpperHalfView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPhoto"
+                        loadCircleImage="@{data.profilePhotoUrl}"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintBottom_toBottomOf="@id/tvPoints"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_user" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvUseName"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="2"
+                        android:text="@{data.userName}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_small"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/na" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvActivityTitle"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="2"
+                        android:text="@{data.activityTitle}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintEnd_toStartOf="@id/rvActivityPhoto"
+                        app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                        app:layout_constraintTop_toBottomOf="@id/tvUseName"
+                        tools:text="@string/na" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvActivityPhoto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="@id/tvActivityTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvActivityTitle"
+                        app:layout_constraintTop_toTopOf="@id/tvActivityTitle"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/list_item_activity_photos" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvPoints"
+                        style="@style/TextViewStyleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/round_corner_light_yellow_bg"
+                        android:drawableStart="@drawable/ic_activity_reward_point_12"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:gravity="center"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="6dp"
+                        android:text="@{data.rewardPoints+(data.rewardPoints > 1 ? ` Points`:` Point`)}"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintEnd_toStartOf="@id/tvSocialRewardPoints"
+                        app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                        app:layout_constraintTop_toBottomOf="@id/tvActivityTitle"
+                        tools:text="@string/na" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSocialRewardPoints"
+                        style="@style/TextViewStyleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/round_corner_light_yellow_bg"
+                        android:drawableStart="@drawable/ic_community_12"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:gravity="center"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="6dp"
+                        android:text="@{data.socialRewardPoints+(data.socialRewardPoints > 1 ? ` Points`:` Point`)}"
+                        android:textSize="@dimen/text_size_xsmall"
+                        android:visibility="@{data.socialRewardPoints > 0 ? View.VISIBLE:View.GONE, default=gone}"
+                        app:layout_constraintStart_toEndOf="@id/tvPoints"
+                        app:layout_constraintTop_toBottomOf="@id/tvActivityTitle"
+                        tools:text="@string/na"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--                    android:id="@+id/clStatistics"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginHorizontal="10dp"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/clUpperHalfView">-->
+                <!--                   -->
+                <!--                    <LinearLayout-->
+                <!--                        android:id="@+id/llDistance"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@id/llTime"-->
+                <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+                <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                            style="@style/TextViewStyleRegular"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:gravity="start|center_vertical"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:text="@string/distance"-->
+                <!--                            android:textColor="@color/colorSubHeaderText"-->
+                <!--                            android:textSize="@dimen/text_size_small" />-->
+
+                <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                            style="@style/TextViewStyleBold"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_marginTop="6dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:textColor="@color/colorSubHeaderText"-->
+                <!--                            android:textSize="@dimen/text_size_xsmall"-->
+                <!--                            tools:text="1,154.5 km" />-->
+                <!--                    </LinearLayout>-->
+
+                <!--                    <View-->
+                <!--                        android:id="@+id/mVerticalView1"-->
+                <!--                        android:layout_width="1dp"-->
+                <!--                        android:layout_height="30dp"-->
+                <!--                        android:layout_marginEnd="15dp"-->
+                <!--                        android:background="@color/lightGreyC4"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@id/llTime"-->
+                <!--                        app:layout_constraintStart_toEndOf="@id/llDistance"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--                    <LinearLayout-->
+                <!--                        android:id="@+id/llTime"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@id/llGain"-->
+                <!--                        app:layout_constraintStart_toEndOf="@id/llDistance"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+                <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                            style="@style/TextViewStyleRegular"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:gravity="start|center_vertical"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:text="@string/time"-->
+                <!--                            android:textColor="@color/colorSubHeaderText"-->
+                <!--                            android:textSize="@dimen/text_size_small" />-->
+
+                <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                            style="@style/TextViewStyleBold"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_marginTop="6dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:textColor="@color/colorSubHeaderText"-->
+                <!--                            android:textSize="@dimen/text_size_xsmall"-->
+                <!--                            tools:text="Time 41h 11m" />-->
+                <!--                    </LinearLayout>-->
+
+                <!--                    <View-->
+                <!--                        android:id="@+id/mVerticalView2"-->
+                <!--                        android:layout_width="1dp"-->
+                <!--                        android:layout_height="30dp"-->
+                <!--                        android:layout_marginEnd="15dp"-->
+                <!--                        android:background="@color/lightGreyC4"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@id/llGain"-->
+                <!--                        app:layout_constraintStart_toEndOf="@id/llTime"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--                    <LinearLayout-->
+                <!--                        android:id="@+id/llGain"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                        app:layout_constraintStart_toEndOf="@id/llTime"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+                <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                            style="@style/TextViewStyleRegular"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:gravity="start|center_vertical"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:text="@string/elev_gain"-->
+                <!--                            android:textColor="@color/colorSubHeaderText"-->
+                <!--                            android:textSize="@dimen/text_size_small" />-->
+
+                <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                            style="@style/TextViewStyleBold"-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_marginTop="6dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:textColor="@color/colorSubHeaderText"-->
+                <!--                            android:textSize="@dimen/text_size_xsmall"-->
+                <!--                            tools:text="Time 41h 11m" />-->
+                <!--                    </LinearLayout>-->
+                <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAttributes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clUpperHalfView"
+                    app:spanCount="3"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_item_activity_attributes" />
+
+                <View
+                    android:id="@+id/mHorizontalView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/dividerF4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvAttributes" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clBottomHalfView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mHorizontalView">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvActivityStatusIcon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@{!TextUtils.isEmpty(data.activityType.color)?Color.parseColor(data.activityType.color):@color/themeColor}"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            loadActivityTypeImage="@{data.activityType != null ? data.activityType.icon : null}"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvActivityType"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@{data.activityType != null ? data.activityType.name+`` : ``}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintBottom_toTopOf="@id/tvActivityDate"
+                        app:layout_constraintStart_toEndOf="@id/cvActivityStatusIcon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/na" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvActivityDate"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="2dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@{data.date}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintBottom_toBottomOf="@id/cvActivityStatusIcon"
+                        app:layout_constraintStart_toEndOf="@id/cvActivityStatusIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/tvActivityType"
+                        tools:text="@string/na" />
+
+                    <LinearLayout
+                        android:id="@+id/llLikeComment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="end"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvLikeIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            app:cardBackgroundColor="@color/lightGrey33C4"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:cardMaxElevation="0dp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintEnd_toStartOf="@id/tvLike"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivUnClap"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_un_clap"
+                                android:visibility="@{data.isApplauseGiven ? View.GONE : View.VISIBLE, default=gone}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:visibility="visible" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivClap"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_clapping_hand"
+                                android:visibility="@{data.isApplauseGiven ? View.VISIBLE : View.GONE, default=gone}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:visibility="visible" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvLike"
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="4dp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:minWidth="30dp"
+                            android:text="@{String.valueOf(data.applauseCount)+``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_xsmall"
+                            app:layout_constraintBottom_toBottomOf="@id/cvActivityStatusIcon"
+                            app:layout_constraintEnd_toStartOf="@id/cvCommentIcon"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/na" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvCommentIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            app:cardBackgroundColor="@color/lightGrey33C4"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:cardMaxElevation="0dp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintEnd_toStartOf="@id/tvComment"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_comment"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvComment"
+                            style="@style/TextViewStyleRegular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:minWidth="30dp"
+                            android:text="@{String.valueOf(data.commentsCount)+``}"
+                            android:textColor="@color/colorSubHeaderText"
+                            android:textSize="@dimen/text_size_xsmall"
+                            app:layout_constraintBottom_toBottomOf="@id/cvActivityStatusIcon"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/na" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </merge>
+</layout>

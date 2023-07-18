@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/eventFragment">
+
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.frami.ui.events.fragment.EventsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenges">
+        <action
+            android:id="@+id/toCreateEventStep1Fragment"
+            app:destination="@id/createEventStep1Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toEventDetailsFragment"
+            app:destination="@id/eventDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEventStep1Fragment"
+        android:name="com.frami.ui.events.create.CreateEventStep1Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_event_step1">
+        <action
+            android:id="@+id/toCreateEventStep2Fragment"
+            app:destination="@id/createEventStep2Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEventStep2Fragment"
+        android:name="com.frami.ui.events.create.CreateEventStep2Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_event_step2">
+        <action
+            android:id="@+id/toCreateEventStep3Fragment"
+            app:destination="@id/createEventStep3Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEventStep3Fragment"
+        android:name="com.frami.ui.events.create.CreateEventStep3Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_event_step3"></fragment>
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.frami.ui.events.details.EventDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_event_details">
+        <action
+            android:id="@+id/toParticipantFragment"
+            app:destination="@id/participantFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantFragment"
+        android:name="com.frami.ui.challenges.participants.ParticipantFragment"
+        android:label=""
+        tools:layout="@layout/fragment_participant" />
+</navigation>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.common.IdNameData" />
+
+        <variable
+            name="type"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/llMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxWidth="40dp"
+                android:maxHeight="40dp"
+                android:padding="8dp"
+                android:src="@{data.icon}"
+                android:tint="@color/colorSubHeaderText"
+                android:visibility="@{data.icon != null ? View.VISIBLE:View.GONE}"
+                tools:src="@drawable/ic_challenge" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextViewStyleSemiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@{data.isShowForward ? @drawable/ic_forward : null}"
+                android:gravity="start|center_vertical"
+                android:padding="10dp"
+                android:text="@{data.value}"
+                android:textColor="@color/colorSubHeaderText"
+                android:textSize="@dimen/text_size_medium"
+                android:visibility="@{type == AppConstants.IDNAME_VIEW_TYPE.SETTINGS ? View.GONE:View.VISIBLE}"
+                app:drawablePadding="@{data.isShowForward ? @dimen/drawable_padding : @dimen/no_padding}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextViewStyleRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@{data.isShowForward ? @drawable/ic_forward : null}"
+                android:gravity="start|center_vertical"
+                android:padding="10dp"
+                android:text="@{data.value}"
+                android:textColor="@color/colorSubHeaderText"
+                android:textSize="@dimen/text_size_medium"
+                android:visibility="@{type == AppConstants.IDNAME_VIEW_TYPE.SETTINGS ? View.VISIBLE:View.GONE, default=gone}"
+                app:drawablePadding="@{data.isShowForward ? @dimen/drawable_padding : @dimen/no_padding}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/na" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/dividerF4"
+            app:layout_constraintTop_toBottomOf="@id/llMenu" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,189 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.activity.fragment.ActivityFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.frami.ui.activity.fragment.ActivityFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBg">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@{viewModel.communityData != null  ?viewModel.communityData.communityName+` `+@string/activities: viewModel.subCommunityData != null ?viewModel.subCommunityData.subCommunityName+` `+@string/activities:viewModel.loggedInUserId == viewModel.selectedUserId ? @string/activities:  viewModel.selectedUserName}"
+            android:textSize="@dimen/text_size_xxlarge"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout"
+            tools:text="@string/na" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="@{viewModel.isSearchEnabled ? View.VISIBLE : View.GONE, default=gone}"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/card_round_corner"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardMaxElevation="@dimen/card_elevation"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etSearchView"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/drawable_padding"
+                android:hint="@string/search"
+                android:inputType="textCapWords"
+                android:padding="15dp"
+                android:textColor="@color/colorSubHeaderText"
+                android:textSize="@dimen/text_size_xsmall" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAll"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@{viewModel.isAllOwn == AppConstants.IS_ALL_OWN.ALL ? @drawable/ic_selected_left_rounded_corner : @drawable/ic_non_selected_left_rounded_corner}"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="15dp"
+            android:text="@string/all"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="@{viewModel.loggedInUserId == viewModel.selectedUserId &amp;&amp; !viewModel.isSearchEnabled &amp;&amp; viewModel.communityData == null  &amp;&amp; viewModel.subCommunityData == null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@id/tvOwn"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/cvSearch" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOwn"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@{viewModel.isAllOwn == AppConstants.IS_ALL_OWN.OWN ? @drawable/ic_selected_right_rounded_corner : @drawable/ic_non_selected_right_rounded_corner}"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingVertical="15dp"
+            android:text="@string/own"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="@{viewModel.loggedInUserId == viewModel.selectedUserId &amp;&amp; !viewModel.isSearchEnabled &amp;&amp; viewModel.communityData == null  &amp;&amp; viewModel.subCommunityData == null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/tvAll"
+            app:layout_constraintTop_toBottomOf="@id/cvSearch" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvActivityTypes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:focusable="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:visibility="@{viewModel.isSearchEnabled &amp;&amp; viewModel.communityData != null  &amp;&amp; viewModel.subCommunityData == null ? View.GONE : View.VISIBLE, default=gone}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/tvAll"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_item_activity_types" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/rvActivityTypes">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_sliding_panel"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/list_item_activity_type_activity" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{viewModel.isLoadMore?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,305 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.activity.useractivity.UserActivityFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.frami.ui.activity.useractivity.UserActivityFragmentViewModel" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBg">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <include
+            android:id="@+id/toolBarLayout"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:paddingVertical="8dp"
+            android:text="@{viewModel.headerTitle}"
+            android:textSize="@dimen/text_size_xxlarge"
+            android:visibility="@{viewModel.communityId != null || viewModel.userId != null?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout"
+            tools:text="@string/na" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineStartInner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.05" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guidelineEndInner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.95" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvPeriod"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_dropdown"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="1"
+                        android:minWidth="80dp"
+                        android:text="@{viewModel.durationSelected.type}"
+                        android:textSize="@dimen/text_size_medium"
+                        app:layout_constraintBottom_toBottomOf="@id/mView"
+                        app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/na" />
+
+                    <View
+                        android:id="@+id/mView"
+                        android:layout_width="1dp"
+                        android:layout_height="45dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:background="@color/dividerF4"
+                        app:layout_constraintBottom_toTopOf="@id/rvSummary"
+                        app:layout_constraintEnd_toStartOf="@id/rvActivityTypes"
+                        app:layout_constraintStart_toEndOf="@id/tvPeriod"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvActivityTypes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="@id/mView"
+                        app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                        app:layout_constraintStart_toEndOf="@id/mView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/list_item_activity_types" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSummary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                        app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                        app:layout_constraintTop_toBottomOf="@id/tvPeriod"
+                        app:spanCount="3"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/list_item_activity_summary" />
+
+                    <LinearLayout
+                        android:id="@+id/llChart"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                        app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                        app:layout_constraintTop_toBottomOf="@id/rvSummary"
+                        tools:visibility="visible">
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/stackedBarChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvActivityCardData"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:visibility="@{(viewModel.communityId != null || viewModel.subCommunityId != null || (viewModel.userId != null &amp;&amp; viewModel.activityResponseData != null &amp;&amp; viewModel.activityResponseData.filteredActivityCount != 0)) ? View.VISIBLE:View.GONE, default=gone}"
+                        app:cardBackgroundColor="@color/themeColor"
+                        app:cardCornerRadius="@dimen/card_round_corner"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp"
+                        app:cardUseCompatPadding="false"
+                        app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                        app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                        app:layout_constraintTop_toBottomOf="@id/llChart"
+                        tools:visibility="visible">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="10dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/clUpperHalfView"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="12dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/ivPhoto"
+                                    loadCircleImage="@{viewModel.activityCardData.profilePhotoUrl}"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:adjustViewBounds="true"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:src="@drawable/ic_user" />
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="@id/ivPhoto"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvName"
+                                        style="@style/TextViewStyleBold"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:gravity="start|center_vertical"
+                                        android:text="@{viewModel.activityCardData.name}"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_small"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:text="@string/na" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvActivityType"
+                                        style="@style/TextViewStyleRegular"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginTop="4dp"
+                                        android:gravity="start|center_vertical"
+                                        android:text="@{viewModel.activityCardData.description}"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_xsmall"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/tvName"
+                                        tools:text="@string/na" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvAttributes"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/clUpperHalfView"
+                                app:spanCount="3"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/list_item_activity_card_attributes" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp"
+                        android:visibility="@{viewModel.challengeId != null ? View.VISIBLE:View.GONE, default=gone}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                        app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                        app:layout_constraintTop_toBottomOf="@id/cvActivityCardData"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/list_item_activity_type_activity"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

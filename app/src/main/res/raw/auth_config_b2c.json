@@ -1,0 +1,25 @@
+{
+  "client_id" : "d444dbd3-217d-4d4f-b1d6-2e3136d5de0d",
+  "redirect_uri" : "msauth://com.framiactivity.frami/2pmj9i4rSx0yEb%2FviWBYkE%2FZQrk%3D",
+  "account_mode" : "MULTIPLE",
+  "broker_redirect_uri_registered": false,
+  "authorities": [
+    {
+      "type": "B2C",
+      "authority_url": "https://framib2c.b2clogin.com/tfp/framib2c.onmicrosoft.com/B2C_1_FramiSignUpSignInFlow/",
+      "default": true
+    },
+    {
+      "type": "B2C",
+      "authority_url": "https://framib2c.b2clogin.com/tfp/framib2c.onmicrosoft.com/B2C_1_FramiSignUpSignInFlowApple/"
+    },
+    {
+      "type": "B2C",
+      "authority_url": "https://framib2c.b2clogin.com/tfp/framib2c.onmicrosoft.com/B2C_1_FramiSignUpSignInFlowEmail/"
+    },
+    {
+      "type": "B2C",
+      "authority_url": "https://framib2c.b2clogin.com/tfp/framib2c.onmicrosoft.com/B2C_1_FramiSignUpSignInFlowGoogle/"
+    }
+  ]
+}

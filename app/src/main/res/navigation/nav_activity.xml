@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/createActivityFragment">
+
+    <fragment
+        android:id="@+id/activityFragment"
+        android:name="com.frami.ui.activity.fragment.ActivityFragment"
+        android:label=""
+        tools:layout="@layout/fragment_activity">
+        <action
+            android:id="@+id/toCreateActivityFragment"
+            app:destination="@id/createActivityFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toEditActivityFragment"
+            app:destination="@id/editActivityFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toActivityDetailsFragment"
+            app:destination="@id/activityDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createActivityFragment"
+        android:name="com.frami.ui.activity.create.CreateActivityFragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_activity_fragment">
+        <action
+            android:id="@+id/toSuccessFragment"
+            app:destination="@id/successFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editActivityFragment"
+        android:name="com.frami.ui.activity.edit.EditActivityFragment"
+        android:label=""
+        tools:layout="@layout/fragment_edit_activity_fragment"></fragment>
+    <fragment
+        android:id="@+id/activityDetailsFragment"
+        android:name="com.frami.ui.activity.details.ActivityDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_activity_details">
+        <action
+            android:id="@+id/toCommentsFragment"
+            app:destination="@id/commentsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toApplauseFragment"
+            app:destination="@id/applauseFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toEditActivityFragment"
+            app:destination="@id/editActivityFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.frami.ui.comments.CommentsFragment"
+        tools:layout="@layout/fragment_comments">
+        <action
+            android:id="@+id/toUserProfileFragment"
+            app:destination="@id/userProfileFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/applauseFragment"
+        android:name="com.frami.ui.activity.applause.ApplauseFragment"
+        tools:layout="@layout/fragment_applause">
+        <action
+            android:id="@+id/toUserProfileFragment"
+            app:destination="@id/userProfileFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.frami.ui.community.success.SuccessFragment"
+        android:label=""
+        tools:layout="@layout/fragment_success">
+        <action
+            android:id="@+id/toActivityDetailsFragment"
+            app:destination="@id/activityDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

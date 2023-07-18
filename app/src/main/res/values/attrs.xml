@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+
+    <!--Tour View pager-->
+    <declare-styleable name="app">
+        <attr name="bottomDragVisibleHeight" format="dimension" />
+        <attr name="bototmExtraIndicatorHeight" format="dimension" />
+    </declare-styleable>
+
+    <!--  Page Indicator  -->
+    <declare-styleable name="InkPageIndicator">
+        <attr name="ipi_dotDiameter" format="dimension" />
+        <attr name="ipi_dotGap" format="dimension" />
+        <attr name="ipi_animationDuration" format="integer" />
+        <attr name="ipi_pageIndicatorColor" format="color" />
+        <attr name="ipi_currentPageIndicatorColor" format="color" />
+    </declare-styleable>
+    <!--  Screen Ratio  -->
+    <declare-styleable name="RatioRelativeLayout">
+        <attr name="horizontal_ratio" format="float" />
+        <attr name="vertical_ratio" format="float" />
+        <attr name="fixed_attribute" format="enum">
+            <enum name="HEIGHT" value="0" />
+            <enum name="WIDTH" value="1" />
+        </attr>
+    </declare-styleable>
+    <!--  Step bar  -->
+    <declare-styleable name="StepBarView">
+        <attr name="sbv_max_count" format="integer" />
+        <attr name="sbv_steps_reached_colors" format="color" />
+        <attr name="sbv_steps_unreached_colors" format="color" />
+        <attr name="sbv_steps_line_reached_colors" format="color" />
+        <attr name="sbv_steps_line_unreached_colors" format="color" />
+        <attr name="sbv_steps_line_height" format="dimension" />
+        <attr name="sbv_steps_size" format="dimension" />
+        <attr name="sbv_steps_text_color" format="color" />
+        <attr name="sbv_steps_text_size" format="dimension" />
+        <attr name="sbv_steps_line_margin_left" format="dimension" />
+        <attr name="sbv_steps_line_margin_right" format="dimension" />
+        <attr name="sbv_allow_touch_step_to" format="integer" />
+        <attr name="sbv_show_step_index" format="boolean" />
+        <attr name="sbv_show_step_name" format="boolean" />
+        <attr name="sbv_steps_stroke_size" format="dimension" />
+        <attr name="sbv_steps_stroke_reached_color" format="dimension" />
+        <attr name="sbv_steps_stroke_unreached_color" format="dimension" />
+        <attr name="sbv_steps_stroke_current_color" format="dimension" />
+        <attr name="sbv_show_step_stroke" format="boolean" />
+        <attr name="sbv_is_rtl" format="boolean" />
+        <attr name="sbv_is_fixed_steps_line_width" format="boolean" />
+        <attr name="sbv_steps_line_width" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ReadMoreTextView">
+        <attr name="trimExpandedText" format="string" />
+        <attr name="trimCollapsedText" format="string" />
+        <attr name="trimLength" format="integer" />
+        <attr name="showTrimExpandedText" format="boolean" />
+        <attr name="colorClickableText" format="color" />
+        <attr name="trimLines" format="integer" />
+        <attr name="trimMode">
+            <enum name="trimModeLine" value="0" />
+            <enum name="trimModeLength" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ReadMoreTextViewByLine">
+        <attr name="readMoreMaxLine" format="integer" />
+        <attr name="readMoreText" format="string|reference" />
+        <attr name="readMoreColor" format="color|reference" />
+    </declare-styleable>
+</resources>

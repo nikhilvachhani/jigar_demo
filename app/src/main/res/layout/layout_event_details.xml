@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.events.details.EventDetailsFragment">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="isShowAllDetails"
+            type="Boolean" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.explore.EventsData" />
+    </data>
+
+    <merge tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvEventImage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:visibility="@{isShowAllDetails?View.GONE:View.VISIBLE, default=gone}"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/card_round_corner"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    loadFullWidthImage="@{data.eventImagesUrl.size() > 0 ?data.eventImagesUrl[0] : null}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/dummy_challenge_full_width" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpImages"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="horizontal"
+                android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE, default=gone}"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvEventImage"
+                tools:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                style="@style/TextViewStyleSemiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:maxLines="2"
+                android:text="@{data!= null ? data.eventName : ``}"
+                android:textColor="@color/colorSubHeaderText"
+                android:textSize="@dimen/text_size_xxlarge"
+                app:layout_constraintEnd_toStartOf="@id/ivEditEvent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vpImages"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivEditEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_fi_edit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tvName"
+                app:layout_constraintEnd_toStartOf="@id/ivDeleteEvent"
+                app:layout_constraintTop_toTopOf="@id/tvName"
+                tools:visibility="gone" />
+            <!--            android:visibility="@{isShowAllDetails &amp;&amp; data.isLoggedInUser ? View.VISIBLE : View.GONE, default=gone}"-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDeleteEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_delete_forever"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tvName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvName"
+                tools:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="@{data.isAccessible ? View.VISIBLE:View.GONE, default=visible}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvActivityStatusIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:cardBackgroundColor="@{!data.activityTypes.empty &amp;&amp; !TextUtils.isEmpty(data.activityTypes[0].color)?Color.parseColor(data.activityTypes[0].color):@color/themeColor}"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:cardMaxElevation="0dp"
+                    app:cardUseCompatPadding="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        loadActivityTypeImage="@{!data.activityTypes.empty ? data.activityTypes[0].icon : null}"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_walk" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvActivityTypeStatus"
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start|center_vertical"
+                    android:text="@{data.selectedActivityNames()}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:textSize="@dimen/text_size_xsmall"
+                    app:layout_constraintBottom_toBottomOf="@id/cvActivityStatusIcon"
+                    app:layout_constraintStart_toEndOf="@id/cvActivityStatusIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/na" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDate"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_calendar_24"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:drawableTint="@color/colorTransparentBlack"
+                    android:gravity="start|center_vertical"
+                    android:paddingVertical="6dp"
+                    android:text="@{data != null ? data.date :``}"
+                    android:textColor="@color/colorTransparentBlack"
+                    android:textSize="@dimen/text_size_xsmall"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cvActivityStatusIcon"
+                    tools:targetApi="m"
+                    tools:text="@string/na" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLocation"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_location_point"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:drawableTint="@color/colorSubHeaderText"
+                    android:ellipsize="end"
+                    android:gravity="start|center_vertical"
+                    android:maxLines="4"
+                    android:text="@{data != null ? !TextUtils.isEmpty(data.venue.name) ? data.venue.name:`` :``}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:textSize="@dimen/text_size_xsmall"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDate"
+                    tools:text="@string/na" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDescription"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="@{data != null ? !TextUtils.isEmpty(data.description) ? data.description:`` :``}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:visibility="@{isShowAllDetails?View.GONE:View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvLocation"
+                    tools:text="@string/na" />
+
+                <com.frami.utils.widget.viewmorelinetextview.MoreLineTextView
+                    android:id="@+id/tvDescriptionViewMore"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{data != null ? !TextUtils.isEmpty(data.description) ? data.description:`` :``}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                    app:readMoreMaxLine="4"
+                    tools:text="@string/na" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVisitWebsite"
+                    style="@style/Widget.BorderlessButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/themeColor"
+                    android:minWidth="150dp"
+                    android:text="@string/visit_website"
+                    android:visibility="@{isShowAllDetails &amp;&amp; data.linkToPurchaseTickets != null &amp;&amp; !data.linkToPurchaseTickets.empty ? View.VISIBLE : View.GONE, default=gone}"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDescriptionViewMore"
+                    tools:visibility="visible" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clOrganizer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_corner_bg_grey"
+                    android:padding="10dp"
+                    android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnVisitWebsite">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivOrganizer"
+                        loadCircleImage="@{data.organizer != null ? data.organizer.imageUrl : ``}"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:backgroundTint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvOrganizerTitle"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/organizer"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivOrganizer"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvOrganizer"
+                        style="@style/TextViewStyleSemiBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="2"
+                        android:text="@{data != null &amp;&amp; data.organizer != null ? data.organizer.name :``}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_medium"
+                        app:layout_constraintBottom_toBottomOf="@id/ivOrganizer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivOrganizer"
+                        app:layout_constraintTop_toBottomOf="@id/tvOrganizerTitle"
+                        tools:text="@string/na" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvParticipant"
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/participants"
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clOrganizer" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvParticipant"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:visibility="@{isShowAllDetails &amp;&amp; isShowAllDetails?View.VISIBLE:View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvParticipant"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_item_participant" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnJoin"
+                    style="@style/Widget.BorderlessButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/themeColor"
+                    android:text="@{data.joinButtonText}"
+                    android:visibility="@{isShowAllDetails &amp;&amp; data.joinButtonShow ? View.VISIBLE : View.GONE, default=gone}"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintEnd_toStartOf="@id/btnRejectEvent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvParticipant"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMayBe"
+                    style="@style/Widget.BorderlessButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/dividerF4"
+                    android:text="@string/maybe"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:visibility="@{isShowAllDetails &amp;&amp; data.mayBeButtonShow ? View.VISIBLE : View.GONE, default=gone}"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnJoin"
+                    app:layout_constraintTop_toBottomOf="@id/rvParticipant"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRejectEvent"
+                    style="@style/Widget.BorderlessButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/lightThemeColor"
+                    android:text="@{data.rejectButtonText()}"
+                    android:textColor="@color/colorSubHeaderText"
+                    android:visibility="@{isShowAllDetails &amp;&amp; data.rejectButtonShow ? View.VISIBLE : View.GONE, default=gone}"
+                    app:cornerRadius="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnJoin"
+                    app:layout_constraintTop_toBottomOf="@id/rvParticipant"
+                    tools:visibility="visible" />
+                <!--android:visibility="@{isShowAllDetails?View.VISIBLE:View.GONE}"-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="@{isShowAllDetails &amp;&amp; data.isPostViewShow() ?View.VISIBLE:View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnRejectEvent">
+
+                    <include
+                        android:id="@+id/layoutPost"
+                        layout="@layout/layout_post"
+                        app:postType="@{AppConstants.POST_TYPE.Event}"
+                        app:user="@{data.user}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNotAccessible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:visibility="@{data.isAccessible ? View.GONE : View.VISIBLE, default=gone}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
+                tools:visibility="visible">
+
+                <include
+                    layout="@layout/layout_not_accessible"
+                    app:isFrom="@{AppConstants.IS_FROM.EVENT}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </merge>
+</layout>

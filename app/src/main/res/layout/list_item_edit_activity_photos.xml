@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.frami.ui.activity.edit.adapter.EditActivityPhotoAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="activityPhotos"
+            type="com.frami.data.model.home.ActivityPhotos" />
+
+        <variable
+            name="size"
+            type="Integer" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        app:cardCornerRadius="13dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:cardUseCompatPadding="false">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvAddPhoto"
+                android:layout_width="117dp"
+                android:layout_height="117dp"
+                android:layout_margin="10dp"
+                android:visibility="@{position == 0?View.VISIBLE:View.GONE, default=visible}"
+                app:cardBackgroundColor="@color/dividerF4"
+                app:cardCornerRadius="13dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/ic_image_add"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:text="@string/add_photo"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvPhotoContainer"
+                android:layout_width="117dp"
+                android:layout_height="117dp"
+                android:layout_margin="10dp"
+                android:visibility="@{position > 0?View.VISIBLE:View.GONE, default=gone}"
+                app:cardBackgroundColor="@color/dividerF4"
+                app:cardCornerRadius="13dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    loadImage="@{activityPhotos.url.empty ? null : activityPhotos.url}"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:visibility="@{activityPhotos.url.empty ? View.GONE : View.VISIBLE, default=gone}"
+                    tools:src="@drawable/ic_add_profile_photo"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    loadImageUri="@{activityPhotos.uri != null ? activityPhotos.uri : null}"
+                    android:layout_width="117dp"
+                    android:layout_height="117dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:visibility="@{activityPhotos.uri == null  ? View.GONE : View.VISIBLE, default=gone}"
+                    tools:src="@drawable/ic_add_profile_photo" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDeletePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_delete_photo"
+                android:visibility="@{position > 0?View.VISIBLE:View.GONE, default=gone}" />
+
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

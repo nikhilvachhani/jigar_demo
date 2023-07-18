@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.followers.adapter.FollowersAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.follower.FollowerData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
+        android:padding="4dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUser"
+            loadCircleImage="@{data.profilePhotoUrl}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/ivLock"-->
+<!--            android:layout_width="16dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:src="@drawable/ic_reward_lock"-->
+<!--            android:translationX="-8dp"-->
+<!--            android:translationY="0dp"-->
+<!--            android:visibility="@{!data.profileVisible ? View.VISIBLE:View.INVISIBLE,default=invisible}"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/ivUser"-->
+<!--            app:layout_constraintStart_toEndOf="@id/ivUser"-->
+<!--            app:tint="@color/themeColor"-->
+<!--            tools:visibility="visible" />-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="15dp"
+            android:text="@{data.userName}"
+            android:textColor="@color/colorSubHeaderText"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="@id/ivUser"
+            app:layout_constraintEnd_toStartOf="@id/btnFollow"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintTop_toTopOf="@id/ivUser"
+            tools:text="@string/na" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFollow"
+            style="@style/BorderlessButton.Regular"
+            handleEnable="@{!data.buttonDisable}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:backgroundTint="@{data.buttonDisable?@color/dividerF4:@color/themeColor}"
+            android:text="@{data.statusText}"
+            android:textColor="@{data.buttonDisable?@color/colorSubHeaderText:@color/white}"
+            android:visibility="@{data.loggedInUser || data.isRunning  ? View.INVISIBLE:View.VISIBLE}"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/BorderlessButton.Regular"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="@{!data.loggedInUser &amp;&amp; data.isRunning ? View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btnFollow"
+            app:layout_constraintStart_toStartOf="@id/btnFollow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

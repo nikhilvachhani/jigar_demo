@@ -1,0 +1,12 @@
+package com.frami.data.model.settings.pushnotificationmenu.mainmenu
+
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+data class PushNotificationMenuData(
+    @field:SerializedName("key")
+    var key: String = "",
+    @field:SerializedName("value")
+    var value: String = "",
+) : Serializable {
+}

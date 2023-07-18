@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.explore.adapter.ChallengesAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.explore.ChallengesData" />
+    </data>
+
+    <merge tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/card_round_corner"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUpperHalfView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPhoto"
+                        roundedImage="@{data.challengeImagesUrl.empty ? null : data.challengeImagesUrl[0]}"
+                        roundedRadius="@{@dimen/radius12}"
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_user" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvChallengeName"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="2"
+                        android:text="@{data.challengeName}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_small"
+                        app:layout_constraintEnd_toStartOf="@id/clRequestCompetitor"
+                        app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/na" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvChallengeDescription"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="2"
+                        android:text="@{data.objective}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintEnd_toStartOf="@id/clRequestCompetitor"
+                        app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                        app:layout_constraintTop_toBottomOf="@id/tvChallengeName"
+                        tools:text="@string/na" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clRequestCompetitor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvChallengeName">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvParticipantStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:visibility="@{data.isParticipantStatusShow ? View.VISIBLE : View.GONE, default=gone}"
+                            app:cardBackgroundColor="@color/lightThemeColor"
+                            app:cardCornerRadius="@dimen/card_round_corner_8"
+                            app:cardElevation="0dp"
+                            app:cardMaxElevation="0dp"
+                            app:cardUseCompatPadding="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="visible">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextViewStyleRegular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="6dp"
+                                android:layout_marginVertical="2dp"
+                                android:gravity="start|center_vertical"
+                                android:text="@string/pending_request"
+                                android:textColor="@color/colorSubHeaderText"
+                                android:textSize="@dimen/text_size_xsmall" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvJoinJoined"
+                            style="@style/TextViewStyleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{data.participantStatus.equalsIgnoreCase(AppConstants.KEYS.NotParticipated) ? @string/join_ : data.participantStatus.equalsIgnoreCase(AppConstants.KEYS.Joined) ? @string/joined : ``}"
+                            android:textColor="@{data.participantStatus.equalsIgnoreCase(AppConstants.KEYS.Joined) ?@color/themeColor : @color/red_join}"
+                            android:textSize="@dimen/text_size_xxsmall"
+                            android:visibility="@{data.isJoinStatusShow ? View.VISIBLE:View.GONE,default=gone}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cvParticipantStatus"
+                            app:textAllCaps="true"
+                            tools:text="@string/join_"
+                            tools:visibility="visible" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCompetition"
+                            style="@style/TextViewStyleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/competition"
+                            android:textColor="@color/lightPink"
+                            android:textSize="@dimen/text_size_xxsmall"
+                            android:visibility="@{data.challengeCommunity.equalsIgnoreCase(AppConstants.KEYS.Yes) ? View.VISIBLE:View.GONE,default=gone}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvJoinJoined"
+                            tools:visibility="visible" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDate"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:gravity="start|center_vertical"
+                        android:paddingVertical="6dp"
+                        android:text="@{data.getFromToDate}"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                        app:layout_constraintTop_toBottomOf="@id/tvChallengeDescription"
+                        tools:text="@string/na" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/mHorizontalView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/dividerF4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clUpperHalfView" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clBottomHalfView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mHorizontalView">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvActivityStatusIcon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="@{!data.activityType.empty &amp;&amp; !TextUtils.isEmpty(data.activityType[0].color)?Color.parseColor(data.activityType[0].color):@color/themeColor}"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="0dp"
+                        app:cardMaxElevation="0dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            loadActivityTypeImage="@{!data.activityType.empty ? data.activityType[0].icon : null}"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@drawable/ic_walk" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvActivityTypeStatus"
+                        style="@style/TextViewStyleRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@{data.selectedActivityNames}"
+                        android:textColor="@color/colorSubHeaderText"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintBottom_toBottomOf="@id/cvActivityStatusIcon"
+                        app:layout_constraintEnd_toStartOf="@id/tvOrganizer"
+                        app:layout_constraintStart_toEndOf="@id/cvActivityStatusIcon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/na" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvOrganizer"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:gravity="end|center_vertical"
+                        android:maxLines="1"
+                        android:text="@{`Organizer: `+ (data != null &amp;&amp; data.organizer != null ? data.organizer.name : ``)}"
+                        android:textSize="@dimen/text_size_xsmall"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvActivityTypeStatus"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/na" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </merge>
+</layout>

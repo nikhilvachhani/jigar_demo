@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/challengeFragment">
+
+    <fragment
+        android:id="@+id/challengeFragment"
+        android:name="com.frami.ui.challenges.fragment.ChallengesFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenges">
+        <action
+            android:id="@+id/toCreateChallengeStep1Fragment"
+            app:destination="@id/createChallengeStep1Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toChallengeSearchFragment"
+            app:destination="@id/challengeSearchFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toChallengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createChallengeStep1Fragment"
+        android:name="com.frami.ui.challenges.create.CreateChallengeStep1Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_challenge_step1">
+        <action
+            android:id="@+id/toCreateChallengeStep2Fragment"
+            app:destination="@id/createChallengeStep2Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createChallengeStep2Fragment"
+        android:name="com.frami.ui.challenges.create.CreateChallengeStep2Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_challenge_step2">
+        <action
+            android:id="@+id/toCreateChallengeStep3Fragment"
+            app:destination="@id/createChallengeStep3Fragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createChallengeStep3Fragment"
+        android:name="com.frami.ui.challenges.create.CreateChallengeStep3Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_create_challenge_step3" />
+    <fragment
+        android:id="@+id/challengeListFragment"
+        android:name="com.frami.ui.challenges.category.ChallengeCategoryListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenge_category_list">
+        <action
+            android:id="@+id/toChallengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toChallengeSearchFragment"
+            app:destination="@id/challengeSearchFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/challengeDetailsFragment"
+        android:name="com.frami.ui.challenges.details.ChallengeDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenge_details">
+        <action
+            android:id="@+id/toParticipantFragment"
+            app:destination="@id/participantFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toLeaderboardFragment"
+            app:destination="@id/leaderboardFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/challengeSearchFragment"
+        android:name="com.frami.ui.challenges.search.ChallengeSearchFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenge_search">
+        <action
+            android:id="@+id/toChallengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantFragment"
+        android:name="com.frami.ui.challenges.participants.ParticipantFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenge_details" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.frami.ui.challenges.leaderboard.LeaderboardFragment"
+        android:label=""
+        tools:layout="@layout/fragment_challenge_details" />
+</navigation>

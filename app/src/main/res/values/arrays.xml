@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="attribute_text_sizes">
+        <item>8sp</item>
+        <item>9sp</item>
+        <item>10sp</item>
+        <item>11sp</item>
+        <item>12sp</item>
+        <item>13sp</item>
+        <item>14sp</item>
+    </array>
+
+    <array name="exertion_level_text_sizes">
+        <item>8sp</item>
+        <item>9sp</item>
+        <item>10sp</item>
+        <item>11sp</item>
+    </array>
+    <array name="level_up_text_sizes">
+        <item>@dimen/text_size_xxlarge</item>
+        <item>@dimen/text_size_xxxlarge</item>
+    </array>
+</resources>

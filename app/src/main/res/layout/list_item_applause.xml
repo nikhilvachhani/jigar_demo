@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activity.applause.adapter.ApplauseAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.activity.applause.ApplauseData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
+        android:padding="4dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUser"
+            loadCircleImage="@{data.profilePhotoUrl}"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="10dp"
+            android:text="@{data.userName}"
+            android:textColor="@color/colorSubHeaderText"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toBottomOf="@id/ivUser"
+            app:layout_constraintEnd_toStartOf="@id/btnFollow"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintTop_toTopOf="@id/ivUser"
+            tools:text="@string/na" />
+
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/btnFollow"-->
+        <!--            style="@style/BorderlessButton.Regular"-->
+        <!--            handleEnable="@{data.profileVisible}"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:backgroundTint="@{!data.profileVisible ||data.buttonDisable?@color/dividerF4:@color/themeColor}"-->
+        <!--            android:padding="2dp"-->
+        <!--            android:text="@{data.statusText}"-->
+        <!--            android:textColor="@{!data.profileVisible || data.buttonDisable?@color/colorSubHeaderText:@color/white}"-->
+        <!--            android:visibility="@{data.isMyProfile() || data.isRunning ?  View.INVISIBLE:View.VISIBLE, default=invisible}"-->
+        <!--            app:cornerRadius="30dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFollow"
+            style="@style/BorderlessButton.Regular"
+            handleEnable="@{!data.buttonDisable}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@{data.buttonDisable?@color/dividerF4:@color/themeColor}"
+            android:padding="2dp"
+            android:text="@{data.statusText}"
+            android:textColor="@{data.buttonDisable?@color/colorSubHeaderText:@color/white}"
+            android:visibility="@{data.isLoggedInUser() || data.isRunning  ? View.INVISIBLE:View.VISIBLE}"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/BorderlessButton.Regular"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="@{!data.isLoggedInUser() &amp;&amp; data.isRunning ? View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btnFollow"
+            app:layout_constraintStart_toStartOf="@id/btnFollow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="20dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:padding="4dp">-->
+
+    <!--        <androidx.appcompat.widget.AppCompatTextView-->
+    <!--            android:id="@+id/tvTitle"-->
+    <!--            style="@style/TextViewStyleSemiBold"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity="start|center_vertical"-->
+    <!--            android:paddingVertical="15dp"-->
+    <!--            android:text="@string/other_users"-->
+    <!--            android:textColor="@color/colorSubHeaderText"-->
+    <!--            android:textSize="@dimen/text_size_medium"-->
+    <!--            android:visibility="gone"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--        <androidx.appcompat.widget.AppCompatImageView-->
+    <!--            android:id="@+id/ivUser"-->
+    <!--            loadCircleImage="@{data.profilePhotoUrl}"-->
+    <!--            android:layout_width="30dp"-->
+    <!--            android:layout_height="30dp"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tvTitle" />-->
+
+    <!--        <androidx.appcompat.widget.AppCompatTextView-->
+    <!--            android:id="@+id/tvName"-->
+    <!--            style="@style/TextViewStyleBold"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginHorizontal="10dp"-->
+    <!--            android:gravity="start|center_vertical"-->
+    <!--            android:text="@{data.userName}"-->
+    <!--            android:textColor="@color/colorSubHeaderText"-->
+    <!--            android:textSize="@dimen/text_size_small"-->
+    <!--            app:layout_constraintEnd_toStartOf="@id/btnFollow"-->
+    <!--            app:layout_constraintStart_toEndOf="@id/ivUser"-->
+    <!--            app:layout_constraintTop_toTopOf="@id/ivUser"-->
+    <!--            tools:text="@string/na" />-->
+
+    <!--        <androidx.appcompat.widget.AppCompatTextView-->
+    <!--            android:id="@+id/tvDate"-->
+    <!--            style="@style/TextViewStyleRegular"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginHorizontal="10dp"-->
+    <!--            android:layout_marginTop="4dp"-->
+    <!--            android:gravity="start|center_vertical"-->
+    <!--            android:text="@{data.creationDate}"-->
+    <!--            android:textSize="@dimen/text_size_xxsmall"-->
+    <!--            android:visibility="gone"-->
+    <!--            app:layout_constraintEnd_toStartOf="@id/btnFollow"-->
+    <!--            app:layout_constraintStart_toEndOf="@id/ivUser"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tvName"-->
+    <!--            tools:text="@string/na" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btnFollow"-->
+    <!--            style="@style/BorderlessButton.Regular"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:backgroundTint="@{data.isFollowing?@color/dividerF4:@color/themeColor}"-->
+    <!--            android:padding="2dp"-->
+    <!--            android:text="@{data.isFollowing?@string/unfollow:@string/follow}"-->
+    <!--            android:textColor="@{data.isFollowing?@color/colorSubHeaderText:@color/white}"-->
+    <!--            android:visibility="@{data.isRunning ? View.INVISIBLE: data.userId == loggedInUserId ? View.INVISIBLE:View.VISIBLE, default=invisible}"-->
+    <!--            app:cornerRadius="30dp"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/tvTitle" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+</layout>

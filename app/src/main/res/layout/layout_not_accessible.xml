@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="message"
+            type="String" />
+
+        <variable
+            name="isFrom"
+            type="Integer" />
+
+    </data>
+
+    <merge tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_reward_lock"
+            android:drawablePadding="@dimen/drawable_padding_14"
+            android:drawableTint="@color/themeColor"
+            android:gravity="center"
+            android:text="@{isFrom == AppConstants.IS_FROM.ACTIVITY  ? @string/not_accessible_message_activity : @string/not_accessible_message}"
+            android:textColor="@color/colorHeaderText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/not_accessible_message" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnRequestFollow"
+            style="@style/TextViewStyleRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/request_to_follow"
+            android:textColor="#0500FF"
+            android:textSize="@dimen/text_size_regular"
+            android:visibility="@{isFrom == AppConstants.IS_FROM.ACTIVITY  ? View.VISIBLE:View.GONE, default=gone}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:visibility="visible" />
+    </merge>
+</layout>
