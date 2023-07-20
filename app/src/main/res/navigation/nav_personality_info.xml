@@ -33,8 +33,8 @@
         android:label=""
         tools:layout="@layout/fragment_personality_info">
         <action
-            android:id="@+id/toPrivacyControlFragment"
-            app:destination="@id/privacyControlFragment"
+            android:id="@+id/toDashboardActivity"
+            app:destination="@id/dashboardActivity"
             app:enterAnim="@anim/b_nav_default_enter_anim"
             app:exitAnim="@anim/b_nav_default_exit_anim"
             app:launchSingleTop="true"
@@ -42,8 +42,8 @@
             app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/toDashboardActivity"
-            app:destination="@id/dashboardActivity"
+            android:id="@+id/toPersonalityInfoActivity"
+            app:destination="@id/personalityInfoActivity"
             app:enterAnim="@anim/b_nav_default_enter_anim"
             app:exitAnim="@anim/b_nav_default_exit_anim"
             app:launchSingleTop="true"
@@ -70,6 +70,11 @@
     <activity
         android:id="@+id/dashboardActivity"
         android:name="com.frami.ui.dashboard.DashboardActivity"
+        android:label=""
+        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/personalityInfoActivity"
+        android:name="com.frami.ui.personalityinfo.PersonalityInfoActivity"
         android:label=""
         tools:layout="@layout/fragment_home" />
     <fragment

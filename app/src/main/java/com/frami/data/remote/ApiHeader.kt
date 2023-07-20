@@ -1,5 +1,6 @@
 package com.frami.data.remote
 
+import android.util.Log
 import com.frami.data.local.pref.PreferencesHelper
 import com.google.gson.annotations.SerializedName
 import javax.inject.Inject
@@ -8,6 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class ApiHeader @Inject constructor(private val preferencesHelper: PreferencesHelper) {
     fun getApiHeader(): TokenHeader {
+        Log.e("framiApp","token = "+preferencesHelper.getAccessToken())
         return if (preferencesHelper.getContinuousToken()
                 .isNullOrEmpty() || preferencesHelper.getContinuousToken()
                 ?.compareTo("NoMoreRecords") == 0

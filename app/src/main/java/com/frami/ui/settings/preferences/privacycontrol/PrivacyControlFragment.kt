@@ -7,23 +7,18 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.frami.BR
 import com.frami.R
-import com.frami.data.model.home.ActivityTypes
 import com.frami.data.model.lookup.user.SubSectionData
 import com.frami.data.model.lookup.user.UserOptionsResponseData
-import com.frami.data.model.privacycontrol.PrivacyControlData
-import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponseData
+import com.frami.data.model.settings.privacypreference.PrivacyPreferenceData
 import com.frami.data.model.settings.privacypreference.SectionValuesData
-import com.frami.data.model.settings.pushnotificationmenu.notificationdetails.PushNotificationsOnResponseData
 import com.frami.databinding.FragmentPrivacyControlBinding
 import com.frami.ui.base.BaseFragment
-import com.frami.ui.common.SelectActivityTypesDialog
-import com.frami.ui.common.SelectPrivacyControlDialog
-import com.frami.ui.settings.preferences.notificationpreference.adapter.PushNotificationParentAdapter
 import com.frami.ui.settings.preferences.privacycontrol.adapter.PrivacySettingParentAdapter
 import com.frami.utils.AppConstants
 import com.frami.utils.extensions.hide
 import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
+import com.google.gson.Gson
 
 class PrivacyControlFragment :
     BaseFragment<FragmentPrivacyControlBinding, PrivacyControlFragmentViewModel>(),
@@ -41,11 +36,13 @@ class PrivacyControlFragment :
     override fun getViewModel(): PrivacyControlFragmentViewModel = viewModelInstance
 
     private lateinit var privacySettingParentAdapter: PrivacySettingParentAdapter
+    // default privacy data
+    private var privacyPreferenceDefaultData: PrivacyPreferenceData? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            if (arguments?.containsKey(AppConstants.FROM.LOGIN) == true) {
-                getViewModel().isFromLogin.set(arguments?.getBoolean(AppConstants.FROM.LOGIN)!!)
+            if (arguments?.containsKey(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED) == true) {
+                getViewModel().isFromLogin.set(true)
             }
         }
     }
@@ -63,14 +60,10 @@ class PrivacyControlFragment :
     }
 
     private fun init() {
-//        if (getViewModel().getActivityTypeList().isNotEmpty()) {
-//            getViewModel().selectedActivityTypes.set(
-//                getViewModel().getActivityTypeList()[0]
-//            )
-//        }
         privacySettingParentAdapter = PrivacySettingParentAdapter(ArrayList(), this)
         mViewBinding?.recyclerView?.adapter = privacySettingParentAdapter
-        getViewModel().getUserOptionsAPI()
+        getViewModel().getUserPrivacyAPI()
+
     }
 
     private fun toolbar() {
@@ -93,7 +86,11 @@ class PrivacyControlFragment :
     }
 
     override fun onBack() {
-        mNavController!!.navigateUp()
+        if (getViewModel().isFromLogin.get()) {
+            requireActivity().finish()
+        } else {
+            mNavController!!.navigateUp()
+        }
     }
 
     private fun clickListener() {
@@ -114,20 +111,14 @@ class PrivacyControlFragment :
 
 
     private fun callUpdateAPI() {
-        val user = getViewModel().user.get()
-
-        val privacyPreferenceResponseData = PrivacyPreferenceResponseData()
-        privacyPreferenceResponseData.userId = user?.userId?:""
-//        getViewModel().privacyPreferenceResponseData.get().let {
-//            privacyPreferenceResponseData.id = it?.id!!
-//            privacyPreferenceResponseData.userId = it.userId
-//        }
+        val privacyPreferenceResponseData = PrivacyPreferenceData()
+        privacyPreferenceResponseData.id = privacyPreferenceDefaultData?.id?:""
+        privacyPreferenceResponseData.userId = privacyPreferenceDefaultData?.userId?:""
 
         val sectionValues: ArrayList<SectionValuesData> = ArrayList()
         privacySettingParentAdapter.data.map {
             val find = it.subsectionList.find { it.isSelected }
             if (find != null){
-                Log.e("jigarLogs","selected key = "+find.key)
                 sectionValues.add(SectionValuesData(it.sectionKey,find.key))
             }
         }
@@ -135,18 +126,34 @@ class PrivacyControlFragment :
         getViewModel().updatePrivacyPreferenceAPI(privacyPreferenceResponseData)
     }
 
+    override fun userPrivacyDataFetchSuccess(data: PrivacyPreferenceData?) {
+        privacyPreferenceDefaultData = data
+        getViewModel().getUserOptionsAPI()
+    }
     override fun userOptionsDataFetchSuccess(data: List<UserOptionsResponseData>?) {
-        data?.let {
-            privacySettingParentAdapter.data = it
+        data?.let { it1 ->
+            privacyPreferenceDefaultData?.sectionValues?.map { default ->
+                val index = it1.indexOfFirst { it.sectionKey.equals(default.sectionKey,true) }
+                if (index > -1){
+                    val indexSub = it1[index].subsectionList.indexOfFirst { it.key.equals(default.key,true) }
+                    if (indexSub > -1){
+                        it1[index].subsectionList[indexSub].isSelected = true
+                    }
+                }
+            }
+            privacySettingParentAdapter.data = it1
         }
     }
 
-//    override fun privacyPreferenceDataFetchSuccess(data: PrivacyPreferenceResponseData?) {
-//
-//    }
-
-    override fun privacyPreferenceDataFetchSuccess(data: PrivacyPreferenceResponseData?) {
+    override fun privacyPreferenceDataFetchSuccess(data: PrivacyPreferenceData?) {
         getViewModel().privacyPreferenceResponseData.set(data)
+        if (getViewModel().isFromLogin.get()) {
+            val user = getViewModel().user.get()
+            user?.isPrivacySettingCompleted = true
+            authFlow(user!!, false, null, null)
+        } else {
+            mNavController?.navigateUp()
+        }
 
 //        val profilePrivacyList = ArrayList<PrivacyControlData>()
 //        getViewModel().profilePagePrivacyList.get()?.forEachIndexed { index, idNameData ->

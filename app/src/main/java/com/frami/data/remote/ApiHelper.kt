@@ -80,8 +80,8 @@ import com.frami.data.model.rewards.request.RewardAddToFavouriteRequest
 import com.frami.data.model.settings.help.ContactUsRequest
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponse
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponseData
+import com.frami.data.model.settings.privacypreference.PrivacyPreferenceData
 import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponse
-import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponseData
 import com.frami.data.model.settings.pushnotificationmenu.mainmenu.PushNotificationMenuResponse
 import com.frami.data.model.settings.pushnotificationmenu.notificationdetails.PushNotificationOnPreferenceResponse
 import com.frami.data.model.settings.pushnotificationmenu.request.UpdateUserNotificationRequest
@@ -155,8 +155,9 @@ interface ApiHelper {
     fun getNotificationPreferenceAPI(): Single<NotificationPreferenceResponse>
     fun updateNotificationPreferenceAPI(notificationPreferenceUpdateRequest: NotificationPreferenceResponseData): Single<NotificationPreferenceResponse>
     fun getUserOptionsAPI(): Single<UserOptionsResponse>
+    fun getUserPrivacyAPI(): Single<PrivacyPreferenceResponse>
     fun getPrivacyPreferenceAPI(): Single<PrivacyPreferenceResponse>
-    fun updatePrivacyPreferenceAPI(privacyPreferenceRequest: PrivacyPreferenceResponseData): Single<PrivacyPreferenceResponse>
+    fun updatePrivacyPreferenceAPI(privacyPreferenceRequest: PrivacyPreferenceData): Single<PrivacyPreferenceResponse>
     fun getContentPreferenceAPI(): Single<ContentPreferenceResponse>
     fun updateContentPreferenceAPI(contentPreferenceRequest: ContentPreferenceResponseData): Single<ContentPreferenceResponse>
 

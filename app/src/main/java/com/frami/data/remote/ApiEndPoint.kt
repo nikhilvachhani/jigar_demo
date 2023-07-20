@@ -32,6 +32,7 @@ object ApiEndPoint {
     const val ENDPOINT_PRIVACY_PREFERENCE = BASE_URL_USER + "Privacy"
 //    const val ENDPOINT_UPDATE_PRIVACY_PREFERENCE = BASE_URL_USER + "UpdateUserPrivacyInfo"
     const val ENDPOINT_UPDATE_PRIVACY_PREFERENCE = BASE_URL_USER + "UpdateUserPrivacy"
+    const val ENDPOINT_USER_PRIVACY = BASE_URL_USER + "UserPrivacy"
     const val ENDPOINT_CONTENT_PREFERENCE = BASE_URL_USER + "Content"
     const val ENDPOINT_UPDATE_CONTENT_PREFERENCE = BASE_URL_USER + "UpdateUserContentInfo"
     const val ENDPOINT_UPDATE_FCMTOKEN = BASE_URL_USER + "UpdateFCMToken"

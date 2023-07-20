@@ -86,8 +86,8 @@ import com.frami.data.model.rewards.request.RewardAddToFavouriteRequest
 import com.frami.data.model.settings.help.ContactUsRequest
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponse
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponseData
+import com.frami.data.model.settings.privacypreference.PrivacyPreferenceData
 import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponse
-import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponseData
 import com.frami.data.model.settings.pushnotificationmenu.mainmenu.PushNotificationMenuResponse
 import com.frami.data.model.settings.pushnotificationmenu.notificationdetails.PushNotificationOnPreferenceResponse
 import com.frami.data.model.settings.pushnotificationmenu.request.UpdateUserNotificationRequest
@@ -368,6 +368,10 @@ class AppDataManager @Inject constructor(
         return apiHelper.getUserOptionsAPI()
     }
 
+    override fun getUserPrivacyAPI(): Single<PrivacyPreferenceResponse> {
+        return apiHelper.getUserPrivacyAPI()
+    }
+
     override fun getGarminRequestToken(): Single<GarminRequestTokenResponse> {
         return apiHelper.getGarminRequestToken()
     }
@@ -559,7 +563,7 @@ class AppDataManager @Inject constructor(
         return apiHelper.getPrivacyPreferenceAPI()
     }
 
-    override fun updatePrivacyPreferenceAPI(privacyPreferenceRequest: PrivacyPreferenceResponseData): Single<PrivacyPreferenceResponse> {
+    override fun updatePrivacyPreferenceAPI(privacyPreferenceRequest: PrivacyPreferenceData): Single<PrivacyPreferenceResponse> {
         return apiHelper.updatePrivacyPreferenceAPI(privacyPreferenceRequest)
     }
 

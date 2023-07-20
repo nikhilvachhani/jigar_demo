@@ -84,8 +84,8 @@ import com.frami.data.model.rewards.request.RewardAddToFavouriteRequest
 import com.frami.data.model.settings.help.ContactUsRequest
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponse
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponseData
+import com.frami.data.model.settings.privacypreference.PrivacyPreferenceData
 import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponse
-import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponseData
 import com.frami.data.model.settings.pushnotificationmenu.mainmenu.PushNotificationMenuResponse
 import com.frami.data.model.settings.pushnotificationmenu.notificationdetails.PushNotificationOnPreferenceResponse
 import com.frami.data.model.settings.pushnotificationmenu.request.UpdateUserNotificationRequest
@@ -229,6 +229,13 @@ class AppApiHelper @Inject constructor(
                         .addHeaders(mApiHeader.getApiHeader())
 
         return rxRequest.build().getObjectSingle(UserOptionsResponse::class.java)
+    }
+    override fun getUserPrivacyAPI(): Single<PrivacyPreferenceResponse> {
+        val rxRequest: Rx2ANRequest.GetRequestBuilder =
+                Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_PRIVACY)
+                        .addHeaders(mApiHeader.getApiHeader())
+
+        return rxRequest.build().getObjectSingle(PrivacyPreferenceResponse::class.java)
     }
 
     /*USER*/
@@ -407,7 +414,7 @@ class AppApiHelper @Inject constructor(
         return rxRequest.build().getObjectSingle(PrivacyPreferenceResponse::class.java)
     }
 
-    override fun updatePrivacyPreferenceAPI(privacyPreferenceRequest: PrivacyPreferenceResponseData): Single<PrivacyPreferenceResponse> {
+    override fun updatePrivacyPreferenceAPI(privacyPreferenceRequest: PrivacyPreferenceData): Single<PrivacyPreferenceResponse> {
         val rxRequest: Rx2ANRequest.PostRequestBuilder =
                 Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_UPDATE_PRIVACY_PREFERENCE)
                         .addHeaders(mApiHeader.getApiHeader())

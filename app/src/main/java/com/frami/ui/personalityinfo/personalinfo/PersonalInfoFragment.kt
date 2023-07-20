@@ -172,11 +172,7 @@ class PersonalInfoFragment :
     }
 
     override fun onBack() {
-        if (getViewModel().isFromEdit.get()) {
-            mNavController!!.navigateUp()
-        } else {
-            requireActivity().finish()
-        }
+        mNavController!!.navigateUp()
     }
 
     private fun clickListener() {
@@ -250,10 +246,6 @@ class PersonalInfoFragment :
                 isPrivacySettingCompleted = user.isPrivacySettingCompleted,
 //                userDevices = if (user.userDevices!=null) user.userDevices!! else ArrayList<UserDevices>()
             )
-
-//            val bundle = Bundle()
-//            bundle.putBoolean(AppConstants.FROM.LOGIN,true)
-//            mNavController?.navigate(R.id.toPrivacyControlFragment,bundle)
 
             if (getViewModel().isFromEdit.get()) {
                 if (getViewModel().selectedProfilePhoto.get() != null && !getViewModel().selectedProfilePhoto.get()?.path.isNullOrEmpty()) {
@@ -332,10 +324,7 @@ class PersonalInfoFragment :
             onBack()
         } else {
             if (user != null) {
-                val bundle = Bundle()
-                bundle.putBoolean(AppConstants.FROM.LOGIN,true)
-                mNavController?.navigate(R.id.toPrivacyControlFragment,bundle)
-//                authFlow(user, true, wearableDeviceActivityResultLauncher, null)
+                authFlow(user, true, wearableDeviceActivityResultLauncher, null)
             } else {
                 navigateToLogin()
             }

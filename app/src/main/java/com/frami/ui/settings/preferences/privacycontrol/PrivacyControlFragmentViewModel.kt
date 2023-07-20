@@ -7,7 +7,7 @@ import com.frami.data.model.challenge.EventTypeData
 import com.frami.data.model.common.IdNameData
 import com.frami.data.model.home.ActivityTypes
 import com.frami.data.model.privacycontrol.PrivacyControlData
-import com.frami.data.model.settings.privacypreference.PrivacyPreferenceResponseData
+import com.frami.data.model.settings.privacypreference.PrivacyPreferenceData
 import com.frami.ui.base.BaseViewModel
 import com.frami.utils.rx.SchedulerProvider
 import com.google.gson.Gson
@@ -26,21 +26,43 @@ class PrivacyControlFragmentViewModel @Inject constructor(
 ) {
     var isFromLogin = ObservableBoolean(false)
 
-    var privacyPreferenceResponseData = ObservableField<PrivacyPreferenceResponseData>()
+    var privacyPreferenceResponseData = ObservableField<PrivacyPreferenceData>()
     var selectedEventType = ObservableField<EventTypeData>()
-    var selectedProfilePagePrivacy = ObservableField<PrivacyControlData>()
-    var selectedActivitiesPrivacy = ObservableField<PrivacyControlData>()
-    var selectedMapPrivacy = ObservableField<IdNameData>()
-    var profilePagePrivacyList = ObservableField<List<PrivacyControlData>>()
-    var activityPrivacyList = ObservableField<List<PrivacyControlData>>()
+//    var selectedProfilePagePrivacy = ObservableField<PrivacyControlData>()
+//    var selectedActivitiesPrivacy = ObservableField<PrivacyControlData>()
+//    var selectedMapPrivacy = ObservableField<IdNameData>()
+//    var profilePagePrivacyList = ObservableField<List<PrivacyControlData>>()
+//    var activityPrivacyList = ObservableField<List<PrivacyControlData>>()
 
-    var selectedActivityTypeList = ObservableField<List<ActivityTypes>>()
-    var selectedActivityNames = ObservableField<String>("")
-    var selectedActivityTypes = ObservableField<ActivityTypes>()
-    var activityTypesList = ObservableField<List<ActivityTypes>>()
+//    var selectedActivityTypeList = ObservableField<List<ActivityTypes>>()
+//    var selectedActivityNames = ObservableField<String>("")
+//    var selectedActivityTypes = ObservableField<ActivityTypes>()
+//    var activityTypesList = ObservableField<List<ActivityTypes>>()
 
-    fun getUserOptionsAPI() {
+    fun getUserPrivacyAPI() {
         getNavigator()?.showLoading()
+        val disposable: Disposable = getDataManager()
+            .getUserPrivacyAPI()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .subscribe({ response ->
+                if (response != null) {
+                    getNavigator()?.log("getUserOptionsAPI response>>> ${Gson().toJson(response)}")
+                    if (response.isSuccess()) {
+                        getNavigator()?.userPrivacyDataFetchSuccess(response.data)
+                        getUserOptionsAPI()
+                    } else {
+                        getNavigator()?.hideLoading()
+                        getNavigator()?.showMessage(response.getMessage())
+                    }
+                }
+            }, { throwable ->
+                getNavigator()?.hideLoading()
+                getNavigator()?.handleError(throwable)
+            })
+        mCompositeDisposable.add(disposable)
+    }
+    fun getUserOptionsAPI() {
         val disposable: Disposable = getDataManager()
             .getUserOptionsAPI()
             .subscribeOn(schedulerProvider.io())
@@ -63,7 +85,7 @@ class PrivacyControlFragmentViewModel @Inject constructor(
     }
 
 
-    fun updatePrivacyPreferenceAPI(preferenceResponseData: PrivacyPreferenceResponseData) {
+    fun updatePrivacyPreferenceAPI(preferenceResponseData: PrivacyPreferenceData) {
         getNavigator()?.showLoading()
         getNavigator()?.log(
             "updatePrivacyPreferenceAPI request>>> ${

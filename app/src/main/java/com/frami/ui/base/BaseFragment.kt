@@ -440,7 +440,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> :
 //                activity?.finish()
 //            }
 //        }
-        else if (!getViewModel().getIsWearableDeviceSkip() && user.userDevices?.isEmpty() == true) {
+        else if (wearableDeviceActivityResultLauncher != null && !getViewModel().getIsWearableDeviceSkip() && user.userDevices?.isEmpty() == true) {
             val bundle = Bundle()
             val intent = Intent(requireContext(), WearableActivity::class.java)
             bundle.putString(AppConstants.EXTRAS.FROM, AppConstants.FROM.LOGIN)
