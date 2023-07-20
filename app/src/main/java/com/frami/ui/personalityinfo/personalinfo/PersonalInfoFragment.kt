@@ -24,13 +24,14 @@ import com.frami.utils.AppConstants
 import com.frami.utils.DateTimeUtils
 import com.frami.utils.extensions.hide
 import com.frami.utils.extensions.loadCircleImage
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 import java.io.File
 import java.util.*
 
 class PersonalInfoFragment :
     BaseFragment<FragmentPersonalityInfoBinding, PersonalInfoFragmentViewModel>(),
-    PersonalInfoFragmentNavigator, View.OnClickListener, DatePickerFragment.DateSelectListener,
+    PersonalInfoFragmentNavigator, View.OnClickListener,
     SelectCountryDialog.OnDialogActionListener, ImagePickerActivity.PickerResultListener {
 
     private val viewModelInstance: PersonalInfoFragmentViewModel by viewModels {
@@ -148,16 +149,15 @@ class PersonalInfoFragment :
     }
 
     private fun toolbar() {
+        mViewBinding!!.toolBarLayout.cvBack.visible()
+        mViewBinding!!.toolBarLayout.cvBack.setImageResource(R.drawable.ic_back_new)
+        mViewBinding!!.toolBarLayout.tvTitle.hide()
+        mViewBinding?.toolBarLayout?.cvBack?.setOnClickListener { logout() }
         if (getViewModel().isFromEdit.get()) {
-            mViewBinding!!.toolBarLayout.tvTitle.hide()
             mViewBinding!!.toolBarLayout.cvDone.visible()
             mViewBinding!!.toolBarLayout.cvDone.setOnClickListener { validateDataAndCallAPI() }
-            mViewBinding!!.toolBarLayout.cvBack.visible()
-            mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
-        } else {
-            mViewBinding!!.toolBarLayout.tvTitle.text = getString(R.string.personal_info)
-            mViewBinding!!.toolBarLayout.tvGoBack.visible()
-            mViewBinding!!.toolBarLayout.tvGoBack.setOnClickListener { logout() }
+        }else{
+            mViewBinding?.btnNext?.onClick { validateDataAndCallAPI() }
         }
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
     }
@@ -181,76 +181,18 @@ class PersonalInfoFragment :
 
     private fun clickListener() {
         mViewBinding!!.ivAddProfilePhoto.setOnClickListener(this)
-        mViewBinding!!.tvAddProfilePhoto.setOnClickListener(this)
-        mViewBinding!!.cvDD.setOnClickListener(this)
-        mViewBinding!!.cvMM.setOnClickListener(this)
-        mViewBinding!!.cvYYYY.setOnClickListener(this)
-        mViewBinding!!.llMale.setOnClickListener(this)
-        mViewBinding!!.llFeMale.setOnClickListener(this)
-        mViewBinding!!.llOther.setOnClickListener(this)
-        mViewBinding!!.clCountry.setOnClickListener(this)
+        mViewBinding!!.linearAddPhoto.setOnClickListener(this)
+        mViewBinding!!.linCountry.setOnClickListener(this)
         mViewBinding!!.btnNext.setOnClickListener(this)
     }
 
     //    lateinit var  singleBuilder: SingleDateAndTimePickerDialog.Builder
     override fun onClick(view: View?) {
         when (view) {
-            mViewBinding!!.ivAddProfilePhoto, mViewBinding!!.tvAddProfilePhoto -> {
+            mViewBinding!!.ivAddProfilePhoto, mViewBinding!!.linearAddPhoto -> {
                 ImagePickerActivity.showImageChooser(requireActivity(), this)
             }
-            mViewBinding!!.llMale -> {
-                getViewModel().genderSelected.set(AppConstants.GENDER.MALE)
-            }
-            mViewBinding!!.llFeMale -> {
-                getViewModel().genderSelected.set(AppConstants.GENDER.FEMALE)
-            }
-            mViewBinding!!.llOther -> {
-                getViewModel().genderSelected.set(AppConstants.GENDER.OTHER)
-            }
-            mViewBinding!!.cvDD, mViewBinding!!.cvMM, mViewBinding!!.cvYYYY -> {
-                hideKeyboard()
-                selectDateOfBirth()
-//                val calendar = Calendar.getInstance()
-//                val defaultDate = calendar.time
-//
-//                singleBuilder =
-//                    SingleDateAndTimePickerDialog.Builder(
-//                        requireContext()
-//                    )
-//                        .setTimeZone(TimeZone.getDefault())
-//                        .bottomSheet()
-//                        .curved() //.titleTextColor(Color.GREEN)
-//                        //.backgroundColor(Color.BLACK)
-//                        //.mainColor(Color.GREEN)
-//                        .displayHours(true)
-//                        .displayMinutes(true)
-//                        .displayDays(true)
-//                        .displayListener(object :
-//                            SingleDateAndTimePickerDialog.DisplayListener {
-//                            override fun onDisplayed(picker: SingleDateAndTimePicker) {
-//                                Log.d(
-//                                    "",
-//                                    "Dialog displayed"
-//                                )
-//                            }
-//
-//                            override fun onClosed(picker: SingleDateAndTimePicker) {
-//                                Log.d(
-//                                    "",
-//                                    "Dialog closed"
-//                                )
-//                            }
-//                        })
-//                        .title("")
-//                        .listener { date ->
-//                            log(
-//                                "DATE>> ",
-//                                date.toString()
-//                            )
-//                        }
-//                singleBuilder.display()
-            }
-            mViewBinding!!.clCountry -> {
+            mViewBinding!!.linCountry -> {
                 showSelectCountryDialog()
             }
             mViewBinding!!.btnNext -> {
@@ -263,8 +205,6 @@ class PersonalInfoFragment :
         hideKeyboard()
         val firstName = mViewBinding!!.etFN.text.toString().trim()
         val lastName = mViewBinding!!.etLN.text.toString().trim()
-        val gender = getViewModel().genderSelected.get()?.type
-        val birthDate = getViewModel().birthDate.get()
         val country = getViewModel().selectedCountry.get()
 //        if (getViewModel().selectedProfilePhoto.get() == null && (getViewModel().user.get() != null && TextUtils.isEmpty(
 //                getViewModel().user.get()?.profilePhotoUrl
@@ -276,12 +216,8 @@ class PersonalInfoFragment :
             showMessage("Please enter first name")
         } else if (TextUtils.isEmpty(lastName)) {
             showMessage("Please enter last name")
-        } else if (gender == null) {
-            showMessage("Please select gender")
-        } else if (birthDate == null) {
-            showMessage("Please select date of birth")
         } else if (country == null) {
-            showMessage("Please select nationality")
+            showMessage("Please select country")
         } else {
             val user = getViewModel().user.get()
             val userRequest = UserRequest(
@@ -289,7 +225,7 @@ class PersonalInfoFragment :
                 firstName = firstName,
                 lastName = lastName,
 //                ProfilePhoto = File(getViewModel().selectedProfilePhoto.get()?.path),
-                gender = gender,
+//                gender = gender,
 //                nationality = country,
                 NationalityCode = country.code,
                 NationalityName = country.name,
@@ -297,12 +233,13 @@ class PersonalInfoFragment :
                 identityProvider = if (user.identityProvider == null) "" else user.identityProvider!!,
                 b2CFlow = if (user.b2CFlow == null) "" else user.b2CFlow!!,
                 profilePhotoUrl = user.profilePhotoUrl,
-                birthDate = birthDate,
+//                birthDate = birthDate,
                 emailAddress = if (user.emailAddress == null) "" else user.emailAddress!!,
                 workEmailAddress = if (user.workEmailAddress == null) "" else user.workEmailAddress!!,
                 isPersonalInfoCompleted = true,
                 isContactInfoCompleted = user.isContactInfoCompleted,
-                isPrivacyPolicyAgreed = user.isPrivacyPolicyAgreed,
+                isPrivacyPolicyAgreed = true,
+//                isPrivacyPolicyAgreed = user.isPrivacyPolicyAgreed,
                 isSendNotification = user.isSendNotification,
                 isDeviceConnected = user.isDeviceConnected,
                 isWelcomeEmailSent = user.isWelcomeEmailSent,
@@ -310,8 +247,14 @@ class PersonalInfoFragment :
                 isEmailVerified = user.isEmailVerified,
                 isWorkVerificationEmailSent = user.isWorkVerificationEmailSent,
                 isWorkEmailVerified = user.isWorkEmailVerified,
+                isPrivacySettingCompleted = user.isPrivacySettingCompleted,
 //                userDevices = if (user.userDevices!=null) user.userDevices!! else ArrayList<UserDevices>()
             )
+
+//            val bundle = Bundle()
+//            bundle.putBoolean(AppConstants.FROM.LOGIN,true)
+//            mNavController?.navigate(R.id.toPrivacyControlFragment,bundle)
+
             if (getViewModel().isFromEdit.get()) {
                 if (getViewModel().selectedProfilePhoto.get() != null && !getViewModel().selectedProfilePhoto.get()?.path.isNullOrEmpty()) {
                     getViewModel().updateUser(
@@ -322,7 +265,7 @@ class PersonalInfoFragment :
                     getViewModel().updateUser(userRequest)
                 }
             } else {
-                if (!user.isPersonalInfoCompleted && !user.isContactInfoCompleted) {
+                if (!user.isPersonalInfoCompleted) {
                     if (getViewModel().selectedProfilePhoto.get() != null && !getViewModel().selectedProfilePhoto.get()?.path.isNullOrEmpty()) {
                         getViewModel().createUser(
                             userRequest,
@@ -347,42 +290,12 @@ class PersonalInfoFragment :
 
     override fun onImageAvailable(imagePath: Uri?) {
         getViewModel().selectedProfilePhoto.set(imagePath)
+        mViewBinding!!.ivAddProfilePhoto.visible()
+        mViewBinding!!.linearAddPhoto.hide()
         mViewBinding!!.ivAddProfilePhoto.loadCircleImage(imagePath)
     }
 
     override fun onError() {
-    }
-
-    private fun selectDateOfBirth() {
-        val preSelectedCal = Calendar.getInstance()
-        if (getViewModel().birthYear.get() != null) {
-            preSelectedCal[Calendar.YEAR] = getViewModel().birthYear.get()!!
-            preSelectedCal[Calendar.MONTH] = getViewModel().birthMonth.get()!! - 1
-            preSelectedCal[Calendar.DAY_OF_MONTH] = getViewModel().birthDay.get()!!
-        } else{
-            preSelectedCal[Calendar.YEAR] = preSelectedCal[Calendar.YEAR]-18
-        }
-        val newFragment: DialogFragment =
-            DatePickerFragment(
-                isSetMinDate = false,
-                isSetCurrentDateMaxDate = true,
-                isMin18YearsOld = false,
-                dateSelectListener = this,
-                preSelectedCal = preSelectedCal
-            )
-        newFragment.show(requireActivity().supportFragmentManager, "datePicker")
-    }
-
-    override fun onDateSet(year: Int, month: Int, day: Int, forWhom: String) {
-        getViewModel().birthYear.set(year)
-        getViewModel().birthMonth.set(month)
-        getViewModel().birthDay.set(day)
-        getViewModel().birthDate.set(
-            DateTimeUtils.getDateFromDate(
-                "$year $month $day",
-                DateTimeUtils.dateFormatYYYY_MM_DD
-            )
-        )
     }
 
     private fun showSelectCountryDialog() {
@@ -419,7 +332,10 @@ class PersonalInfoFragment :
             onBack()
         } else {
             if (user != null) {
-                authFlow(user, true, wearableDeviceActivityResultLauncher, null)
+                val bundle = Bundle()
+                bundle.putBoolean(AppConstants.FROM.LOGIN,true)
+                mNavController?.navigate(R.id.toPrivacyControlFragment,bundle)
+//                authFlow(user, true, wearableDeviceActivityResultLauncher, null)
             } else {
                 navigateToLogin()
             }

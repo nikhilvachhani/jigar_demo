@@ -424,16 +424,23 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> :
             bundle.putBoolean(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED, false)
             mNavController?.navigate(R.id.toPersonalityInfoActivity, bundle)
             activity?.finish()
-        } else if (!user.isContactInfoCompleted) {
+        }else if (!user.isPrivacySettingCompleted) {
             val bundle = Bundle()
             bundle.putBoolean(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED, true)
-            if (isEnableNavigateToContactInfo) {
-                mNavController?.navigate(R.id.contactInfoFragment, bundle)
-            } else {
-                mNavController?.navigate(R.id.toPersonalityInfoActivity, bundle)
-                activity?.finish()
-            }
-        } else if (!getViewModel().getIsWearableDeviceSkip() && user.userDevices?.isEmpty() == true) {
+            mNavController?.navigate(R.id.toPersonalityInfoActivity, bundle)
+            activity?.finish()
+        }
+//        else if (!user.isContactInfoCompleted) {
+//            val bundle = Bundle()
+//            bundle.putBoolean(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED, true)
+//            if (isEnableNavigateToContactInfo) {
+//                mNavController?.navigate(R.id.contactInfoFragment, bundle)
+//            } else {
+//                mNavController?.navigate(R.id.toPersonalityInfoActivity, bundle)
+//                activity?.finish()
+//            }
+//        }
+        else if (!getViewModel().getIsWearableDeviceSkip() && user.userDevices?.isEmpty() == true) {
             val bundle = Bundle()
             val intent = Intent(requireContext(), WearableActivity::class.java)
             bundle.putString(AppConstants.EXTRAS.FROM, AppConstants.FROM.LOGIN)

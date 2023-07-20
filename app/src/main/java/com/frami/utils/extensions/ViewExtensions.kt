@@ -119,6 +119,10 @@ fun View.hide() {
     this.visibility = GONE
 }
 
+inline fun <T : View> T.onClick(crossinline func: T.() -> Unit) {
+    setOnClickListener { func() }
+}
+
 fun ViewGroup.inflate(@LayoutRes resourceId: Int): View {
     return LayoutInflater.from(this.context).inflate(resourceId, this, false)
 }

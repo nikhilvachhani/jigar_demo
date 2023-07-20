@@ -57,6 +57,8 @@ data class UserRequest(
     var isWorkEmailVerified: Boolean = false,
     @field:SerializedName("isWorkVerificationEmailSent")
     var isWorkVerificationEmailSent: Boolean = false,
+    @field:SerializedName("isPrivacySettingCompleted")
+    var isPrivacySettingCompleted: Boolean = false
 //    @field:SerializedName("userDevices")
 //    var userDevices: List<UserDevices> = ArrayList(),
 ) : Serializable {

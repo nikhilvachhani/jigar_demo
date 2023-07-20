@@ -61,35 +61,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
-            <!--            <com.google.android.material.card.MaterialCardView-->
-            <!--                android:id="@+id/cvBack"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="20dp"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:foreground="?android:selectableItemBackground"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:cardBackgroundColor="@color/white"-->
-            <!--                app:cardCornerRadius="@dimen/card_round_corner"-->
-            <!--                app:cardElevation="@dimen/card_elevation"-->
-            <!--                app:cardMaxElevation="@dimen/card_elevation"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent">-->
 
-            <!--                <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                    android:id="@+id/cvBack"-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:padding="12dp"-->
-            <!--                    android:layout_marginStart="20dp"-->
-            <!--                    android:src="@drawable/ic_back"-->
-            <!--                    tools:visibility="visible"-->
-            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                    app:layout_constraintStart_toStartOf="parent"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent"/>-->
-            <!--            </com.google.android.material.card.MaterialCardView>-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitle"
@@ -126,6 +98,20 @@
                 tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/cvClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_exit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cvDone"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cvDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,36 +125,6 @@
                 app:layout_constraintEnd_toStartOf="@id/cvSearch"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
-
-            <!--            <com.google.android.material.card.MaterialCardView-->
-            <!--                android:id="@+id/cvDone"-->
-            <!--                android:layout_width="?attr/actionBarSize"-->
-            <!--                android:layout_height="?attr/actionBarSize"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:foreground="?android:selectableItemBackground"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:cardCornerRadius="@dimen/card_round_corner"-->
-            <!--                app:cardElevation="@dimen/card_elevation"-->
-            <!--                app:cardMaxElevation="@dimen/card_elevation"-->
-            <!--                app:cardUseCompatPadding="true"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toStartOf="@id/cvSearch"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:visibility="visible">-->
-
-            <!--                <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                    android:id="@+id/cvDone"-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_gravity="center"-->
-            <!--                    android:src="@drawable/ic_done"-->
-            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                    app:layout_constraintEnd_toStartOf="@id/cvSearch"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent"-->
-            <!--                    android:tint="@color/colorSubHeaderText" />-->
-
-            <!--            </com.google.android.material.card.MaterialCardView>-->
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cvSearch"
@@ -212,37 +168,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
-            <!--            <com.google.android.material.card.MaterialCardView-->
-            <!--                android:id="@+id/cvSearch"-->
-            <!--                android:layout_width="?attr/actionBarSize"-->
-            <!--                android:layout_height="?attr/actionBarSize"-->
-            <!--                android:layout_marginEnd="4dp"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:foreground="?android:selectableItemBackground"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:cardCornerRadius="@dimen/card_round_corner"-->
-            <!--                app:cardElevation="@dimen/card_elevation"-->
-            <!--                app:cardMaxElevation="@dimen/card_elevation"-->
-            <!--                app:cardUseCompatPadding="true"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toStartOf="@id/cvChat"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:visibility="visible">-->
-
-            <!--                <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                    android:id="@+id/cvSearch"-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_gravity="center"-->
-            <!--                    android:src="@drawable/ic_search"-->
-            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                    app:layout_constraintEnd_toStartOf="@id/cvChat"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent"/>-->
-
-            <!--            </com.google.android.material.card.MaterialCardView>-->
-
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cvChat"
                 android:layout_width="wrap_content"
@@ -273,51 +198,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <!--            <com.google.android.material.card.MaterialCardView-->
-            <!--                android:id="@+id/cvChat"-->
-            <!--                android:layout_width="?attr/actionBarSize"-->
-            <!--                android:layout_height="?attr/actionBarSize"-->
-            <!--                android:layout_marginEnd="4dp"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:foreground="?android:selectableItemBackground"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:cardCornerRadius="@dimen/card_round_corner"-->
-            <!--                app:cardElevation="@dimen/card_elevation"-->
-            <!--                app:cardMaxElevation="@dimen/card_elevation"-->
-            <!--                app:cardUseCompatPadding="true"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toStartOf="@id/cvNotification"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:visibility="visible">-->
 
-            <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--                    android:id="@+id/cvChat"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="match_parent"-->
-            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                    app:layout_constraintEnd_toStartOf="@id/cvNotification"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-            <!--                    <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                        android:layout_width="wrap_content"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:src="@drawable/ic_chat"-->
-            <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                        app:layout_constraintStart_toStartOf="parent"-->
-            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--                    <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                        android:layout_width="wrap_content"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_marginTop="8dp"-->
-            <!--                        android:layout_marginEnd="8dp"-->
-            <!--                        android:src="@drawable/ic_dot"-->
-            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
-            <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-            <!--            </com.google.android.material.card.MaterialCardView>-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cvNotification"
@@ -349,50 +230,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <!--            <com.google.android.material.card.MaterialCardView-->
-            <!--                android:id="@+id/cvNotification"-->
-            <!--                android:layout_width="?attr/actionBarSize"-->
-            <!--                android:layout_height="?attr/actionBarSize"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:foreground="?android:selectableItemBackground"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:cardCornerRadius="@dimen/card_round_corner"-->
-            <!--                app:cardElevation="@dimen/card_elevation"-->
-            <!--                app:cardMaxElevation="@dimen/card_elevation"-->
-            <!--                app:cardUseCompatPadding="true"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:visibility="visible">-->
 
-            <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--                    android:id="@+id/cvNotification"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="match_parent"-->
-            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-            <!--                    <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                        android:layout_width="wrap_content"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:src="@drawable/ic_fi_notification"-->
-            <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                        app:layout_constraintStart_toStartOf="parent"-->
-            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--                    <androidx.appcompat.widget.AppCompatImageView-->
-            <!--                        android:layout_width="wrap_content"-->
-            <!--                        android:layout_height="wrap_content"-->
-            <!--                        android:layout_marginTop="8dp"-->
-            <!--                        android:layout_marginEnd="8dp"-->
-            <!--                        android:src="@drawable/ic_dot"-->
-            <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
-            <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-            <!--            </com.google.android.material.card.MaterialCardView>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.frami.utils.widget.toolbar.ERToolbar>
 </layout>

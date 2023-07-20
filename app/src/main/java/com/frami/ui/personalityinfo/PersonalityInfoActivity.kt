@@ -40,9 +40,9 @@ class PersonalityInfoActivity : BaseActivity<BaseActivityBinding, PersonalityInf
     private fun setupNavController() {
         val graph: NavGraph =
             mNavController!!.navInflater.inflate(R.navigation.nav_personality_info)
-        if (intent.extras != null && intent.extras!!.containsKey(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED)) {
-            if (intent.extras!!.getBoolean(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED, false)) {
-                graph.startDestination = R.id.contactInfoFragment
+        if (intent.extras != null) {
+            if (intent.extras!!.containsKey(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED) && intent.extras!!.getBoolean(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED, false)) {
+                graph.startDestination = R.id.privacyControlFragment
             }
         }
         mNavController!!.setGraph(graph, intent.extras)

@@ -64,6 +64,8 @@ data class User(
     var userDevices: List<UserDevices>? = ArrayList(),
     @field:SerializedName("userRoles")
     var userRoles: List<UserRoles>? = ArrayList(),
+    @field:SerializedName("isPrivacySettingCompleted")
+    var isPrivacySettingCompleted: Boolean = false
 ) : Serializable {
 
 }

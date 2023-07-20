@@ -73,6 +73,7 @@ import com.frami.ui.notification.NotificationFragmentViewModel
 import com.frami.ui.personalityinfo.PersonalityInfoViewModel
 import com.frami.ui.personalityinfo.contactinfo.ContactInfoFragmentViewModel
 import com.frami.ui.personalityinfo.personalinfo.PersonalInfoFragmentViewModel
+import com.frami.ui.personalityinfo.reagisteinfo.RegisterInfoFragmentViewModel
 import com.frami.ui.post.PostFragmentViewModel
 import com.frami.ui.post.create.CreatePostFragmentViewModel
 import com.frami.ui.rewards.addreward.AddRewardsFragmentViewModel
@@ -146,6 +147,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PersonalityInfoViewModel::class)
     abstract fun bindPersonalityInfoViewModel(myViewModel: PersonalityInfoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RegisterInfoFragmentViewModel::class)
+    abstract fun bindRegisterInfoFragmentViewModel(myViewModel: RegisterInfoFragmentViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -6,6 +6,6 @@ import com.frami.ui.base.BaseNavigator
 
 interface PrivacyControlFragmentNavigator :
     BaseNavigator {
-    fun userOptionsDataFetchSuccess(data: UserOptionsResponseData?)
+    fun userOptionsDataFetchSuccess(data: List<UserOptionsResponseData>?)
     fun privacyPreferenceDataFetchSuccess(data: PrivacyPreferenceResponseData?)
 }

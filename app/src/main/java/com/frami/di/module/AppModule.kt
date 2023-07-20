@@ -2,6 +2,7 @@ package com.frami.di.module
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.frami.BuildConfig
@@ -24,12 +25,19 @@ import com.frami.utils.rx.AppSchedulerProvider
 import com.frami.utils.rx.SchedulerProvider
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okio.Buffer
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -70,8 +78,24 @@ class AppModule {
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
 //            .addNetworkInterceptor(StethoInterceptor())
+//            .addInterceptor { chain -> forwardNext(chain)!! }
             .addInterceptor(HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) (HttpLoggingInterceptor.Level.BASIC) else (HttpLoggingInterceptor.Level.NONE)))
             .build()
+    }
+    @Throws(IOException::class)
+    fun forwardNext(chain: Interceptor.Chain): Response? {
+        val request: Request = chain.request()
+        Log.e("post_request", request.url().toString() + "")
+//        get Response Body sent by Repositary APT calls
+        if (request.body() != null){
+            val oldBody = request.body()
+            val buffer = Buffer()
+            oldBody!!.writeTo(buffer)
+            val strNewBody = buffer.readUtf8()
+            Log.e("post_request_new_body", "Without encryption enabled body $strNewBody")
+        }
+
+        return chain.proceed(request)
     }
 
     @Provides
@@ -109,6 +133,7 @@ class AppModule {
             AppDatabase::class.java,
             dbName
         ).fallbackToDestructiveMigration()
+//            .addMigrations(MIGRATION_1_2)
 //            .allowMainThreadQueries() //TODO Remove When Going to LIVE
             .build()
 

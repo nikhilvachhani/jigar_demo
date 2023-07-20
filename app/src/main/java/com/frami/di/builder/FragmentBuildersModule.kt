@@ -81,6 +81,7 @@ import com.frami.ui.loginsignup.option.LoginOptionFragment
 import com.frami.ui.notification.NotificationFragment
 import com.frami.ui.personalityinfo.contactinfo.ContactInfoFragment
 import com.frami.ui.personalityinfo.personalinfo.PersonalInfoFragment
+import com.frami.ui.personalityinfo.reagisteinfo.RegisterInfoFragment
 import com.frami.ui.post.PostFragment
 import com.frami.ui.post.create.CreatePostFragment
 import com.frami.ui.rewards.addreward.AddRewardsFragment
@@ -121,6 +122,9 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeNewLoginFragment(): LoginOptionFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeRegisterInfoFragment(): RegisterInfoFragment
 
     @ContributesAndroidInjector
     abstract fun contributePersonalInfoFragment(): PersonalInfoFragment

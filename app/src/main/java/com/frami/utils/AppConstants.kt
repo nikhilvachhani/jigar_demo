@@ -78,6 +78,7 @@ object AppConstants {
             const val IS_ABLE_TO_GO_BACK = "IS_ABLE_TO_GO_BACK"
             const val IS_LOGGED_IN_USER = "IS_LOGGED_IN_USER"
             const val IS_PERSONAL_INFO_COMPLETED = "is_personal_info_completed"
+            const val IS_PRIVACY_SETTING_COMPLETED = "is_privacy_setting_completed"
             const val CREATE_REQUEST = "CREATE_REQUEST"
             const val COMMUNITY_PHOTO_LIST = "COMMUNITY_PHOTO_LIST"
             const val CHALLENGE_PHOTO_LIST = "CHALLENGE_PHOTO_LIST"

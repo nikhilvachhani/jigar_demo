@@ -98,7 +98,7 @@
     <string name="terms_condition"><![CDATA[Terms & Condition]]></string>
     <string name="you_agree_t"><![CDATA[You agree to our terms of use and privacy policy. Terms of use & Privacy Policy]]></string>
     <string name="you_agree_while_login">You agree to the Terms of Service.\nview our Privacy Policy</string>
-    <string name="frami_would">FRAMI would like to send you relevant info about challenges, events and rewards</string>
+    <string name="frami_would">FRAMI can send me relevant information about challenges, events and rewards. (optional)</string>
     <string name="work_email_instruction_full">Add your work email to be enrolled into your employer’s community. You will have to verify through email sent to that work email. If the company does not have an active community for now, you will automatically be enrolled when/if it is created.</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
@@ -260,7 +260,7 @@
     <string name="content">Content</string>
     <string name="notifications">Notifications</string>
     <string name="change_password">Change Password</string>
-    <string name="privacy_controls">Privacy Controls</string>
+    <string name="privacy_controls">Privacy settings</string>
     <string name="delete_account">Delete account</string>
     <string name="deactivate_account">Deactivate account</string>
     <string name="content_sub_preferences">Whats your preferences? Based on what your interests are we will tailor content for you in the app</string>
@@ -534,4 +534,12 @@
     <string name="level">Level</string>
     <string name="see_all_activities"><u>See all activities</u></string>
     <string name="follow_tomas_rening_to_see_profile_details">Follow %1$s to see profile details</string>
+    <string name="register">Register</string>
+    <string name="read_terms_and_conditions">Read Terms and Conditions</string>
+    <string name="read_privacy_policy">Read Privacy Policy</string>
+    <string name="i_agree_to_terms_and_conditions_and_privacy_policy">I agree to Terms and Conditions and Privacy Policy</string>
+    <string name="please_accept_terms_and_condition">Please accept terms and condition</string>
+    <string name="last_name">Last name</string>
+    <string name="country">Country</string>
+    <string name="events_challenges_and_rewards_might_be_country_specific">Events, challenges and rewards might be country specific.</string>
 </resources>

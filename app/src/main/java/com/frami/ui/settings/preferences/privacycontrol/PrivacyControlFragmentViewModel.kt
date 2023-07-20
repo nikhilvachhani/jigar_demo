@@ -1,5 +1,6 @@
 package com.frami.ui.settings.preferences.privacycontrol
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.frami.data.DataManager
 import com.frami.data.model.challenge.EventTypeData
@@ -23,6 +24,8 @@ class PrivacyControlFragmentViewModel @Inject constructor(
     schedulerProvider,
     mCompositeDisposable
 ) {
+    var isFromLogin = ObservableBoolean(false)
+
     var privacyPreferenceResponseData = ObservableField<PrivacyPreferenceResponseData>()
     var selectedEventType = ObservableField<EventTypeData>()
     var selectedProfilePagePrivacy = ObservableField<PrivacyControlData>()
@@ -43,6 +46,7 @@ class PrivacyControlFragmentViewModel @Inject constructor(
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .subscribe({ response ->
+                getNavigator()?.hideLoading()
                 if (response != null) {
                     getNavigator()?.log("getUserOptionsAPI response>>> ${Gson().toJson(response)}")
                     if (response.isSuccess()) {
@@ -58,27 +62,6 @@ class PrivacyControlFragmentViewModel @Inject constructor(
         mCompositeDisposable.add(disposable)
     }
 
-    fun getPrivacyPreferenceAPI() {
-        val disposable: Disposable = getDataManager()
-            .getPrivacyPreferenceAPI()
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
-            .subscribe({ response ->
-                getNavigator()?.hideLoading()
-                if (response != null) {
-//                    getNavigator()?.log("getFollowingsAPI response>>> ${Gson().toJson(response)}")
-                    if (response.isSuccess()) {
-                        getNavigator()?.privacyPreferenceDataFetchSuccess(response.data)
-                    } else {
-                        getNavigator()?.showMessage(response.getMessage())
-                    }
-                }
-            }, { throwable ->
-                getNavigator()?.hideLoading()
-                getNavigator()?.handleError(throwable)
-            })
-        mCompositeDisposable.add(disposable)
-    }
 
     fun updatePrivacyPreferenceAPI(preferenceResponseData: PrivacyPreferenceResponseData) {
         getNavigator()?.showLoading()
