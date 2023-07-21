@@ -324,7 +324,7 @@ class PersonalInfoFragment :
             onBack()
         } else {
             if (user != null) {
-                authFlow(user, true, wearableDeviceActivityResultLauncher, null)
+                authFlow(user, true, null, null)
             } else {
                 navigateToLogin()
             }
@@ -343,19 +343,4 @@ class PersonalInfoFragment :
             }
         }
     }
-
-    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
-    var wearableDeviceActivityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-        ActivityResultCallback<ActivityResult> { result ->
-            getViewModel().isEnableNavigationToForward.set(true)
-            getViewModel().getUserInfo(true)
-//            getViewModel().getUserLiveData().observe(
-//                viewLifecycleOwner,
-//                Observer { user ->
-//                    if (user != null) {
-//                        authFlow(user, false, null)
-//                    }
-//                })
-        })
 }

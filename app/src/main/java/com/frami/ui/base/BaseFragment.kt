@@ -428,7 +428,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> :
             val bundle = Bundle()
             bundle.putBoolean(AppConstants.EXTRAS.IS_PERSONAL_INFO_COMPLETED, true)
             mNavController?.navigate(R.id.toPersonalityInfoActivity, bundle)
-            activity?.finish()
         }
 //        else if (!user.isContactInfoCompleted) {
 //            val bundle = Bundle()
@@ -492,10 +491,11 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> :
                     )
                 }
                 navigateToDashboard(bundle)
+                activity?.finish()
             } else {
                 navigateToDashboard(null)
+                activity?.finish()
             }
-            activity?.finish()
         }
     }
 
