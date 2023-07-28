@@ -36,6 +36,7 @@ class FeedAdapterNew(
         fun onActivityItemPress(data: ActivityData)
         fun onItemConnectDevice()
         fun onItemConnectEmployee()
+        fun viewAllChallenges()
         fun showChallengePopup(data: ChallengesData)
         fun showChallengeDetails(data: ChallengesData)
         fun showEventPopUp(data: EventsData)
@@ -197,6 +198,9 @@ class FeedAdapterNew(
                 val viewHolderHeader = holder as ViewHolderChallenge
                 if (!data.challenge.isNullOrEmpty()){
                     viewHolderHeader.itemBinding.rvChallenge.adapter = FeedChallengeAdapter(data.challenge!!,mListener)
+                    viewHolderHeader.itemBinding.tvViewAllChallenges.onClick {
+                        mListener?.viewAllChallenges()
+                    }
                 }
 
             }

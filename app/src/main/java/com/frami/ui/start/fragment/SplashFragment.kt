@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
@@ -79,28 +80,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashFragmentViewMod
         setAppColor()
         clickListener()
         init()
-//        getViewModel().getApplicationOptionsAPI()
-
-        val user = AppDatabase.db.userDao().getById()
-        if (user != null) {
-            logFirebaseEvent(
-                AnalyticsLogger.TAG_SPLASH,
-                "splash navigateToNextScreen authFlow USER NOT NULL"
-            )
-            getViewModel().user.set(user)
-            authFlow(
-                user,
-                false,
-                wearableDeviceActivityResultLauncher,
-                arguments
-            )
-        } else {
-            logFirebaseEvent(
-                AnalyticsLogger.TAG_SPLASH,
-                "splash navigateToNextScreen navigateToLogin USER IS NULL"
-            )
-            navigateToLogin()
-        }
+        getViewModel().getApplicationOptionsAPI()
     }
 
     fun init() {
@@ -294,7 +274,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashFragmentViewMod
 //                            })
 
                         val user = AppDatabase.db.userDao().getById()
-                        if (user != null) {
+                        if (user != null && getViewModel().getDataManager().getAccessToken().isNotEmpty()) {
                             logFirebaseEvent(
                                 AnalyticsLogger.TAG_SPLASH,
                                 "splash navigateToNextScreen authFlow USER NOT NULL"
@@ -303,7 +283,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashFragmentViewMod
                             authFlow(
                                 user,
                                 false,
-                                wearableDeviceActivityResultLauncher,
+                                null,
                                 arguments
                             )
                         } else {
@@ -364,16 +344,17 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashFragmentViewMod
     }
 
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
-    var wearableDeviceActivityResultLauncher = registerForActivityResult(
+    /*var wearableDeviceActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ActivityResultCallback<ActivityResult> { result ->
             log("wearableDeviceActivityResultLauncher result>>> ${Gson().toJson(result)}")
+
             if (result.resultCode == Activity.RESULT_OK) {
                 getViewModel().getUserInfo(true)
             } else {
                 requireActivity().finishAffinity()
             }
-        })
+        })*/
 
     private fun refreshToken() {
         logFirebaseEvent(AnalyticsLogger.TAG_SPLASH, "splash refreshToken")

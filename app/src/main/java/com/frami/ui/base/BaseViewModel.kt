@@ -234,8 +234,14 @@ abstract class BaseViewModel<N : BaseNavigator>(
         return getDataManager().getTokenExpiresOn()
     }
 
-    fun clearAllData() {
-        getDataManager().clearAllData()
+    private fun clearAllData() {
+        val disposable = getDataManager().clearAllData()
+            .subscribeOn(getScheduleProvider().io())
+            .observeOn(getScheduleProvider().ui())
+            .subscribe {
+                getNavigator()?.logoutSuccess()
+            }
+        getCompositeDisposable().add(disposable)
     }
 
     fun saveIsAppTutorialDone(isDone: Boolean) {
@@ -425,7 +431,6 @@ abstract class BaseViewModel<N : BaseNavigator>(
             })
         mCompositeDisposable.add(disposable)
     }
-
     fun logoutAPI() {
         val disposable: Disposable = getDataManager()
             .logoutAPI(LogoutRequest(CommonUtils.getDeviceId()))
@@ -434,7 +439,7 @@ abstract class BaseViewModel<N : BaseNavigator>(
             .subscribe({ response ->
                 if (response != null) {
 //                    getNavigator()?.log("Activity Types response>>> ${Gson().toJson(response)}")
-                    getNavigator()?.logoutSuccess()
+                    clearAllData()
                     if (response.isSuccess()) {
                     } else {
                         getNavigator()?.showMessage(response.getMessage())

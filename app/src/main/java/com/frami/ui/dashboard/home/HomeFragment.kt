@@ -160,10 +160,12 @@ class HomeFragment :
         if (isFreshCall) {
             listAdapter.data = ArrayList()
             getViewModel().setContinuousToken(null)
+            getViewModel().getUserInfo(true)
         } else {
             setIsLoadMore(true)
+            getViewModel().getHomeFeedAPI()
         }
-        getViewModel().getUserInfo(true)
+
 //        getViewModel().getUserProfileAPI(getViewModel().getUserId())
 
     }
@@ -643,6 +645,9 @@ class HomeFragment :
 
     override fun onProfileIconPress(data: ActivityData) {
         navigateToUserProfile(data.userId)
+    }
+    override fun viewAllChallenges() {
+        mNavController?.navigate(R.id.toChallengeCategoryListFragment)
     }
     override fun onItemConnectDevice() {
         val bundle = Bundle()
