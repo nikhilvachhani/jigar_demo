@@ -86,6 +86,12 @@ interface PreferencesHelper {
     fun getCurrentLiveAppVersion(): Int
     fun setCurrentLiveAppVersion(version: Int)
 
+    fun isHideConnectDevice(): Boolean
+    fun hideConnectDevice(value: Boolean)
+
+    fun isHideConnectEmployee(): Boolean
+    fun hideConnectEmployee(value: Boolean)
+
     //Garmin
 //    fun saveGarminOAuthToken(text: String)
 //    fun getGarminOAuthToken(): String

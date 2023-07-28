@@ -221,7 +221,7 @@ class UserActivityFragment :
             }
         }
         val activityTypesList = ArrayList<ActivityTypes>()
-        activityTypesList.add(getViewModel().getActivityTypeAllSelected())
+        getViewModel().getActivityTypeAllSelected()?.let { activityTypesList.add(it) }
         data.activityTypeFilters.let { activityTypesList.addAll(it) }
         if (activityTypeAdapter == null || getViewModel().isDurationChanged.get()) {
             activityTypeAdapter = ActivityTypeAdapter(activityTypesList, this)

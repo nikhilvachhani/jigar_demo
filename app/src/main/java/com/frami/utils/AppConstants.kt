@@ -526,6 +526,8 @@ object AppConstants {
             const val EVENT = 3
             const val REWARD = 4
             const val COMMUNITY = 5
+
+            const val USER_DATA = 6
         }
     }
 

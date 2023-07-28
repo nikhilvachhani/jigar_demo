@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="userProfileData"
+            type="com.frami.data.model.user.User" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:background="@color/screen_bg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/conAttr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@color/white"
+            android:paddingStart="@dimen/activity_margin_20">
+
+            <View
+                android:id="@+id/viewDividerPoints"
+                android:layout_width="0dp"
+                android:layout_height="0.1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPointsDescLable"
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/points_to_next_level"
+                android:textColor="@color/medium_light_green"
+                android:textSize="@dimen/text_size_xsmall"
+                app:layout_constraintStart_toEndOf="@+id/viewPointLeft"
+                app:layout_constraintTop_toBottomOf="@id/viewDividerPoints"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPointsDesc"
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_points_next_level"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="@{userProfileData != null &amp;&amp; !TextUtils.isEmpty(userProfileData.pointToNextLevel) ? String.valueOf(userProfileData.pointToNextLevel) : ``}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLevelLableDesc"
+                app:layout_constraintStart_toStartOf="@id/tvPointsDescLable"
+                app:layout_constraintTop_toTopOf="@+id/tvLevelLableDesc"
+                tools:text="234"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLevelLable"
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/level"
+                android:textColor="@color/medium_light_green"
+                android:textSize="@dimen/text_size_xsmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvPointsDescLable"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLevelLableDesc"
+                style="@style/TextViewStyleBold"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/circular_shape_bg_dark_green"
+                android:gravity="center"
+                android:maxLength="2"
+                android:text="@{userProfileData != null ? String.valueOf(userProfileData.level) : ``}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
+                app:layout_constraintStart_toStartOf="@id/tvLevelLable"
+                app:layout_constraintTop_toBottomOf="@id/tvLevelLable"
+                tools:text="2"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/viewPointLeft"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:background="@color/light_green_divider"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPointsDesc"
+                app:layout_constraintStart_toEndOf="@+id/tvLevelLable"
+                app:layout_constraintTop_toTopOf="@+id/tvPointsDescLable"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/viewPointRight"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:background="@color/light_green_divider"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPointsDesc"
+                app:layout_constraintStart_toEndOf="@+id/tvPointsDescLable"
+                app:layout_constraintTop_toTopOf="@+id/tvPointsDescLable"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTotalPointsLable"
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="6dp"
+                android:gravity="center_vertical"
+                android:text="@string/total_points"
+                android:textColor="@color/medium_light_green"
+                android:textSize="@dimen/text_size_xsmall"
+                app:layout_constraintEnd_toStartOf="@+id/imgForward"
+                app:layout_constraintStart_toEndOf="@+id/viewPointRight"
+                app:layout_constraintTop_toTopOf="@+id/tvPointsDescLable"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTotalPoints"
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:drawableStart="@drawable/ic_total_points"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:text="@{userProfileData != null ? String.valueOf(userProfileData.totalPoints) : ``}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLevelLableDesc"
+                app:layout_constraintEnd_toStartOf="@+id/imgForward"
+                app:layout_constraintStart_toStartOf="@id/tvTotalPointsLable"
+                app:layout_constraintTop_toTopOf="@+id/tvLevelLableDesc"
+                tools:text="234"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgForward"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/viewDividerPointsBottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/viewDividerPoints"
+                app:srcCompat="@drawable/ic_forward_big" />
+
+            <View
+                android:id="@+id/viewDividerPointsBottom"
+                android:layout_width="0dp"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPointRight"
+                tools:visibility="visible" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearConnectEmployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,390:190"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_connect_employee_bg" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imgBg"
+                app:srcCompat="@drawable/ic_connect_employee_forground2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="132dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineCenterVerticle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                app:layout_constraintBottom_toBottomOf="@+id/guidelineCenter"
+                app:layout_constraintStart_toStartOf="@+id/guidelineCenterVerticle"
+                app:srcCompat="@drawable/ic_intro_2_2" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imgBg"
+                app:srcCompat="@drawable/ic_connect_employee_forground1" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBg"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:id="@+id/imgConnectEmployee"
+                app:layout_constraintTop_toTopOf="@+id/imgBg"
+                app:srcCompat="@drawable/ic_forward_big"
+                app:tint="@color/lightPink" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvConnectEmployee"
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:paddingHorizontal="@dimen/margin_20"
+                android:text="@string/connect_nwith_your_employee"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_xxxlarge30"
+                app:layout_constraintBottom_toTopOf="@+id/tvConnectEmployeeHide"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvConnectEmployeeHide"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:paddingHorizontal="@dimen/margin_20"
+                android:text="@string/hide"
+                android:textColor="@color/light_green_divider"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBg"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearConnectDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            tools:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBgDevice"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,390:90"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_connect_device_bg" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBgDevice"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:id="@+id/imgConnectDevice"
+                app:layout_constraintTop_toTopOf="@+id/imgBgDevice"
+                app:srcCompat="@drawable/ic_forward_big"
+                app:tint="@color/dark_green" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvConnectDevice"
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/margin_20"
+                android:text="@string/connect_your_wearable"
+                android:textColor="@color/dark_green1"
+                android:textSize="@dimen/text_size_xlarge"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/tvConnectDeviceHide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvConnectDeviceHide"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="@dimen/margin_20"
+                android:text="@string/hide"
+                android:textColor="@color/dark_green1"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintTop_toBottomOf="@+id/tvConnectDevice"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBgDevice"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

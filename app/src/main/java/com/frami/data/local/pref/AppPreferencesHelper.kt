@@ -42,6 +42,8 @@ class AppPreferencesHelper @Inject constructor(
         private const val PREF_ABOUT_URL = "pref_about_url"
         private const val PREF_FAQ_URL = "pref_faq_url"
         private const val PREF_APP_LIVE_VERSION = "pref_app_live_version"
+        private const val PREF_HIDE_CONNECT_DEVICE = "pref_hide_connect_device"
+        private const val PREF_HIDE_CONNECT_EMPLOYEE = "pref_hide_connect_employee"
 
     }
 
@@ -254,5 +256,21 @@ class AppPreferencesHelper @Inject constructor(
 
     override fun setCurrentLiveAppVersion(version: Int) {
         mPrefs.edit().putInt(PREF_APP_LIVE_VERSION, version).apply()
+    }
+
+    override fun isHideConnectDevice(): Boolean {
+        return mPrefs.getBoolean(PREF_HIDE_CONNECT_DEVICE, false)
+    }
+
+    override fun hideConnectDevice(value: Boolean) {
+        mPrefs.edit().putBoolean(PREF_HIDE_CONNECT_DEVICE, value).apply()
+    }
+
+    override fun isHideConnectEmployee(): Boolean {
+        return mPrefs.getBoolean(PREF_HIDE_CONNECT_EMPLOYEE, false)
+    }
+
+    override fun hideConnectEmployee(value: Boolean) {
+        mPrefs.edit().putBoolean(PREF_HIDE_CONNECT_EMPLOYEE, value).apply()
     }
 }

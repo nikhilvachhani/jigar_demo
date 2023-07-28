@@ -79,7 +79,28 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashFragmentViewMod
         setAppColor()
         clickListener()
         init()
-        getViewModel().getApplicationOptionsAPI()
+//        getViewModel().getApplicationOptionsAPI()
+
+        val user = AppDatabase.db.userDao().getById()
+        if (user != null) {
+            logFirebaseEvent(
+                AnalyticsLogger.TAG_SPLASH,
+                "splash navigateToNextScreen authFlow USER NOT NULL"
+            )
+            getViewModel().user.set(user)
+            authFlow(
+                user,
+                false,
+                wearableDeviceActivityResultLauncher,
+                arguments
+            )
+        } else {
+            logFirebaseEvent(
+                AnalyticsLogger.TAG_SPLASH,
+                "splash navigateToNextScreen navigateToLogin USER IS NULL"
+            )
+            navigateToLogin()
+        }
     }
 
     fun init() {

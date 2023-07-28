@@ -1552,8 +1552,13 @@ abstract class BaseViewModel<N : BaseNavigator>(
 //        )
     }
 
-    fun getActivityTypeAllSelected(): ActivityTypes {
-        return getActivityTypeAll().also { it.isSelected = true }
+    fun getActivityTypeAllSelected(): ActivityTypes? {
+        val activity = getActivityTypeAll()
+        return if (activity != null){
+            activity.also { it.isSelected = true }
+        }else{
+            null
+        }
     }
 
     fun getEmptyActivity(activity: Activity): EmptyData {

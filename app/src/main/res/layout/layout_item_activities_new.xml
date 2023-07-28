@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.home.adapter.ActivityAdapter">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.home.ActivityData" />
+
+        <variable
+            name="activityPhotos"
+            type="String" />
+    </data>
+
+    <merge tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPhoto"
+                loadCircleImage="@{data.profilePhotoUrl}"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/activity_margin_20"
+                android:layout_marginTop="@dimen/activity_margin_20"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_user" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUseName"
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:text="@{data.userName}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintBottom_toTopOf="@+id/ivActivityPhoto"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                app:layout_constraintTop_toTopOf="@+id/ivPhoto"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivActivityPhoto"
+                loadActivityTypeImage="@{data.activityType.icon}"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPhoto"
+                app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                app:layout_constraintTop_toBottomOf="@id/tvUseName"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:tint="@color/dark_green"
+                tools:src="@drawable/ic_all" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvActivityType"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{data.getActivityTypeAndDate()}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_xsmall"
+                app:layout_constraintBottom_toBottomOf="@+id/ivActivityPhoto"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivActivityPhoto"
+                app:layout_constraintTop_toTopOf="@+id/ivActivityPhoto"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin_20"
+                android:layout_marginTop="@dimen/activity_margin_20"
+                android:text="@{data.activityTitle}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
+                android:visibility="@{data.activityTitle != null ? data.activityTitle.empty?View.GONE:View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescription"
+                style="@style/TextViewStyleRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin_20"
+                android:layout_marginTop="6dp"
+                android:text="@{data.description}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="@{data.description != null ? data.description.empty?View.GONE:View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="@string/na" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearAttr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_margin_20"
+                android:layout_marginTop="@dimen/activity_margin_20"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/inactiveThemeColor" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:text="@string/points"
+                        android:textColor="@color/medium_light_green"
+                        android:textSize="@dimen/text_size_xsmall"
+                        tools:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:drawableStart="@drawable/ic_total_points"
+                        android:drawablePadding="4dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:text="@{String.valueOf(data.totalPoints)}"
+                        android:textColor="@color/dark_green"
+                        android:textSize="@dimen/text_size_regular"
+                        tools:text="234"
+                        tools:visibility="visible" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/inactiveThemeColor" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1.3"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:text="@string/time"
+                        android:textColor="@color/medium_light_green"
+                        android:textSize="@dimen/text_size_xsmall"
+                        tools:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:text="@{String.valueOf(data.time)}"
+                        android:textColor="@color/dark_green"
+                        android:textSize="@dimen/text_size_regular"
+                        tools:text="57m 23s"
+                        tools:visibility="visible" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/inactiveThemeColor" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1.1"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:text="@string/distancee"
+                        android:textColor="@color/medium_light_green"
+                        android:textSize="@dimen/text_size_xsmall"
+                        tools:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:text="@{String.valueOf(data.distance)}"
+                        android:textColor="@color/dark_green"
+                        android:textSize="@dimen/text_size_regular"
+                        tools:text="57m 23s"
+                        tools:visibility="visible" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgSingle"
+                loadImage="@{activityPhotos}"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="@dimen/activity_margin_20"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/linearAttr"
+                tools:visibility="visible" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpImages"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="@dimen/activity_margin_20"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/imgSingle"
+                tools:visibility="gone" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearCheer"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/activity_margin_20"
+                android:visibility="@{data.applauseCount > 0?View.VISIBLE:View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vpImages">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="3dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@{String.valueOf(data.applauseCount)+``}"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_xsmall"
+                    tools:text="12" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    loadDrawable="@{data.isApplauseGiven ? @drawable/ic_cheered_new : @drawable/ic_cheer_new}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    tools:src="@drawable/ic_cheered_new"
+                    tools:visibility="visible" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearComment"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/activity_margin_20"
+                android:visibility="@{data.commentsCount > 0?View.VISIBLE:View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vpImages">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="3dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@{String.valueOf(data.commentsCount)+``}"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_xsmall"
+                    tools:text="12" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/ic_comment_new" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierCounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierAllowsGoneWidgets="true"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="linearComment,linearCheer,imgSingle,vpImages" />
+
+            <View
+                android:id="@+id/viewDivider1"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/screen_bg"
+                android:visibility="@{data.applauseCount > 0 || data.commentsCount > 0?View.VISIBLE:View.GONE}"
+                app:layout_constraintTop_toBottomOf="@+id/barrierCounts" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearCheerDo"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/activity_margin_20"
+                app:layout_constraintEnd_toStartOf="@+id/linearCommentDo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewDivider1">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    loadDrawable="@{data.isApplauseGiven ? @drawable/ic_cheered_new : @drawable/ic_cheer_new}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    tools:src="@drawable/ic_cheered_new"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/cheer"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="40dp"
+                android:background="@color/screen_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewDivider1" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearCommentDo"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/activity_margin_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearCheerDo"
+                app:layout_constraintTop_toBottomOf="@+id/viewDivider1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_comment_new" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/comment"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </merge>
+</layout>

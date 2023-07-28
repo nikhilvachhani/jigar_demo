@@ -45,6 +45,17 @@ open class ActivityData(
     var commentList: List<CommentData> = ArrayList(),
     @field:SerializedName("viewType")
     var viewType: Int = 0,
+
+    @field:SerializedName("exertion")
+    var exertion: Int? = 1,
+    @field:SerializedName("totalPoints")
+    var totalPoints: Int? = null,
+    @field:SerializedName("time")
+    var time: String? = null,
+    @field:SerializedName("distance")
+    var distance: String? = null,
+    @field:SerializedName("description")
+    var description: String? = null
 ) : Serializable {
     constructor() : this(
         activityId = "",
@@ -65,10 +76,21 @@ open class ActivityData(
         startDateTimeLocalDevice = "",
         startDateTimeUTC = "",
         commentList = ArrayList(),
-        viewType = 0
+        exertion = 1,
+        viewType = 0,
+        totalPoints = 0,
+        time = null,
+        distance = null
     )
 
     fun getDate() = startDateTimeUTC?.let { DateTimeUtils.getActivityDate(it) }
+    fun getActivityTypeAndDate() :String? {
+        return if (activityType?.name.isNullOrEmpty()){
+            startDateTimeUTC?.let { DateTimeUtils.getActivityDate(it) }
+        }else{
+            activityType?.name.plus(", ").plus(startDateTimeUTC?.let { DateTimeUtils.getActivityDate(it) })
+        }
+    }
 
     fun isLoggedInUser() = AppDatabase.db.userDao().getById()?.userId == userId
 

@@ -1,20 +1,10 @@
 package com.frami.ui.dashboard.home
 
-import android.graphics.Typeface
+import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +23,7 @@ import com.frami.data.model.post.PostData
 import com.frami.data.model.post.RelatedPostItemData
 import com.frami.data.model.rewards.RewardsData
 import com.frami.data.model.rewards.RewardsDetails
+import com.frami.data.model.user.User
 import com.frami.databinding.FragmentHomeBinding
 import com.frami.ui.base.BaseFragment
 import com.frami.ui.challenges.details.ChallengeDetailsDialog
@@ -41,30 +32,24 @@ import com.frami.ui.common.SelectPeriodDialog
 import com.frami.ui.community.details.CommunityDetailsDialog
 import com.frami.ui.community.details.PartnerCommunityPostConfirmationDialog
 import com.frami.ui.community.details.SubCommunityDetailsDialog
-import com.frami.ui.dashboard.home.adapter.ActivityCardAttributeAdapter
-import com.frami.ui.dashboard.home.adapter.ActivitySummaryAdapter
-import com.frami.ui.dashboard.home.adapter.ActivityTypeAdapter
-import com.frami.ui.dashboard.home.adapter.FeedAdapter
+import com.frami.ui.dashboard.home.adapter.*
 import com.frami.ui.dashboard.rewards.details.RewardActivateConfirmationDialog
 import com.frami.ui.dashboard.rewards.details.RewardDetailsDialog
 import com.frami.ui.dashboard.rewards.details.SeeRewardCodeDialog
 import com.frami.ui.events.details.EventDetailsDialog
 import com.frami.ui.followers.requestdailog.FollowRequestAcceptConfirmationDialog
+import com.frami.ui.settings.wearable.WearableActivity
 import com.frami.utils.AppConstants
 import com.frami.utils.extensions.visible
-import com.frami.utils.widget.toolbar.CustomTypefaceSpan
-import com.github.mikephil.charting.charts.BarChart
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 
 
 class HomeFragment :
     BaseFragment<FragmentHomeBinding, HomeFragmentViewModel>(),
     HomeFragmentNavigator, SelectPeriodDialog.OnDialogActionListener,
     ActivityTypeAdapter.OnItemClickListener,
-    FeedAdapter.OnItemClickListener, ChallengeDetailsDialog.OnDialogActionListener,
+    FeedAdapterNew.OnItemClickListener, ChallengeDetailsDialog.OnDialogActionListener,
     EventDetailsDialog.OnDialogActionListener,
     FollowRequestAcceptConfirmationDialog.OnDialogActionListener,
     CommunityDetailsDialog.OnDialogActionListener, RewardDetailsDialog.OnDialogActionListener,
@@ -83,7 +68,7 @@ class HomeFragment :
     override fun getViewModel(): HomeFragmentViewModel = viewModelInstance
 
     private var activityTypeAdapter: ActivityTypeAdapter? = null
-    private lateinit var listAdapter: FeedAdapter
+    private lateinit var listAdapter: FeedAdapterNew
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -110,12 +95,12 @@ class HomeFragment :
     }
 
     private fun init() {
-        listAdapter = FeedAdapter(ArrayList<FeedViewTypes>(), this)
+        listAdapter = FeedAdapterNew(ArrayList(), this,getViewModel().getDataManager())
         mViewBinding!!.rvActivity.adapter = listAdapter
 
 //        mViewBinding!!.slidingLayout.panelState = PanelState.ANCHORED
 //        mViewBinding!!.slidingLayout.setScrollableViewHelper(NestedScrollableViewHelper())
-        mViewBinding!!.slidingLayout.addPanelSlideListener(object :
+        /*mViewBinding!!.slidingLayout.addPanelSlideListener(object :
             SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {
                 Log.i("TAG", "onPanelSlide, offset $slideOffset")
@@ -136,18 +121,18 @@ class HomeFragment :
             ) {
                 Log.i("TAG", "onPanelStateChanged $newState")
             }
-        })
+        })*/
 
 //        Handler().postDelayed(
 //            { mViewBinding!!.slidingLayout.panelState = PanelState.ANCHORED },
 //            2000
 //        )
 
-        mViewBinding!!.swipeRefreshLayout.setOnRefreshListener {
+        /*mViewBinding!!.swipeRefreshLayout.setOnRefreshListener {
             setRefreshEnableDisable(true)
             applyFilterAndCallAPI()
             callAPI(true)
-        }
+        }*/
         callAPI(true)
         mViewBinding!!.swipeRefreshLayout2.setOnRefreshListener {
             setRefreshEnableDisable(true)
@@ -178,7 +163,9 @@ class HomeFragment :
         } else {
             setIsLoadMore(true)
         }
-        getViewModel().getHomeFeedAPI()
+        getViewModel().getUserInfo(true)
+//        getViewModel().getUserProfileAPI(getViewModel().getUserId())
+
     }
 
     private fun setIsLoadMore(isLoading: Boolean) {
@@ -186,7 +173,7 @@ class HomeFragment :
     }
 
     private fun setRefreshEnableDisable(isRefreshing: Boolean) {
-        mViewBinding!!.swipeRefreshLayout.isRefreshing = isRefreshing
+//        mViewBinding!!.swipeRefreshLayout.isRefreshing = isRefreshing
         mViewBinding!!.swipeRefreshLayout2.isRefreshing = isRefreshing
         getViewModel().isRefreshing.set(isRefreshing)
     }
@@ -218,18 +205,18 @@ class HomeFragment :
     }
 
     private fun clickListener() {
-        mViewBinding!!.tvPeriod.setOnClickListener {
-            showPeriodDialog()
-        }
+//        mViewBinding!!.tvPeriod.setOnClickListener {
+//            showPeriodDialog()
+//        }
     }
 
-    private fun getBarChart(): BarChart {
-        return mViewBinding!!.stackedBarChart
-    }
-
-    private fun getEmptyBarChart(): BarChart {
-        return mViewBinding!!.stackedBarEmpty
-    }
+//    private fun getBarChart(): BarChart {
+//        return mViewBinding!!.stackedBarChart
+//    }
+//
+//    private fun getEmptyBarChart(): BarChart {
+//        return mViewBinding!!.stackedBarEmpty
+//    }
 
 //    private fun getLineChart(): LineChart {
 //        return mViewBinding!!.lineChart
@@ -279,19 +266,19 @@ class HomeFragment :
         data.let { itResponseData ->
             if (isAdded) {
                 setUnreadBadgeCount(itResponseData.notificationCount)
-                getBarChart().removeAllViews().also {
-                    getBarChart().invalidate()
-                    getBarChart().data = null
-                }.also {
-                    initChart(getBarChart(), itResponseData, getViewModel().durationSelected.get())
-                }
-                getEmptyBarChart().removeAllViews()
-                getEmptyBarChart().invalidate()
-                initChart(getEmptyBarChart(), null, getViewModel().durationSelected.get())
+//                getBarChart().removeAllViews().also {
+//                    getBarChart().invalidate()
+//                    getBarChart().data = null
+//                }.also {
+//                    initChart(getBarChart(), itResponseData, getViewModel().durationSelected.get())
+//                }
+//                getEmptyBarChart().removeAllViews()
+//                getEmptyBarChart().invalidate()
+//                initChart(getEmptyBarChart(), null, getViewModel().durationSelected.get())
                 //                initLineChart(getLineChart(), it)
             }
         }
-        if (isAdded)
+        /*if (isAdded)
             if (data.totalActivityCount == 0) {
                 setCardOverViewTextTotalActivityCountZero()
             } else if (data.filteredActivityCount == 0) {
@@ -305,50 +292,63 @@ class HomeFragment :
             getViewModel().isDurationChanged.set(false)
         }
         mViewBinding!!.rvActivityTypes.adapter = activityTypeAdapter
+        mViewBinding!!.rvSummary.adapter = ActivitySummaryAdapter(data.activitiesSummary)
 
-        mViewBinding!!.rvSummary.adapter =
-            ActivitySummaryAdapter(data.activitiesSummary)
-
-//        val activityList = ArrayList<ActivityData>()
-//        activityList.add(getViewModel().getActivityHandle())
-//        data.activities?.onEachIndexed { _, activityData ->
-//            activityData.viewType = AppConstants.HOME_VIEW_TYPE.ACTIVITY
-//        }
-//        data.activities.let { it?.let { it1 -> activityList.addAll(it1) } }
-//        mViewBinding!!.rvActivity.adapter = ActivityAdapter(activityList, this)
+        val activityList = ArrayList<ActivityData>()
+        activityList.add(getViewModel().getActivityHandle())
+        data.activities?.onEachIndexed { _, activityData ->
+            activityData.viewType = AppConstants.HOME_VIEW_TYPE.ACTIVITY
+        }
+        data.activities.let { it?.let { it1 -> activityList.addAll(it1) } }
+        mViewBinding!!.rvActivity.adapter = ActivityAdapter(activityList, this)
 
         data.activityCardData.let {
             getViewModel().activityCardData.set(it)
-            mViewBinding!!.rvAttributes.adapter =
-                ActivityCardAttributeAdapter(it.attributes)
+            mViewBinding!!.rvAttributes.adapter = ActivityCardAttributeAdapter(it.attributes)
+        }*/
+    }
+//    override fun userProfileFetchSuccess(data: UserProfileData?) {
+//        if (data == null) return
+//        log("UserProfileData>> ${Gson().toJson(data)}")
+//        getViewModel().userProfileData.set(data)
+//        getViewModel().getHomeFeedAPI()
+//    }
+    override fun userInfoFetchSuccess(user: User?) {
+        if (user != null) {
+            log("UserInfoData>> ${Gson().toJson(user)}")
+            getViewModel().userProfileData.set(user)
+            getViewModel().getHomeFeedAPI()
         }
     }
+    override fun homeFeedDataFetchSuccess(feedList: List<FeedDataNew>?) {
+        val list : ArrayList<FeedDataNew> = arrayListOf()
 
-    override fun homeFeedDataFetchSuccess(list: List<FeedViewTypes>?) {
-        val homeFeedList = ArrayList<FeedViewTypes>()
-        if (listAdapter.data.isEmpty() || !getViewModel().isLoadMore.get()) {
-            homeFeedList.add(getViewModel().getFeedHandle())
-            if (isAdded) {
-                if (!getViewModel().isLoadMore.get())
-                    mViewBinding!!.slidingLayout.panelState = PanelState.ANCHORED
-            }
-        }
+//        if (listAdapter.data.isEmpty() || !getViewModel().isLoadMore.get()) {
+//            homeFeedList.add(getViewModel().getFeedHandle())
+//            if (isAdded) {
+//                if (!getViewModel().isLoadMore.get())
+//                    mViewBinding!!.slidingLayout.panelState = PanelState.ANCHORED
+//            }
+//        }
 //        if (list == null) return
-        list?.let {
+        feedList?.let {
             getViewModel().isFeedEmpty.set(it.isEmpty())
-            homeFeedList.addAll(it)
+            list.addAll(it)
         }
 
         if (getViewModel().isLoadMore.get()) {
-            listAdapter.appendData(homeFeedList)
+            listAdapter.appendData(list)
         } else {
-            listAdapter.data = homeFeedList
+            val data = FeedDataNew()
+            data.userProfileData = getViewModel().userProfileData.get()
+            list.add(0,data)
+            listAdapter.data = list
         }
         setIsLoadMore(false)
         setRefreshEnableDisable(false)
     }
 
-    private fun setCardOverViewTextTotalActivityCountZero() {
+    /*private fun setCardOverViewTextTotalActivityCountZero() {
         val spannableString = SpannableString(getString(R.string.card_overview))
         val createClick: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
@@ -422,7 +422,7 @@ class HomeFragment :
         }
         mViewBinding!!.tvCardOverView.movementMethod = LinkMovementMethod.getInstance()
         mViewBinding!!.tvCardOverView.setText(spannableString, TextView.BufferType.SPANNABLE)
-    }
+    }*/
 //    private fun setCardOverViewTextTotalActivityCountZero() {
 //        val spannableString = SpannableString(getString(R.string.card_overview))
 //        val addClick: ClickableSpan = object : ClickableSpan() {
@@ -502,7 +502,7 @@ class HomeFragment :
 //        mViewBinding!!.tvCardOverView.setText(spannableString, TextView.BufferType.SPANNABLE)
 //    }
 
-    private fun setCardOverViewTextFilteredActivityCountZero() {
+    /*private fun setCardOverViewTextFilteredActivityCountZero() {
         val analysisDuration =
             if (getViewModel().activityResponseData.get() != null) getViewModel().activityResponseData.get()?.analysisDuration
             else getViewModel().durationSelected.get()?.name?.lowercase()
@@ -639,10 +639,25 @@ class HomeFragment :
         }
         mViewBinding!!.tvCardOverView.movementMethod = LinkMovementMethod.getInstance()
         mViewBinding!!.tvCardOverView.setText(spannableString, TextView.BufferType.SPANNABLE)
-    }
+    }*/
 
     override fun onProfileIconPress(data: ActivityData) {
         navigateToUserProfile(data.userId)
+    }
+    override fun onItemConnectDevice() {
+        val bundle = Bundle()
+        val intent = Intent(requireContext(), WearableActivity::class.java)
+//        bundle.putString(AppConstants.EXTRAS.FROM, AppConstants.FROM.LOGIN)
+        bundle.putString(AppConstants.EXTRAS.FROM, "")
+        intent.putExtras(bundle)
+        wearableDeviceActivityResultLauncher.launch(intent)
+    }
+    var wearableDeviceActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        getViewModel().getUserInfo(true)
+    }
+
+    override fun onItemConnectEmployee() {
+
     }
 
     override fun onApplauseIconPress(data: ActivityData, adapterPosition: Int) {

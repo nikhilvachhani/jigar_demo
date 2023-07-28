@@ -423,7 +423,7 @@ class AppDataManager @Inject constructor(
         return apiHelper.getHomeActivityAPI(getActivityRequest, userId)
     }
 
-    override fun getHomeFeedAPI(): Single<HomeFeedResponse> {
+    override fun getHomeFeedAPI(): Single<HomeFeedNewResponse> {
         return apiHelper.getHomeFeedAPI()
     }
 
@@ -1406,5 +1406,21 @@ class AppDataManager @Inject constructor(
 
     override fun setCurrentLiveAppVersion(version: Int) {
         mPreferencesHelper.setCurrentLiveAppVersion(version)
+    }
+
+    override fun isHideConnectDevice(): Boolean {
+        return mPreferencesHelper.isHideConnectDevice()
+    }
+
+    override fun hideConnectDevice(value: Boolean) {
+        mPreferencesHelper.hideConnectDevice(value)
+    }
+
+    override fun isHideConnectEmployee(): Boolean {
+        return mPreferencesHelper.isHideConnectEmployee()
+    }
+
+    override fun hideConnectEmployee(value: Boolean) {
+        mPreferencesHelper.hideConnectEmployee(value)
     }
 }

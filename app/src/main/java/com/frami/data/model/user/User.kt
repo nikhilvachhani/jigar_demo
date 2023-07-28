@@ -65,7 +65,16 @@ data class User(
     @field:SerializedName("userRoles")
     var userRoles: List<UserRoles>? = ArrayList(),
     @field:SerializedName("isPrivacySettingCompleted")
-    var isPrivacySettingCompleted: Boolean = false
+    var isPrivacySettingCompleted: Boolean = false,
+    @field:SerializedName("isEmployerConnected")
+    var isEmployerConnected: Boolean = false,
+
+    @field:SerializedName("totalPoints")
+    var totalPoints: Int,
+    @field:SerializedName("level")
+    var level: String?,
+    @field:SerializedName("pointToNextLevel")
+    var pointToNextLevel: String?
 ) : Serializable {
 
 }

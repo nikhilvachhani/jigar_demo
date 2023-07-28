@@ -45,7 +45,7 @@ data class UserProfileData(
     @field:SerializedName("spendPoints")
     var spendPoints: Int,
     @field:SerializedName("userFollowStatus")
-    var userFollowStatus: String?,
+    var userFollowStatus: String?
 ) : Serializable {
 
     fun isMyProfile() = userId == AppDatabase.db.userDao().getById()?.userId

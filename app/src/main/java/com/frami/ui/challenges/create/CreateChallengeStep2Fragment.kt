@@ -555,7 +555,7 @@ class CreateChallengeStep2Fragment :
 //            getViewModel().activityTypesList.set(list)
 //            getViewModel().selectedActivityType.set(list[0])
             val activityTypesList = ArrayList<ActivityTypes>()
-            activityTypesList.add(getViewModel().getActivityTypeAllSelected())
+            getViewModel().getActivityTypeAllSelected()?.let { activityTypesList.add(it) }
             activityTypesList.addAll(list)
             getViewModel().selectedActivityTypes.set(activityTypesList[0])
             getViewModel().activityTypesList.set(activityTypesList)

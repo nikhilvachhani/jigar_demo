@@ -9,6 +9,7 @@ import com.frami.data.model.follower.sendfollow.SendFollowRequest
 import com.frami.data.model.home.ActivityCardData
 import com.frami.data.model.home.ActivityResponseData
 import com.frami.data.model.home.request.GetActivityRequest
+import com.frami.data.model.user.User
 import com.frami.ui.base.BaseViewModel
 import com.frami.utils.AppConstants
 import com.frami.utils.rx.SchedulerProvider
@@ -26,6 +27,7 @@ class HomeFragmentViewModel @Inject constructor(
     schedulerProvider,
     mCompositeDisposable
 ) {
+    var userProfileData = ObservableField<User>()
     var durationSelected = ObservableField<AppConstants.DURATION>(AppConstants.DURATION.WEEKLY)
     var isDurationChanged = ObservableBoolean(false)
     var activityCardData = ObservableField<ActivityCardData>()

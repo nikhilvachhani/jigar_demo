@@ -497,7 +497,7 @@ class CreateCommunityStep2Fragment :
     override fun activityTypesFetchSuccessfully(list: List<ActivityTypes>) {
         if (list.isNotEmpty()) {
             val activityTypesList = ArrayList<ActivityTypes>()
-            activityTypesList.add(getViewModel().getActivityTypeAllSelected())
+            getViewModel().getActivityTypeAllSelected()?.let { activityTypesList.add(it) }
             activityTypesList.addAll(list)
             getViewModel().selectedActivityTypes.set(activityTypesList[0])
             getViewModel().activityTypesList.set(activityTypesList)

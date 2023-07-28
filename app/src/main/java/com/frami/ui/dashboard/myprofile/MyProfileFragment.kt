@@ -408,16 +408,14 @@ class MyProfileFragment :
             }
         }
         val activityTypesList = ArrayList<ActivityTypes>()
-        activityTypesList.add(getViewModel().getActivityTypeAllSelected())
+        getViewModel().getActivityTypeAllSelected()?.let { activityTypesList.add(it) }
         data.activityTypeFilters.let { activityTypesList.addAll(it) }
-        Log.e("jigarLogs","activityTypesList = "+Gson().toJson(activityTypesList))
         if (activityTypeAdapter == null || getViewModel().isDurationChanged.get()) {
             activityTypeAdapter = ActivityTypeAdapter(activityTypesList, this)
             mViewBinding!!.rvActivityTypes.adapter = activityTypeAdapter
             getViewModel().isDurationChanged.set(false)
         }
 
-        Log.e("jigarLogs","activitiesSummary = "+Gson().toJson(data.activitiesSummary))
         mViewBinding!!.rvSummary.adapter =
             ActivitySummaryAdapter(data.activitiesSummary)
 

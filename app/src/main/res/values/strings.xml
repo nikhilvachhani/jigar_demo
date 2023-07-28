@@ -112,6 +112,7 @@
     <string name="activity">Activity</string>
     <string name="km">km</string>
     <string name="distance">Distance:</string>
+    <string name="distancee">Distance</string>
     <string name="time">Time</string>
     <string name="elev_gain">Elev Gain</string>
     <string name="join_now">JOIN NOW</string>
@@ -542,4 +543,10 @@
     <string name="last_name">Last name</string>
     <string name="country">Country</string>
     <string name="events_challenges_and_rewards_might_be_country_specific">Events, challenges and rewards might be country specific.</string>
+    <string name="cheer">Cheer</string>
+    <string name="explore_challenges">Explore challenges</string>
+    <string name="view_all_challenges"><u>View all challenges</u></string>
+    <string name="hide"><u>Hide</u></string>
+    <string name="connect_nwith_your_employee">Connect\nwith your employee</string>
+    <string name="connect_your_wearable">Connect your wearable</string>
 </resources>

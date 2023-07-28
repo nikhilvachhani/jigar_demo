@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class ActivityDetailsData(
-    @field:SerializedName("description")
-    var description: String? = "",
     @field:SerializedName("isManual")
     var isManual: Boolean = false,
     @field:SerializedName("isMyActivity")
@@ -21,8 +19,6 @@ class ActivityDetailsData(
     var participants: List<ParticipantData> = ArrayList(),
     @field:SerializedName("isSocialActivityInvitationActive")
     var isSocialActivityInvitationActive: Boolean = false,
-    @field:SerializedName("exertion")
-    var exertion: Int? = 1,
     @field:SerializedName("isAccessible")
     var isAccessible: Boolean? = true,
 ) : ActivityData(), Serializable {

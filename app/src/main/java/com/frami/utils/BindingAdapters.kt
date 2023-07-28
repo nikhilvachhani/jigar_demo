@@ -178,6 +178,11 @@ object BindingAdapters {
             e.printStackTrace()
         }
     }
+    @BindingAdapter("loadDrawable")
+    @JvmStatic
+    fun loadDrawable(imageView: AppCompatImageView, resourceId: Drawable) {
+        imageView.setImageDrawable(resourceId)
+    }
 
     @BindingAdapter("loadGif")
     @JvmStatic

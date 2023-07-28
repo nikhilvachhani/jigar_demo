@@ -95,7 +95,8 @@ object ApiEndPoint {
         BuildConfig.DOMAIN + "activity" + BuildConfig.DOMAIN_SUFFIX
     private const val BASE_URL_ACTIVITY: String = BASE_URL_ACTIVITY_API + "Activity/"
     const val ENDPOINT_ACTIVITY_HOME = BASE_URL_ACTIVITY + "Home/"
-    const val ENDPOINT_ACTIVITY_FEED = ENDPOINT_ACTIVITY_HOME + "Feed"
+//    const val ENDPOINT_ACTIVITY_FEED = ENDPOINT_ACTIVITY_HOME + "Feed"
+    const val ENDPOINT_ACTIVITY_FEED = ENDPOINT_ACTIVITY_HOME + "ActivityFeed"
     const val ENDPOINT_ACTIVITY_ALL = BASE_URL_ACTIVITY + "All"
     const val ENDPOINT_ACTIVITY_OWN = BASE_URL_ACTIVITY + "Own/"
     const val ENDPOINT_ACTIVITY_CREATE = BASE_URL_ACTIVITY + "Create"

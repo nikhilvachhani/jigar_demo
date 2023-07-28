@@ -44,10 +44,7 @@ import com.frami.data.model.follower.sendfollow.SendFollowRequestResponse
 import com.frami.data.model.garmin.GarminRequestTokenResponse
 import com.frami.data.model.garmin.GarminUserAccessTokenResponse
 import com.frami.data.model.garmin.request.GarminUserAccessTokenRequest
-import com.frami.data.model.home.ActivityDetailResponse
-import com.frami.data.model.home.ActivityResponse
-import com.frami.data.model.home.EditActivityDetailResponse
-import com.frami.data.model.home.HomeFeedResponse
+import com.frami.data.model.home.*
 import com.frami.data.model.home.request.GetActivityForChallengeRequest
 import com.frami.data.model.home.request.GetActivityRequest
 import com.frami.data.model.invite.InviteParticipantResponse
@@ -170,7 +167,7 @@ interface ApiHelper {
             getActivityRequest: GetActivityRequest, userId: String
     ): Single<ActivityResponse>
 
-    fun getHomeFeedAPI(): Single<HomeFeedResponse>
+    fun getHomeFeedAPI(): Single<HomeFeedNewResponse>
 
     fun getAllActivityAPI(getActivityRequest: GetActivityRequest): Single<ActivityResponse>
     fun getOwnActivityAPI(

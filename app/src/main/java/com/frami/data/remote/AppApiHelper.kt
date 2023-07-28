@@ -48,10 +48,7 @@ import com.frami.data.model.follower.sendfollow.SendFollowRequestResponse
 import com.frami.data.model.garmin.GarminRequestTokenResponse
 import com.frami.data.model.garmin.GarminUserAccessTokenResponse
 import com.frami.data.model.garmin.request.GarminUserAccessTokenRequest
-import com.frami.data.model.home.ActivityDetailResponse
-import com.frami.data.model.home.ActivityResponse
-import com.frami.data.model.home.EditActivityDetailResponse
-import com.frami.data.model.home.HomeFeedResponse
+import com.frami.data.model.home.*
 import com.frami.data.model.home.request.GetActivityForChallengeRequest
 import com.frami.data.model.home.request.GetActivityRequest
 import com.frami.data.model.invite.InviteParticipantResponse
@@ -583,12 +580,12 @@ class AppApiHelper @Inject constructor(
         return rxRequest.build().getObjectSingle(ActivityResponse::class.java)
     }
 
-    override fun getHomeFeedAPI(): Single<HomeFeedResponse> {
+    override fun getHomeFeedAPI(): Single<HomeFeedNewResponse> {
         val rxRequest: Rx2ANRequest.GetRequestBuilder =
                 Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_ACTIVITY_FEED)
                         .addHeaders(mApiHeader.getApiHeader())
         saveContinuousTokenForLoadMore(rxRequest)
-        return rxRequest.build().getObjectSingle(HomeFeedResponse::class.java)
+        return rxRequest.build().getObjectSingle(HomeFeedNewResponse::class.java)
     }
 
     override fun getAllActivityAPI(getActivityRequest: GetActivityRequest): Single<ActivityResponse> {

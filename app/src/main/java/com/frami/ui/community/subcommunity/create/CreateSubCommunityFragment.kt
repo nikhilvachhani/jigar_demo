@@ -321,7 +321,7 @@ class CreateSubCommunityFragment :
 //            getViewModel().activityTypesList.set(list)
 //            getViewModel().selectedActivityType.set(list[0])
             val activityTypesList = ArrayList<ActivityTypes>()
-            activityTypesList.add(getViewModel().getActivityTypeAllSelected())
+            getViewModel().getActivityTypeAllSelected()?.let { activityTypesList.add(it) }
             activityTypesList.addAll(list)
             getViewModel().activityTypesList.set(activityTypesList)
             getViewModel().selectedActivityTypes.set(activityTypesList[0])
