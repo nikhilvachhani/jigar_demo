@@ -113,8 +113,6 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
 
     private fun clickListener() {
         mViewBinding!!.tvSkip.setOnClickListener {
-            //TODO
-//            getViewModel().saveIsAppTutorialDone(true)
             mNavController?.navigate(R.id.toLoginSignupActivity)
             activity?.finish() //Added because popUpToInclusive="true" not working properly
         }
@@ -143,6 +141,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
     }
 
     override fun onLoginSuccess(result: IAuthenticationResult) {
+        getViewModel().saveIsAppTutorialDone(true)
         getViewModel().setAccessToken(result.accessToken)
         getViewModel().setTokenExpiresOn(result.expiresOn.time)
         getViewModel().validateUser()
