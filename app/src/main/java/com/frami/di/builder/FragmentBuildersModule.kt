@@ -95,6 +95,7 @@ import com.frami.ui.settings.preferences.about.AboutUsFragment
 import com.frami.ui.settings.preferences.cms.CMSFragment
 import com.frami.ui.settings.preferences.contactus.ContactUsFragment
 import com.frami.ui.settings.preferences.contentpreference.ContentPreferenceFragment
+import com.frami.ui.settings.preferences.email.EmailSettingsFragment
 import com.frami.ui.settings.preferences.map.MapVisibilityPreferenceFragment
 import com.frami.ui.settings.preferences.notificationpreference.NotificationPreferenceFragment
 import com.frami.ui.settings.preferences.notificationpreference.specific.SpecificNotificationPreferenceFragment
@@ -377,4 +378,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeFullScreenImageSliderFragment(): FullScreenImageSliderFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeEmailSettingsFragment(): EmailSettingsFragment
 }

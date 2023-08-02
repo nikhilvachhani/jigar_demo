@@ -53,6 +53,7 @@ import com.frami.data.model.home.request.GetActivityForChallengeRequest
 import com.frami.data.model.home.request.GetActivityRequest
 import com.frami.data.model.invite.InviteParticipantResponse
 import com.frami.data.model.lookup.ActivityOptionsResponse
+import com.frami.data.model.lookup.ActivityTypesOptionResponse
 import com.frami.data.model.lookup.ActivityTypesResponse
 import com.frami.data.model.lookup.CountryResponse
 import com.frami.data.model.lookup.application.ApplicationOptionsResponse
@@ -78,6 +79,7 @@ import com.frami.data.model.profile.logout.LogoutRequest
 import com.frami.data.model.rewards.*
 import com.frami.data.model.rewards.history.RewardPointHistoryResponse
 import com.frami.data.model.rewards.request.RewardAddToFavouriteRequest
+import com.frami.data.model.settings.EmailSettingRequest
 import com.frami.data.model.settings.help.ContactUsRequest
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponse
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponseData
@@ -154,6 +156,14 @@ class AppApiHelper @Inject constructor(
                         .addHeaders(mApiHeader.getApiHeader())
 
         return rxRequest.build().getObjectSingle(ActivityTypesResponse::class.java)
+    }
+
+    override fun getActivityTypesContentPrefrencesAPI(): Single<ActivityTypesOptionResponse> {
+        val rxRequest: Rx2ANRequest.GetRequestBuilder =
+                Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_LOOKUP_ACTIVITY_TYPES_CONTENT_PREFERENCES)
+                        .addHeaders(mApiHeader.getApiHeader())
+
+        return rxRequest.build().getObjectSingle(ActivityTypesOptionResponse::class.java)
     }
 
     override fun getGroupedActivityTypesAPI(): Single<ActivityTypesResponse> {
@@ -457,6 +467,20 @@ class AppApiHelper @Inject constructor(
                         .addHeaders(mApiHeader.getApiHeader())
                         .addApplicationJsonBody(verificationEmailRequest)
         return rxRequest.build().getObjectSingle(BaseResponse::class.java)
+    }
+    override fun updateWorkMail(email: String): Single<BaseResponse> {
+        val rxRequest: Rx2ANRequest.GetRequestBuilder =
+            Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_UPDATE_WORK_EMAIL + email)
+                .addHeaders(mApiHeader.getApiHeader())
+
+        return rxRequest.build().getObjectSingle(BaseResponse::class.java)
+    }
+    override fun updateEMailSetting(request: EmailSettingRequest): Single<UserResponse> {
+        val rxRequest: Rx2ANRequest.PostRequestBuilder =
+            Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_UPDATE_EMAIL_SETTING)
+                .addHeaders(mApiHeader.getApiHeader())
+                .addApplicationJsonBody(request)
+        return rxRequest.build().getObjectSingle(UserResponse::class.java)
     }
 
     override fun logoutAPI(logoutRequest: LogoutRequest): Single<BaseResponse> {

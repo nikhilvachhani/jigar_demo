@@ -56,10 +56,7 @@ import com.frami.data.model.home.*
 import com.frami.data.model.home.request.GetActivityForChallengeRequest
 import com.frami.data.model.home.request.GetActivityRequest
 import com.frami.data.model.invite.InviteParticipantResponse
-import com.frami.data.model.lookup.ActivityOptionsResponse
-import com.frami.data.model.lookup.ActivityTypesResponse
-import com.frami.data.model.lookup.CountryData
-import com.frami.data.model.lookup.CountryResponse
+import com.frami.data.model.lookup.*
 import com.frami.data.model.lookup.application.ApplicationOptionsResponse
 import com.frami.data.model.lookup.challenges.ChallengesOptionsResponse
 import com.frami.data.model.lookup.community.CommunityOptionsResponse
@@ -83,6 +80,7 @@ import com.frami.data.model.profile.logout.LogoutRequest
 import com.frami.data.model.rewards.*
 import com.frami.data.model.rewards.history.RewardPointHistoryResponse
 import com.frami.data.model.rewards.request.RewardAddToFavouriteRequest
+import com.frami.data.model.settings.EmailSettingRequest
 import com.frami.data.model.settings.help.ContactUsRequest
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponse
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponseData
@@ -308,6 +306,9 @@ class AppDataManager @Inject constructor(
             }
             return@label Single.just(response)
         }
+    }
+    override fun getActivityTypesContentPrefrencesAPI(): Single<ActivityTypesOptionResponse> {
+        return apiHelper.getActivityTypesContentPrefrencesAPI()
     }
 
     override fun getGroupedActivityTypesAPI(): Single<ActivityTypesResponse> {
@@ -585,6 +586,13 @@ class AppDataManager @Inject constructor(
 
     override fun verifyEmail(verificationEmailRequest: VerificationEmailRequest): Single<BaseResponse> {
         return apiHelper.verifyEmail(verificationEmailRequest)
+    }
+
+    override fun updateWorkMail(email: String): Single<BaseResponse>{
+        return apiHelper.updateWorkMail(email)
+    }
+    override fun updateEMailSetting(request: EmailSettingRequest): Single<UserResponse> {
+        return apiHelper.updateEMailSetting(request)
     }
 
     /*REWARDS*/

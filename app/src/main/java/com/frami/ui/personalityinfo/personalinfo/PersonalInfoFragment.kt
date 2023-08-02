@@ -152,12 +152,14 @@ class PersonalInfoFragment :
         mViewBinding!!.toolBarLayout.cvBack.visible()
         mViewBinding!!.toolBarLayout.cvBack.setImageResource(R.drawable.ic_back_new)
         mViewBinding!!.toolBarLayout.tvTitle.hide()
-        mViewBinding?.toolBarLayout?.cvBack?.setOnClickListener { logout() }
+
         if (getViewModel().isFromEdit.get()) {
-            mViewBinding!!.toolBarLayout.cvDone.visible()
-            mViewBinding!!.toolBarLayout.cvDone.setOnClickListener { validateDataAndCallAPI() }
+            mViewBinding?.toolBarLayout?.tvSave?.visible()
+            mViewBinding?.toolBarLayout?.tvSave?.onClick { validateDataAndCallAPI() }
+            mViewBinding?.toolBarLayout?.cvBack?.setOnClickListener { onBack() }
         }else{
             mViewBinding?.btnNext?.onClick { validateDataAndCallAPI() }
+            mViewBinding?.toolBarLayout?.cvBack?.setOnClickListener { logout() }
         }
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
     }
@@ -177,6 +179,7 @@ class PersonalInfoFragment :
 
     private fun clickListener() {
         mViewBinding!!.ivAddProfilePhoto.setOnClickListener(this)
+        mViewBinding!!.tvEditPhoto.setOnClickListener(this)
         mViewBinding!!.linearAddPhoto.setOnClickListener(this)
         mViewBinding!!.linCountry.setOnClickListener(this)
         mViewBinding!!.btnNext.setOnClickListener(this)
@@ -185,7 +188,7 @@ class PersonalInfoFragment :
     //    lateinit var  singleBuilder: SingleDateAndTimePickerDialog.Builder
     override fun onClick(view: View?) {
         when (view) {
-            mViewBinding!!.ivAddProfilePhoto, mViewBinding!!.linearAddPhoto -> {
+            mViewBinding!!.ivAddProfilePhoto, mViewBinding!!.linearAddPhoto, mViewBinding!!.tvEditPhoto -> {
                 ImagePickerActivity.showImageChooser(requireActivity(), this)
             }
             mViewBinding!!.linCountry -> {

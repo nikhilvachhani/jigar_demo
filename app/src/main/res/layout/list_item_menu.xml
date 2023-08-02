@@ -40,9 +40,8 @@
                 android:layout_gravity="center"
                 android:maxWidth="40dp"
                 android:maxHeight="40dp"
-                android:padding="8dp"
                 android:src="@{data.icon}"
-                android:tint="@color/colorSubHeaderText"
+                android:tint="@color/dark_green"
                 android:visibility="@{data.icon != null ? View.VISIBLE:View.GONE}"
                 tools:src="@drawable/ic_challenge" />
 
@@ -52,11 +51,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawableEnd="@{data.isShowForward ? @drawable/ic_forward : null}"
+                android:drawableEnd="@{data.isShowForward ? @drawable/ic_forward_big : null}"
+                tools:drawableEnd="@drawable/ic_forward_big"
                 android:gravity="start|center_vertical"
-                android:padding="10dp"
+                android:paddingVertical="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@{data.value}"
-                android:textColor="@color/colorSubHeaderText"
+                android:textColor="@color/dark_green"
                 android:textSize="@dimen/text_size_medium"
                 android:visibility="@{type == AppConstants.IDNAME_VIEW_TYPE.SETTINGS ? View.GONE:View.VISIBLE}"
                 app:drawablePadding="@{data.isShowForward ? @dimen/drawable_padding : @dimen/no_padding}"
@@ -67,17 +68,17 @@
                 tools:text="@string/na" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TextViewStyleRegular"
+                style="@style/TextViewStyleBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawableEnd="@{data.isShowForward ? @drawable/ic_forward : null}"
+                android:drawableEnd="@{data.isShowForward ? @drawable/ic_forward_big : null}"
                 android:gravity="start|center_vertical"
                 android:padding="10dp"
                 android:text="@{data.value}"
-                android:textColor="@color/colorSubHeaderText"
-                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
                 android:visibility="@{type == AppConstants.IDNAME_VIEW_TYPE.SETTINGS ? View.VISIBLE:View.GONE, default=gone}"
                 app:drawablePadding="@{data.isShowForward ? @dimen/drawable_padding : @dimen/no_padding}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="6dp"
-            android:background="@color/dividerF4"
+            android:background="@color/dividerNew"
             app:layout_constraintTop_toBottomOf="@id/llMenu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

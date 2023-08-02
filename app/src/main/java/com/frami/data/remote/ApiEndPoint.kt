@@ -17,7 +17,8 @@ object ApiEndPoint {
 
     const val ENDPOINT_VALIDATE_USER = BASE_URL_USER + "ValidateUser"
     const val ENDPOINT_CREATE_USER = BASE_URL_USER + "Create"
-    const val ENDPOINT_UPDATE_USER = BASE_URL_USER + "Update"
+//    const val ENDPOINT_UPDATE_USER = BASE_URL_USER + "Update"
+    const val ENDPOINT_UPDATE_USER = BASE_URL_USER + "UpdateUserInfo"
     const val ENDPOINT_USER_INFO = BASE_URL_USER + "UserInfo/"
     const val ENDPOINT_DELETE_USER = BASE_URL_USER + "Delete/"
     const val ENDPOINT_USERPROFILE = BASE_URL_USER + "UserProfile/"
@@ -37,6 +38,8 @@ object ApiEndPoint {
     const val ENDPOINT_UPDATE_CONTENT_PREFERENCE = BASE_URL_USER + "UpdateUserContentInfo"
     const val ENDPOINT_UPDATE_FCMTOKEN = BASE_URL_USER + "UpdateFCMToken"
     const val ENDPOINT_VERIFY_EMAIL = BASE_URL_USER + "SendEmail"
+    const val ENDPOINT_UPDATE_WORK_EMAIL = BASE_URL_USER + "UpdateWorkMail/"
+    const val ENDPOINT_UPDATE_EMAIL_SETTING = BASE_URL_USER + "UpdateEmailSetting"
     const val ENDPOINT_LOGOUT = BASE_URL_USER + "Logout"
     const val ENDPOINT_USER_GET_PARTICIPANTS = BASE_URL_USER + "GetParticipants/"
     const val ENDPOINT_REWARD_POINT_HISTORY = BASE_URL_USER + "UserPoints"
@@ -76,6 +79,7 @@ object ApiEndPoint {
         BuildConfig.DOMAIN + "lookup" + BuildConfig.DOMAIN_SUFFIX
     const val ENDPOINT_LOOKUP_COUNTRY = BASE_URL_LOOKUP + "Country/Countries"
     const val ENDPOINT_LOOKUP_ACTIVITY_TYPES = BASE_URL_LOOKUP + "Activity/ActivityTypes"
+    const val ENDPOINT_LOOKUP_ACTIVITY_TYPES_CONTENT_PREFERENCES = BASE_URL_LOOKUP + "Activity/ActivityTypesContentPrefrences"
     const val ENDPOINT_LOOKUP_GROUPED_ACTIVITY_TYPES =
         BASE_URL_LOOKUP + "Activity/GroupedActivityTypes"
     const val ENDPOINT_LOOKUP_ACTIVITY_OPTIONS = BASE_URL_LOOKUP + "Activity/Options"

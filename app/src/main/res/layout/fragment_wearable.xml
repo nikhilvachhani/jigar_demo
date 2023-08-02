@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightBg">
+        android:background="@color/screen_bg">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineTop"
@@ -66,11 +66,13 @@
             android:layout_marginTop="10dp"
             android:gravity="start|center_vertical"
             android:maxLines="1"
-            android:text="@{vm.isFromLogin ? @string/connect_device : @string/wearables}"
+            android:text="@{vm.isFromLogin ? @string/connect_device : @string/device_and_applications}"
+            android:textColor="@color/dark_green"
             android:textSize="@dimen/text_size_xxlarge"
             app:layout_constraintEnd_toStartOf="@id/tvSkip"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/toolBarLayout" />
+            app:layout_constraintTop_toBottomOf="@id/toolBarLayout"
+            tools:text="@string/device_and_applications" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSkip"
@@ -87,61 +89,76 @@
             app:layout_constraintTop_toTopOf="@id/tvTitle"
             tools:text="@string/skip" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clTOP"
-            android:layout_width="0dp"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_bottom_sheet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineStartInner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTOP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineEndInner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineStartInner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvSubTitle"
-                style="@style/TextViewStyleRegular"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@{vm.isFromLogin ?@string/garmin_subtitle_first_time:@string/garmin_subtitle_from_wearable_screen}"
-                android:textColor="@color/colorSubHeaderText"
-                android:textSize="@dimen/text_size_small"
-                app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
-                app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/garmin_subtitle_first_time" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineEndInner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
-                app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
-                app:layout_constraintTop_toBottomOf="@id/tvSubTitle"
-                tools:itemCount="3"
-                tools:listitem="@layout/list_item_wearable" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSubTitle"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@{vm.isFromLogin ?@string/garmin_subtitle_first_time:@string/garmin_subtitle_from_wearable_screen}"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_regular"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/garmin_subtitle_first_time" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                    app:layout_constraintTop_toBottomOf="@id/tvSubTitle"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_item_wearable" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEndInner"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartInner"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+                    android:text="@string/device_connect_bottom_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

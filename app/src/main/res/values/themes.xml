@@ -279,7 +279,7 @@
     </style>
 
     <style name="BorderlessButton.ThemeColor" parent="@style/Widget.BorderlessButton">
-        <item name="android:backgroundTint">@color/themeColor</item>
+        <item name="android:backgroundTint">@color/dark_green</item>
     </style>
 
     <style name="BorderlessButton.DividerF4" parent="@style/Widget.BorderlessButton">

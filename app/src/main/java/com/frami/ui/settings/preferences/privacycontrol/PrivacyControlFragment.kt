@@ -73,7 +73,18 @@ class PrivacyControlFragment :
         mViewBinding!!.toolBarLayout.cvSearch.hide()
         mViewBinding!!.toolBarLayout.cvBack.visible()
         mViewBinding!!.toolBarLayout.cvBack.setImageResource(R.drawable.ic_back_new)
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
+        mViewBinding?.toolBarLayout?.tvSave?.onClick {
+            mViewBinding?.btnNext?.performClick()
+        }
+
+        if (getViewModel().isFromLogin.get()) {
+            mViewBinding?.btnNext?.visible()
+            mViewBinding?.toolBarLayout?.tvSave?.hide()
+        }else{
+            mViewBinding?.btnNext?.hide()
+            mViewBinding?.toolBarLayout?.tvSave?.visible()
+        }
     }
 
     private fun handleBackPress() {

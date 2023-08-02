@@ -7,6 +7,7 @@
     <color name="lightThemeColor">#BAE0D5</color>
     <color name="lightThemeColor_2">#C4E5DB</color>
     <color name="lightButtonBg">#F2FBF7</color>
+    <color name="dividerNew">#B1DCCF</color>
 
     <!--    <color name="inactiveColor">#D9E8E7</color>-->
     <color name="inactiveThemeColor">#9DD3C3</color>

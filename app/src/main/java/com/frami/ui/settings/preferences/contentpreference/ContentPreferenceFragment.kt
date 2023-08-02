@@ -1,6 +1,7 @@
 package com.frami.ui.settings.preferences.contentpreference
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -8,16 +9,20 @@ import com.frami.BR
 import com.frami.R
 import com.frami.data.model.content.ContentPreferenceResponseData
 import com.frami.data.model.home.ActivityTypes
+import com.frami.data.model.lookup.ActivityTypesOption
 import com.frami.databinding.FragmentContentPreferenceBinding
 import com.frami.ui.base.BaseFragment
-import com.frami.ui.common.SelectActivityTypesDialog
+import com.frami.ui.settings.preferences.contentpreference.adapter.ContentPreferenceListAdapter
 import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
+import com.google.gson.Gson
 
 
 class ContentPreferenceFragment :
     BaseFragment<FragmentContentPreferenceBinding, ContentPreferenceFragmentViewModel>(),
-    ContentPreferenceFragmentNavigator, SelectActivityTypesDialog.OnDialogActionListener {
+    ContentPreferenceFragmentNavigator,
+    ContentPreferenceListAdapter.OnItemClickListener {
 
     private val viewModelInstance: ContentPreferenceFragmentViewModel by viewModels {
         viewModeFactory
@@ -28,6 +33,7 @@ class ContentPreferenceFragment :
     override fun getLayoutId(): Int = R.layout.fragment_content_preference
 
     override fun getViewModel(): ContentPreferenceFragmentViewModel = viewModelInstance
+    private lateinit var contentPreferenceListAdapter : ContentPreferenceListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,16 +48,25 @@ class ContentPreferenceFragment :
     }
 
     private fun init() {
-        getViewModel().getActivityTypesAPI()
+        contentPreferenceListAdapter = ContentPreferenceListAdapter(arrayListOf(),this)
+        mViewBinding?.recyclerView?.adapter = contentPreferenceListAdapter
+        getViewModel().getAactivityTypesContentPrefrencesAPI()
     }
 
     private fun toolbar() {
         mViewBinding!!.toolBarLayout.tvTitle.hide()
-        mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
         mViewBinding!!.toolBarLayout.cvNotification.hide()
         mViewBinding!!.toolBarLayout.cvSearch.hide()
-        mViewBinding!!.toolBarLayout.cvBack.visible()
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+
+        mViewBinding?.toolBarLayout?.cvBack?.visible()
+        mViewBinding?.toolBarLayout?.cvBack?.setImageResource(R.drawable.ic_back_new)
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
+        mViewBinding?.toolBarLayout?.toolBar?.setNavigationOnClickListener { v -> onBack() }
+
+        mViewBinding?.toolBarLayout?.tvSave?.visible()
+        mViewBinding?.toolBarLayout?.tvSave?.setOnClickListener {
+            callUpdateAPI()
+        }
     }
 
     private fun handleBackPress() {
@@ -68,67 +83,67 @@ class ContentPreferenceFragment :
     }
 
     private fun clickListener() {
-        mViewBinding!!.clActivityType.setOnClickListener { showActivityTypeDialog() }
+
     }
 
-    private fun showActivityTypeDialog() {
-        val dialog =
-            getViewModel().activityTypesList.get()?.let {
-                SelectActivityTypesDialog(
-                    requireActivity(),
-                    it,
-                    true
-                )
-            }
-        if (dialog != null) {
-            dialog.setListener(this)
-            dialog.show()
-        }
-    }
 
-    override fun onItemSelect(data: ActivityTypes) {
-//        getViewModel().selectedActivityTypes.set(data)
-    }
-
-    override fun onSelectedItems(data: List<ActivityTypes>) {
-        getViewModel().selectedActivityNames.set(getSelectedActivityTypeName(data))
-        getViewModel().selectedActivityTypes.set(getSelectedActivityTypeIcon(data))
-        callUpdateAPI()
-    }
-
-    override fun activityTypesFetchSuccessfully(list: List<ActivityTypes>) {
-        val activityTypesList = ArrayList<ActivityTypes>()
-        activityTypesList.add(getViewModel().getActivityTypeAll())
-        activityTypesList.addAll(list)
-        getViewModel().activityTypesList.set(activityTypesList)
-        getViewModel().getContentPreferenceAPI()
-    }
-
+//    override fun onItemSelect(data: ActivityTypes) {
+////        getViewModel().selectedActivityTypes.set(data)
+//    }
+//
+//    override fun onSelectedItems(data: List<ActivityTypes>) {
+//        getViewModel().selectedActivityNames.set(getSelectedActivityTypeName(data))
+//        getViewModel().selectedActivityTypes.set(getSelectedActivityTypeIcon(data))
+//        callUpdateAPI()
+//    }
+//    override fun activityTypesFetchSuccessfully(list: List<ActivityTypes>) {
+//        val activityTypesList = ArrayList<ActivityTypes>()
+//        activityTypesList.add(getViewModel().getActivityTypeAll())
+//        activityTypesList.addAll(list)
+//        getViewModel().activityTypesList.set(activityTypesList)
+//        getViewModel().getContentPreferenceAPI()
+//    }
     override fun contentPreferenceDataFetchSuccess(data: ContentPreferenceResponseData?) {
-        getViewModel().contentPreferenceResponseData.set(data)
-        val activityTypeList = ArrayList<ActivityTypes>()
-        getViewModel().activityTypesList.get()?.forEachIndexed { index, activityTypes ->
-            val filter = data?.activityType?.find { it.key == activityTypes.key }
-            activityTypes.isSelected = filter != null
-            activityTypeList.add(activityTypes)
-        }.apply {
-            getViewModel().activityTypesList.set(activityTypeList)
-            getViewModel().selectedActivityNames.set(getSelectedActivityTypeName(activityTypeList))
-            getViewModel().selectedActivityTypes.set(getSelectedActivityTypeIcon(activityTypeList))
-        }
+//        getViewModel().contentPreferenceResponseData.set(data)
+//        val activityTypeList = ArrayList<ActivityTypes>()
+//        getViewModel().activityTypesList.get()?.forEachIndexed { index, activityTypes ->
+//            val filter = data?.activityType?.find { it.key == activityTypes.key }
+//            activityTypes.isSelected = filter != null
+//            activityTypeList.add(activityTypes)
+//        }.apply {
+//            getViewModel().activityTypesList.set(activityTypeList)
+//            getViewModel().selectedActivityNames.set(getSelectedActivityTypeName(activityTypeList))
+//            getViewModel().selectedActivityTypes.set(getSelectedActivityTypeIcon(activityTypeList))
+//        }
+    }
+
+    override fun activityTypesContentPrefrencesFetchSuccessfully(data: List<ActivityTypesOption>) {
+        contentPreferenceListAdapter.data = data
     }
 
     private fun callUpdateAPI() {
         val contentPreferenceResponseData = ContentPreferenceResponseData()
-        getViewModel().contentPreferenceResponseData.get()?.let {
-            contentPreferenceResponseData.id = it.id
-            contentPreferenceResponseData.userId = it.userId
+//        getViewModel().contentPreferenceResponseData.get()?.let {
+//            contentPreferenceResponseData.id = it.id
+//            contentPreferenceResponseData.userId = it.userId
+//        }
+        val list : ArrayList<ActivityTypes> = arrayListOf()
+        contentPreferenceListAdapter.data.map {
+            it.value.filter { it.isSelected }.also {
+                if (!it.isNullOrEmpty()){
+                    list.addAll(it)
+                }
+            }
         }
-        val selectedActivityTypeList =
-            getViewModel().activityTypesList.get()?.filter { it.isSelected }
-        if (selectedActivityTypeList != null) {
-            contentPreferenceResponseData.activityType = selectedActivityTypeList
+
+        Log.e("jigarLogs","list = "+Gson().toJson(list))
+        if (list.isNotEmpty()){
+//        getViewModel().updateContentPreferenceAPI(contentPreferenceResponseData)
         }
-        getViewModel().updateContentPreferenceAPI(contentPreferenceResponseData)
+
+    }
+
+    override fun onItemPress(data: ActivityTypesOption) {
+
     }
 }

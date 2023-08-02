@@ -87,6 +87,7 @@ import com.frami.ui.settings.preferences.about.AboutUsFragmentViewModel
 import com.frami.ui.settings.preferences.cms.CMSFragmentViewModel
 import com.frami.ui.settings.preferences.contactus.ContactUsFragmentViewModel
 import com.frami.ui.settings.preferences.contentpreference.ContentPreferenceFragmentViewModel
+import com.frami.ui.settings.preferences.email.EmailSettingsFragmentViewModel
 import com.frami.ui.settings.preferences.map.MapVisibilityPreferenceFragmentViewModel
 import com.frami.ui.settings.preferences.notificationpreference.NotificationPreferenceFragmentViewModel
 import com.frami.ui.settings.preferences.notificationpreference.specific.SpecificNotificationPreferenceFragmentViewModel
@@ -582,5 +583,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FullScreenImageFragmentViewModel::class)
     abstract fun bindFullScreenImageFragmentViewModel(myViewModel: FullScreenImageFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EmailSettingsFragmentViewModel::class)
+    abstract fun bindEmailSettingsFragmentViewModel(myViewModel: EmailSettingsFragmentViewModel): ViewModel
 
 }

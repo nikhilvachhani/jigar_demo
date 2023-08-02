@@ -25,32 +25,20 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
-            style="@style/TextViewStyleRegular"
+            style="@style/TextViewStyleBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="start|center_vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
+            android:layout_marginEnd="8dp"
             android:text="@{data.title}"
-            android:textColor="@color/colorSubHeaderText"
-            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/dark_green"
+            android:textSize="@dimen/text_size_regular"
             app:layout_constraintEnd_toStartOf="@id/ivSwitch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/na" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/ivSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:checked="@{data.value}"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSubTitle"
@@ -59,22 +47,35 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="start|center_vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
             android:text="@{data.description}"
-            android:textColor="@color/colorSubHeaderText"
-            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/dark_green"
+            android:textSize="@dimen/text_size_xsmall"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivSwitch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             tools:text="@string/na" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ivSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:checked="@{data.value}"
+            app:layout_constraintBottom_toBottomOf="@id/tvSubTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="@color/dividerF4"
+            android:background="@color/dividerNew"
             app:layout_constraintTop_toBottomOf="@id/tvSubTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

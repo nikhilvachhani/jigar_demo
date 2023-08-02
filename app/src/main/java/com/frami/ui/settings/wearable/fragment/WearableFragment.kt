@@ -27,6 +27,7 @@ import com.frami.ui.settings.wearable.fragment.adapter.WearableAdapter
 import com.frami.utils.AppConstants
 import com.frami.utils.CommonUtils
 import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 
 
@@ -228,8 +229,9 @@ class WearableFragment :
     private fun toolbar() {
         mViewBinding!!.toolBarLayout.tvTitle.hide()
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
-        mViewBinding!!.toolBarLayout.cvBack.visible()
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+        mViewBinding?.toolBarLayout?.cvBack?.visible()
+        mViewBinding?.toolBarLayout?.cvBack?.setImageResource(R.drawable.ic_back_new)
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
     }
 
     private fun handleBackPress() {

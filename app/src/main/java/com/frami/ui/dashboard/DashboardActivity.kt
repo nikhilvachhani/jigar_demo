@@ -105,6 +105,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     R.id.applauseFragment,
                     R.id.editActivityFragment,
                     R.id.personalInfoFragment,
+                    R.id.settingsFragment,
+                    R.id.emailSettingsFragment,
                     R.id.contactInfoFragment,
                     R.id.wearableFragment,
                     R.id.helpFragment,

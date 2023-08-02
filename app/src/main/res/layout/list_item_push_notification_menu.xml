@@ -23,30 +23,55 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTitle"
-            style="@style/TextViewStyleSemiBold"
+        <LinearLayout
+            android:id="@+id/llMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableEnd="@drawable/ic_forward"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:gravity="start|center_vertical"
-            android:padding="10dp"
-            android:text="@{data.value}"
-            android:textColor="@color/colorSubHeaderText"
-            android:textSize="@dimen/text_size_medium"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/na" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxWidth="40dp"
+                android:maxHeight="40dp"
+                android:src="@{data.icon}"
+                android:tint="@color/dark_green"
+                android:visibility="@{data.icon != null ? View.VISIBLE:View.GONE}"
+                tools:src="@drawable/ic_challenge" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/ic_forward_big"
+                android:gravity="start|center_vertical"
+                android:paddingVertical="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@{data.value}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
+                android:drawablePadding="@dimen/drawable_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/na" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="6dp"
-            android:background="@color/dividerF4"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            android:background="@color/dividerNew"
+            app:layout_constraintTop_toBottomOf="@id/llMenu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

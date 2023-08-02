@@ -49,6 +49,7 @@ import com.frami.data.model.home.request.GetActivityForChallengeRequest
 import com.frami.data.model.home.request.GetActivityRequest
 import com.frami.data.model.invite.InviteParticipantResponse
 import com.frami.data.model.lookup.ActivityOptionsResponse
+import com.frami.data.model.lookup.ActivityTypesOptionResponse
 import com.frami.data.model.lookup.ActivityTypesResponse
 import com.frami.data.model.lookup.CountryResponse
 import com.frami.data.model.lookup.application.ApplicationOptionsResponse
@@ -74,6 +75,7 @@ import com.frami.data.model.profile.logout.LogoutRequest
 import com.frami.data.model.rewards.*
 import com.frami.data.model.rewards.history.RewardPointHistoryResponse
 import com.frami.data.model.rewards.request.RewardAddToFavouriteRequest
+import com.frami.data.model.settings.EmailSettingRequest
 import com.frami.data.model.settings.help.ContactUsRequest
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponse
 import com.frami.data.model.settings.notificationpreference.NotificationPreferenceResponseData
@@ -101,6 +103,7 @@ interface ApiHelper {
     /*LOOKUP*/
     fun getCountry(): Single<CountryResponse>
     fun getActivityTypesAPI(): Single<ActivityTypesResponse>
+    fun getActivityTypesContentPrefrencesAPI(): Single<ActivityTypesOptionResponse>
     fun getGroupedActivityTypesAPI(): Single<ActivityTypesResponse>
     fun getActivityOptionsAPI(): Single<ActivityOptionsResponse>
     fun getChallengeOptionsAPI(): Single<ChallengesOptionsResponse>
@@ -161,6 +164,8 @@ interface ApiHelper {
     fun contactUsAPI(contactUsRequest: ContactUsRequest): Single<BaseResponse>
     fun updateFCMTokenAPI(updateFCMTokenRequest: UpdateFCMTokenRequest): Single<BaseResponse>
     fun verifyEmail(verificationEmailRequest: VerificationEmailRequest): Single<BaseResponse>
+    fun updateWorkMail(email: String): Single<BaseResponse>
+    fun updateEMailSetting(request: EmailSettingRequest): Single<UserResponse>
 
     //Activity
     fun getHomeActivityAPI(

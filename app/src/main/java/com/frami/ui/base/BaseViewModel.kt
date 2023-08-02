@@ -470,6 +470,7 @@ abstract class BaseViewModel<N : BaseNavigator>(
         mCompositeDisposable.add(disposable)
     }
 
+
     fun getActivityOptionsAPI() {
         val disposable: Disposable = getDataManager()
             .getActivityOptionsAPI()

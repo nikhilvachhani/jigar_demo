@@ -4,4 +4,5 @@ import com.frami.ui.base.BaseNavigator
 
 interface HelpFragmentNavigator :
     BaseNavigator {
+    fun deleteUserSuccess()
 }

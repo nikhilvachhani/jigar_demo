@@ -103,7 +103,7 @@
                     android:backgroundTint="@color/activeIndicatorColor"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:visibility="@{viewModel.user!=null?viewModel.user.profilePhotoUrl!=null?View.GONE:View.VISIBLE:View.VISIBLE}"
+                    android:visibility="@{viewModel.isFromEdit()?View.GONE:viewModel.user!=null?viewModel.user.profilePhotoUrl!=null?View.GONE:View.VISIBLE:View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/ivAddProfilePhoto"
                     app:layout_constraintEnd_toEndOf="@+id/ivAddProfilePhoto"
                     app:layout_constraintStart_toStartOf="@+id/ivAddProfilePhoto"
@@ -129,6 +129,22 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvEditPhoto"
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:visibility="@{viewModel.isFromEdit()?View.VISIBLE:View.GONE}"
+                    android:text="@string/edit_photo"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintStart_toStartOf="@+id/ivAddProfilePhoto"
+                    app:layout_constraintEnd_toEndOf="@+id/ivAddProfilePhoto"
+                    app:layout_constraintTop_toBottomOf="@+id/ivAddProfilePhoto" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvName"
                     style="@style/TextViewStyleBold"
                     android:layout_width="wrap_content"
@@ -140,7 +156,7 @@
                     android:textColor="@color/dark_green"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivAddProfilePhoto" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvEditPhoto" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etFN"

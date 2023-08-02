@@ -14,6 +14,7 @@ import com.frami.ui.base.BaseFragment
 import com.frami.ui.settings.preferences.notificationpreference.adapter.PushNotificationParentAdapter
 import com.frami.utils.AppConstants
 import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 
 
@@ -74,8 +75,9 @@ class NotificationPreferenceFragment :
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
         mViewBinding!!.toolBarLayout.cvNotification.hide()
         mViewBinding!!.toolBarLayout.cvSearch.hide()
-        mViewBinding!!.toolBarLayout.cvBack.visible()
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+        mViewBinding?.toolBarLayout?.cvBack?.visible()
+        mViewBinding?.toolBarLayout?.cvBack?.setImageResource(R.drawable.ic_back_new)
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
     }
 
     private fun handleBackPress() {
@@ -213,11 +215,14 @@ class NotificationPreferenceFragment :
     }
 
     override fun onSpecificClick(pushNotificationsOnResponseData: PushNotificationsOnResponseData) {
+        // TODO specific challenge, specific community click changes remain
         val bundle = Bundle()
         bundle.putSerializable(
             AppConstants.EXTRAS.PUSHNOTIFICATIONSONRESPONSEDATA,
             pushNotificationsOnResponseData
         )
         mNavController!!.navigate(R.id.toSpecificNotificationPreferenceFragment, bundle)
+
+
     }
 }

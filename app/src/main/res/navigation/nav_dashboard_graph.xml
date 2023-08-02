@@ -1604,6 +1604,22 @@
             app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
             app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
         <action
+            android:id="@+id/toPushNotificationPreferenceMenuFragment"
+            app:destination="@id/pushNotificationPreferenceMenuFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toPrivacyControlFragment"
+            app:destination="@id/privacyControlFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
             android:id="@+id/toContactInfoFragment"
             app:destination="@id/contactInfoFragment"
             app:enterAnim="@anim/b_nav_default_enter_anim"
@@ -1630,6 +1646,14 @@
         <action
             android:id="@+id/toMyPreferenceFragment"
             app:destination="@id/myPreferenceFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toContentPreferenceFragment"
+            app:destination="@id/contentPreferenceFragment"
             app:enterAnim="@anim/b_nav_default_enter_anim"
             app:exitAnim="@anim/b_nav_default_exit_anim"
             app:launchSingleTop="true"
@@ -1778,6 +1802,10 @@
         android:name="com.frami.ui.settings.preferences.contentpreference.ContentPreferenceFragment"
         tools:layout="@layout/fragment_content_preference"></fragment>
     <fragment
+        android:id="@+id/emailSettingsFragment"
+        android:name="com.frami.ui.settings.preferences.email.EmailSettingsFragment"
+        tools:layout="@layout/fragment_content_preference"></fragment>
+    <fragment
         android:id="@+id/notificationPreferenceFragment"
         android:name="com.frami.ui.settings.preferences.notificationpreference.NotificationPreferenceFragment"
         tools:layout="@layout/fragment_notification_preference">
@@ -1834,6 +1862,14 @@
         <action
             android:id="@+id/toNotificationPreferenceFragment"
             app:destination="@id/notificationPreferenceFragment"
+            app:enterAnim="@anim/b_nav_default_enter_anim"
+            app:exitAnim="@anim/b_nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/b_nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/toEmailSettingsFragment"
+            app:destination="@id/emailSettingsFragment"
             app:enterAnim="@anim/b_nav_default_enter_anim"
             app:exitAnim="@anim/b_nav_default_exit_anim"
             app:launchSingleTop="true"

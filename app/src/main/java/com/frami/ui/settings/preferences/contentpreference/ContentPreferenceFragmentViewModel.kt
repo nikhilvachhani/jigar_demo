@@ -26,26 +26,23 @@ class ContentPreferenceFragmentViewModel @Inject constructor(
     var selectedActivityNames = ObservableField<String>("")
     var selectedActivityTypes = ObservableField<ActivityTypes>()
     var activityTypesList = ObservableField<List<ActivityTypes>>()
-
-    fun getContentPreferenceAPI() {
+    fun getAactivityTypesContentPrefrencesAPI() {
         getNavigator()?.showLoading()
         val disposable: Disposable = getDataManager()
-            .getContentPreferenceAPI()
+            .getActivityTypesContentPrefrencesAPI()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .subscribe({ response ->
-                if (response != null) {
-//                    getNavigator()?.log("getFollowingsAPI response>>> ${Gson().toJson(response)}")
-                    if (response.isSuccess()) {
-                        getNavigator()?.contentPreferenceDataFetchSuccess(response.data)
-                    } else {
-                        getNavigator()?.showMessage(response.getMessage())
-                    }
-                    getNavigator()?.hideLoading()
+                getNavigator()?.hideLoading()
+                getNavigator()?.log("Activity Types response>>> ${Gson().toJson(response)}")
+                if (response.isSuccess()) {
+                    getNavigator()?.activityTypesContentPrefrencesFetchSuccessfully(response.data)
+                } else {
+                    getNavigator()?.showMessage(response.getMessage())
                 }
             }, { throwable ->
-                getNavigator()?.handleError(throwable)
                 getNavigator()?.hideLoading()
+                getNavigator()?.handleError(throwable)
             })
         mCompositeDisposable.add(disposable)
     }

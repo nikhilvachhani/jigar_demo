@@ -3,6 +3,7 @@ package com.frami.ui.settings.help
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.frami.BR
 import com.frami.R
@@ -12,6 +13,7 @@ import com.frami.ui.base.BaseFragment
 import com.frami.ui.dashboard.rewards.details.MenuListAdapter
 import com.frami.utils.AppConstants
 import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 
 
@@ -55,8 +57,9 @@ class HelpFragment :
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
         mViewBinding!!.toolBarLayout.cvNotification.hide()
         mViewBinding!!.toolBarLayout.cvSearch.hide()
-        mViewBinding!!.toolBarLayout.cvBack.visible()
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+        mViewBinding?.toolBarLayout?.cvBack?.visible()
+        mViewBinding?.toolBarLayout?.cvBack?.setImageResource(R.drawable.ic_back_new)
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
     }
 
     private fun handleBackPress() {
@@ -89,10 +92,35 @@ class HelpFragment :
             getString(R.string.faq) -> {
                 navigateToFAQ()
             }
-            getString(R.string.about_us) -> {
+            getString(R.string.about_frami) -> {
                 navigateToAbout()
             }
+            getString(R.string.delete_account) -> {
+                displayDeleteAccountDialog()
+            }
         }
+    }
+
+    private fun displayDeleteAccountDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme).create()
+        alertDialog.setMessage(resources.getString(R.string.delete_account_message))
+        alertDialog.setButton(
+            AlertDialog.BUTTON_NEGATIVE, resources.getString(R.string.cancel)
+        ) { dialog, which -> }
+        alertDialog.setButton(
+            AlertDialog.BUTTON_POSITIVE, resources.getString(R.string.delete)
+        ) { dialog, which -> deleteAccount() }
+        alertDialog.show()
+    }
+
+    private fun deleteAccount() {
+        if (getViewModel().user.get() != null) {
+            getViewModel().deleteUser(getViewModel().user.get()?.userId!!)
+        }
+    }
+
+    override fun deleteUserSuccess() {
+        getBaseActivity().logout()
     }
 
 

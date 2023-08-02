@@ -13,6 +13,7 @@ import com.frami.ui.base.BaseFragment
 import com.frami.ui.dashboard.rewards.details.MenuListAdapter
 import com.frami.utils.AppConstants
 import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 
 
@@ -44,12 +45,8 @@ class SettingsFragment :
     }
 
     private fun init() {
-        mViewBinding!!.recyclerView.adapter =
-            MenuListAdapter(
-                getViewModel().getSettingsMenu(requireActivity()),
-                this,
-                idNameViewType = AppConstants.IDNAME_VIEW_TYPE.SETTINGS
-            )
+        mViewBinding?.recyclerView?.adapter = MenuListAdapter(getViewModel().getSettingsMenu(requireActivity()),
+            this,idNameViewType = AppConstants.IDNAME_VIEW_TYPE.SETTINGS)
     }
 
     private fun toolbar() {
@@ -57,8 +54,9 @@ class SettingsFragment :
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
         mViewBinding!!.toolBarLayout.cvNotification.hide()
         mViewBinding!!.toolBarLayout.cvSearch.hide()
-        mViewBinding!!.toolBarLayout.cvBack.visible()
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+        mViewBinding?.toolBarLayout?.cvBack?.visible()
+        mViewBinding?.toolBarLayout?.cvBack?.setImageResource(R.drawable.ic_back_new)
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
     }
 
     private fun handleBackPress() {
@@ -78,13 +76,7 @@ class SettingsFragment :
         mViewBinding!!.tvLogout.setOnClickListener {
             displayLogoutDialog()
         }
-        mViewBinding!!.ivProfilePhoto.setOnClickListener {
-            getViewModel().user.get().let {
-                if (it != null) {
-                    showZoomImage(it.profilePhotoUrl)
-                }
-            }
-        }
+
     }
 
     override fun onItemPress(data: IdNameData) {
@@ -92,23 +84,34 @@ class SettingsFragment :
             getString(R.string.personal_info) -> {
                 val bundle = Bundle()
                 bundle.putBoolean(AppConstants.FROM.EDIT, true)
-                mNavController!!.navigate(R.id.toPersonalInfoFragment, bundle)
+                mNavController?.navigate(R.id.toPersonalInfoFragment, bundle)
             }
-            getString(R.string.contact_info) -> {
+            getString(R.string.employer) -> {
                 val bundle = Bundle()
                 bundle.putBoolean(AppConstants.FROM.EDIT, true)
-                mNavController!!.navigate(R.id.toContactInfoFragment, bundle)
+                mNavController?.navigate(R.id.toContactInfoFragment,bundle)
             }
-            getString(R.string.wearables) -> {
+            getString(R.string.privacy) -> {
+                mNavController?.navigate(R.id.toPrivacyControlFragment)
+            }
+            getString(R.string.notifications) -> {
+                mNavController?.navigate(R.id.toPushNotificationPreferenceMenuFragment)
+            }
+//            getString(R.string.contact_info) -> {
+//                val bundle = Bundle()
+//                bundle.putBoolean(AppConstants.FROM.EDIT, true)
+//                mNavController?.navigate(R.id.toContactInfoFragment, bundle)
+//            }
+            getString(R.string.device_and_applications) -> {
                 val bundle = Bundle()
                 bundle.putString(AppConstants.EXTRAS.FROM, AppConstants.FROM.SETTINGS)
-                mNavController!!.navigate(R.id.toWearableActivity, bundle)
+                mNavController?.navigate(R.id.toWearableActivity, bundle)
             }
             getString(R.string.help) -> {
-                mNavController!!.navigate(R.id.toHelpFragment)
+                mNavController?.navigate(R.id.toHelpFragment)
             }
-            getString(R.string.my_preferences) -> {
-                mNavController!!.navigate(R.id.toMyPreferenceFragment)
+            getString(R.string.content_preferences) -> {
+                mNavController?.navigate(R.id.toContentPreferenceFragment)
             }
         }
     }

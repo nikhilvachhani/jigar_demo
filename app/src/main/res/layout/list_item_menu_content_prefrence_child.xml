@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.home.ActivityTypes" />
+
+        <variable
+            name="type"
+            type="Integer" />
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/llMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivIcon"
+                loadImage="@{data.icon}"
+                android:layout_width="16dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_drop_down"
+                android:tint="@color/dark_green"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                style="@style/TextViewStyleMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="12dp"
+                android:gravity="start|center_vertical"
+                android:paddingVertical="16dp"
+                android:text="@{data.name}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivCheckmark"
+                app:layout_constraintStart_toEndOf="@+id/ivIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Walk and hiking activities" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCheckmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@{data.selected?@drawable/ic_select_checked:@drawable/ic_select_uncheck}"
+                tools:src="@drawable/ic_select_uncheck"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerNew"
+            app:layout_constraintTop_toBottomOf="@id/llMenu" />
+    </LinearLayout>
+
+
+</layout>

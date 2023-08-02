@@ -12,6 +12,7 @@ import com.frami.ui.base.BaseFragment
 import com.frami.ui.settings.preferences.pushnotifications.adapter.PushNotificationMenuListAdapter
 import com.frami.utils.AppConstants
 import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 
 class PushNotificationPreferenceMenuFragment :
@@ -58,8 +59,9 @@ class PushNotificationPreferenceMenuFragment :
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
         mViewBinding!!.toolBarLayout.cvNotification.hide()
         mViewBinding!!.toolBarLayout.cvSearch.hide()
-        mViewBinding!!.toolBarLayout.cvBack.visible()
-        mViewBinding!!.toolBarLayout.cvBack.setOnClickListener { onBack() }
+        mViewBinding?.toolBarLayout?.cvBack?.visible()
+        mViewBinding?.toolBarLayout?.cvBack?.setImageResource(R.drawable.ic_back_new)
+        mViewBinding?.toolBarLayout?.cvBack?.onClick { onBack() }
     }
 
     private fun handleBackPress() {
@@ -88,8 +90,15 @@ class PushNotificationPreferenceMenuFragment :
     }
 
     override fun onItemPress(data: PushNotificationMenuData) {
-        val bundle = Bundle()
-        bundle.putSerializable(AppConstants.EXTRAS.NOTIFICATION_PREFERENCE_DATA, data)
-        mNavController!!.navigate(R.id.toNotificationPreferenceFragment, bundle)
+        if (data.key.equals("EMAILSETTING",true)){
+            val bundle = Bundle()
+            bundle.putSerializable(AppConstants.EXTRAS.NOTIFICATION_PREFERENCE_DATA, data)
+            mNavController?.navigate(R.id.toEmailSettingsFragment, bundle)
+        }else{
+            val bundle = Bundle()
+            bundle.putSerializable(AppConstants.EXTRAS.NOTIFICATION_PREFERENCE_DATA, data)
+            mNavController?.navigate(R.id.toNotificationPreferenceFragment, bundle)
+        }
+
     }
 }

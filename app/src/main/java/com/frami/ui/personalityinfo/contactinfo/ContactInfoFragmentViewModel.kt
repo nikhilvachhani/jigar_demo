@@ -21,33 +21,12 @@ class ContactInfoFragmentViewModel @Inject constructor(
     mCompositeDisposable
 ) {
     var isFromEdit = ObservableBoolean(false)
-    var isValidEmail = ObservableBoolean(false)
     var isValidWorkEmail = ObservableBoolean(false)
-    var isEnableNavigationToForward = ObservableBoolean(false)
-    var isEmailEdited = ObservableBoolean(false)
     var isWorkEmailEdited = ObservableBoolean(false)
 
-    fun updateUser(userRequest: UserRequest) {
-        getNavigator()?.log("updateRequest>> " + Gson().toJson(userRequest))
-        getNavigator()?.showLoading()
-        val disposable: Disposable = getDataManager()
-            .updateUser(userRequest)
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
-            .subscribe({ response ->
-                getNavigator()?.log("updateUser response>>> ${Gson().toJson(response)}")
-                getNavigator()?.hideLoading()
-                if (response.isSuccess()) {
-                    getNavigator()?.updateUserSuccess(response.data)
-                } else {
-                    getNavigator()?.showMessage(response.getMessage())
-                }
-            }, { throwable ->
-                getNavigator()?.hideLoading()
-                getNavigator()?.handleError(throwable)
-            })
-        mCompositeDisposable.add(disposable)
-    }
+    var isValidatingEmail = ObservableBoolean(false)
+    var isValidatedEmail = ObservableBoolean(false)
+    var isTextHideEmail = ObservableBoolean(false)
 
     fun verifyEmail(isWorkEmail: Boolean, emailId: String) {
         val verificationEmailRequest = VerificationEmailRequest()
@@ -90,6 +69,72 @@ class ContactInfoFragmentViewModel @Inject constructor(
             }, { throwable ->
                 getNavigator()?.handleError(throwable)
                 getNavigator()?.hideLoading()
+            })
+        mCompositeDisposable.add(disposable)
+    }
+    fun updateWorkMail(emailId: String) {
+        getNavigator()?.log(
+            "UpdateWorkMail request>>> $emailId"
+        )
+        isTextHideEmail.set(true)
+        isValidatingEmail.set(true)
+        isValidatedEmail.set(false)
+        val disposable: Disposable = getDataManager()
+            .updateWorkMail(emailId)
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .subscribe({ response ->
+                if (response != null) {
+                    getNavigator()?.log(
+                        "verifyEmail response>>> ${
+                            Gson().toJson(
+                                response
+                            )
+                        }"
+                    )
+                    if (response.isSuccess()) {
+                        isValidatingEmail.set(false)
+                        isValidatedEmail.set(true)
+                        getNavigator()?.verificationEmailSentSuccess(true, emailId)
+                    } else {
+                        isValidatingEmail.set(false)
+                        isTextHideEmail.set(false)
+                        isValidatedEmail.set(true)
+                    }
+                    getNavigator()?.showMessage(response.getMessage())
+                }
+            }, { throwable ->
+                isValidatingEmail.set(false)
+                isTextHideEmail.set(false)
+                isValidatedEmail.set(true)
+                getNavigator()?.handleError(throwable)
+            })
+        mCompositeDisposable.add(disposable)
+    }
+
+    fun joinCommunityByCodeAPI(code: String) {
+        getNavigator()?.showLoading()
+        val disposable: Disposable = getDataManager().joinCommunityByCodeAPI(code = code)
+            .subscribeOn(schedulerProvider.io()).observeOn(schedulerProvider.ui())
+            .subscribe({ response ->
+                getNavigator()?.hideLoading()
+                if (response != null) {
+                    getNavigator()?.log(
+                        "joinCommunityByCodeAPI response>>> ${
+                            Gson().toJson(
+                                response
+                            )
+                        }"
+                    )
+                    if (response.isSuccess()) {
+                        getNavigator()?.communityJoinByCode(response.data)
+                    } else {
+                    }
+                    getNavigator()?.showMessage(response.getMessage())
+                }
+            }, { throwable ->
+                getNavigator()?.hideLoading()
+                getNavigator()?.handleError(throwable)
             })
         mCompositeDisposable.add(disposable)
     }

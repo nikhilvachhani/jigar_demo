@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.frami.utils.AppConstants" />
+
+        <variable
+            name="data"
+            type="com.frami.data.model.lookup.ActivityTypesOption" />
+
+        <variable
+            name="type"
+            type="Integer" />
+        <variable
+            name="isSelectShow"
+            type="Boolean" />
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/llMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="16dp"
+                android:layout_height="0dp"
+                android:src="@{data.childOpen?@drawable/ic_expand_down:@drawable/ic_expand_forward}"
+                android:tint="@color/dark_green"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle"
+                tools:src="@drawable/ic_expand_forward" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                style="@style/TextViewStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="12dp"
+                android:gravity="start|center_vertical"
+                android:paddingVertical="16dp"
+                android:text="@{data.title}"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/linearSelect"
+                app:layout_constraintStart_toEndOf="@+id/ivArrow"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Walk and hiking activities" />
+
+            <LinearLayout
+                android:id="@+id/linearSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/ivCheckmark"
+                app:layout_constraintEnd_toStartOf="@+id/ivCheckmark"
+                app:layout_constraintTop_toTopOf="@+id/ivCheckmark">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSelect"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center"
+                    android:visibility="@{isSelectShow?View.VISIBLE:View.GONE}"
+                    tools:visibility="visible"
+                    android:text="@string/select_all"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_small" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDeSelect"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    android:gravity="center"
+                    android:visibility="@{!isSelectShow?View.VISIBLE:View.GONE}"
+                    tools:visibility="visible"
+                    android:text="@string/deselect"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCheckmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_select_checked"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewDivider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerNew"
+            app:layout_constraintTop_toBottomOf="@id/llMenu" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewChild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{data.isChildOpen?View.VISIBLE:View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_item_menu_content_prefrence_child"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+
+</layout>

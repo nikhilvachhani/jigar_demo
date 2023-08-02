@@ -22,6 +22,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.androidnetworking.common.ANConstants
@@ -74,6 +75,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.launch
 import okhttp3.Response
 import javax.inject.Inject
 import kotlin.math.floor
@@ -994,8 +996,10 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> :
     }
 
     fun navigateToLogin() {
-        mNavController?.navigate(R.id.toLoginSignupActivity)
-        activity?.finish()
+        lifecycleScope.launch {
+            mNavController?.navigate(R.id.toLoginSignupActivity)
+            activity?.finish()
+        }
     }
 
     fun navigateToUserActivityScreen(

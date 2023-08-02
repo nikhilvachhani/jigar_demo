@@ -24,36 +24,15 @@ class SettingsFragmentViewModel @Inject constructor(
 
     fun getSettingsMenu(activity: Activity): List<IdNameData> {
         val list: MutableList<IdNameData> = ArrayList()
-        list.add(
-            IdNameData(
-                value = activity.getString(R.string.personal_info),
-                icon = activity.getDrawable(R.drawable.ic_settings_personal_info),
-            )
-        )
-        list.add(
-            IdNameData(
-                value = activity.getString(R.string.contact_info),
-                icon = activity.getDrawable(R.drawable.ic_settings_contact_info),
-            )
-        )
-        list.add(
-            IdNameData(
-                value = activity.getString(R.string.wearables),
-                icon = activity.getDrawable(R.drawable.ic_settings_wearable),
-            )
-        )
-        list.add(
-            IdNameData(
-                value = activity.getString(R.string.my_preferences),
-                icon = activity.getDrawable(R.drawable.ic_settings_my_preferences),
-            )
-        )
-        list.add(
-            IdNameData(
-                value = activity.getString(R.string.help),
-                icon = activity.getDrawable(R.drawable.ic_settings_help),
-            )
-        )
+        with(list) {
+            add(IdNameData(value = activity.getString(R.string.personal_info),icon = activity.getDrawable(R.drawable.ic_settings_personal_info), isShowForward = true))
+            add(IdNameData(value = activity.getString(R.string.employer),icon = activity.getDrawable(R.drawable.ic_settings_employer), isShowForward = true))
+            add(IdNameData(value = activity.getString(R.string.privacy),icon = activity.getDrawable(R.drawable.ic_settings_privacy), isShowForward = true))
+            add(IdNameData(value = activity.getString(R.string.device_and_applications),icon = activity.getDrawable(R.drawable.ic_settings_wearable), isShowForward = true))
+            add(IdNameData(value = activity.getString(R.string.notifications),icon = activity.getDrawable(R.drawable.ic_settings_notification), isShowForward = true))
+            add(IdNameData(value = activity.getString(R.string.content_preferences),icon = activity.getDrawable(R.drawable.ic_settings_my_preferences), isShowForward = true))
+            add(IdNameData(value = activity.getString(R.string.help),icon = activity.getDrawable(R.drawable.ic_settings_help), isShowForward = true))
+        }
         return list
     }
 }

@@ -13,6 +13,7 @@ import com.frami.data.model.user.UserDevices
 import com.frami.data.model.wearable.WearableData
 import com.frami.databinding.ListItemWearableBinding
 import com.frami.utils.AppConstants
+import com.frami.utils.extensions.onClick
 
 class WearableAdapter(
     private var mActivity: Activity,
@@ -76,12 +77,12 @@ class WearableAdapter(
     inner class ViewHolder(var itemBinding: ListItemWearableBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         init {
-            itemBinding.ivSwitch.setOnClickListener(View.OnClickListener {
+            itemBinding.btnConnect.onClick {
                 val data = listData[adapterPosition]
                 if (!isDeviceConnected(data)) {
                     var isShowStravaMessage = false;
-                    if (data.name == itemBinding.ivSwitch.context.getString(R.string.strava)) {
-                        listData.filter { it.name != itemBinding.ivSwitch.context.getString(R.string.strava) }
+                    if (data.name == itemBinding.btnConnect.context.getString(R.string.strava)) {
+                        listData.filter { it.name != itemBinding.btnConnect.context.getString(R.string.strava) }
                             .forEach {
                                 if (isDeviceConnected(it)) {
                                     isShowStravaMessage = true
@@ -89,7 +90,7 @@ class WearableAdapter(
                                 }
                             }
                     } else {
-                        listData.filter { it.name == itemBinding.ivSwitch.context.getString(R.string.strava) }
+                        listData.filter { it.name == itemBinding.btnConnect.context.getString(R.string.strava) }
                             .forEach {
                                 if (isDeviceConnected(it)) {
                                     isShowStravaMessage = true
@@ -98,7 +99,7 @@ class WearableAdapter(
                             }
                     }
                     if (isShowStravaMessage) {
-                        itemBinding.ivSwitch.isChecked = false
+                        itemBinding.isDeviceConnected = false
                         mListener?.onStravaConnectPressShowOtherDeviceDisconnectMessage(data)
                     } else {
                         mListener?.onWearableConnectPress(data)
@@ -106,7 +107,7 @@ class WearableAdapter(
                 } else {
                     mListener?.onWearableDisConnectPress(data)
                 }
-            })
+            }
         }
     }
 }

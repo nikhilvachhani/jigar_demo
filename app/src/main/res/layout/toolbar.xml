@@ -214,7 +214,7 @@
                 android:padding="4dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvSave"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible">
 
@@ -238,6 +238,23 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSave"
+                style="@style/TextViewStyleMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:gravity="start|center_vertical"
+                android:paddingVertical="4dp"
+                android:text="@string/save"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="gone"
+                app:drawableTint="@color/dark_green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.frami.utils.widget.toolbar.ERToolbar>
