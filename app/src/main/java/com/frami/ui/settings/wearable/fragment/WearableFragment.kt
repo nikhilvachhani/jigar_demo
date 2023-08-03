@@ -227,6 +227,23 @@ class WearableFragment :
     }
 
     private fun toolbar() {
+        if (getViewModel().isFromLogin.get()){
+            mViewBinding?.toolBarLayout?.tvSave?.visible()
+            mViewBinding?.toolBarLayout?.tvSave?.text = getString(R.string.skip)
+            mViewBinding?.tvSetupLater?.visible()
+            mViewBinding?.btnDone?.visible()
+            mViewBinding?.toolBarLayout?.tvSave?.setOnClickListener {
+                mViewBinding?.btnDone?.performClick()
+            }
+        }else{
+            mViewBinding?.toolBarLayout?.tvSave?.visible()
+            mViewBinding?.toolBarLayout?.tvSave?.text = getString(R.string.skip)
+            mViewBinding?.toolBarLayout?.tvSave?.setOnClickListener {
+                mViewBinding?.toolBarLayout?.cvBack?.performClick()
+            }
+        }
+
+
         mViewBinding!!.toolBarLayout.tvTitle.hide()
         mViewBinding!!.toolBarLayout.toolBar.setNavigationOnClickListener { v -> onBack() }
         mViewBinding?.toolBarLayout?.cvBack?.visible()
@@ -244,15 +261,21 @@ class WearableFragment :
     }
 
     override fun onBack() {
-        activity?.finish()
+        if (getViewModel().isFromLogin.get()){
+            mViewBinding?.toolBarLayout?.tvSave?.performClick()
+        }else{
+            activity?.finish()
+        }
     }
 
     private fun clickListener() {
-        mViewBinding!!.tvSkip.setOnClickListener {
+        mViewBinding?.tvSetupLater?.onClick {
+            mViewBinding?.btnDone?.performClick()
+        }
+        mViewBinding?.btnDone?.onClick {
             getViewModel().saveIsWearableDeviceSkip(true)
             requireActivity().setResult(Activity.RESULT_OK)
             requireActivity().finish()
-//            onBack()
         }
     }
 

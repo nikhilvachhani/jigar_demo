@@ -9,9 +9,19 @@
         android:name="com.frami.ui.intro.fragment.IntroFragment"
         android:label=""
         tools:layout="@layout/fragment_intro">
+<!--        <action-->
+<!--            android:id="@+id/toLoginSignupActivity"-->
+<!--            app:destination="@id/loginSignupActivity"-->
+<!--            app:enterAnim="@anim/b_nav_default_enter_anim"-->
+<!--            app:exitAnim="@anim/b_nav_default_exit_anim"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"-->
+<!--            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"-->
+<!--            app:popUpTo="@+id/introFragment"-->
+<!--            app:popUpToInclusive="true" />-->
         <action
-            android:id="@+id/toLoginSignupActivity"
-            app:destination="@id/loginSignupActivity"
+            android:id="@+id/toIntroActivity"
+            app:destination="@id/introActivity"
             app:enterAnim="@anim/b_nav_default_enter_anim"
             app:exitAnim="@anim/b_nav_default_exit_anim"
             app:launchSingleTop="true"
@@ -50,6 +60,11 @@
     <activity
         android:id="@+id/loginSignupActivity"
         android:name="com.frami.ui.loginsignup.LoginSignupActivity"
+        android:label=""
+        tools:layout="@layout/fragment_login_option" />
+    <activity
+        android:id="@+id/introActivity"
+        android:name="com.frami.ui.intro.IntroActivity"
         android:label=""
         tools:layout="@layout/fragment_login_option" />
     <activity

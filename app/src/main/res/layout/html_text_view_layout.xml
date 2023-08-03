@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:includeFontPadding="false"
-            android:textColor="@color/colorHeaderText"
+            android:textColor="@color/dark_green"
             android:textSize="@dimen/text_size_small"
             app:readMoreMaxLine="4"
             tools:text="Hello World. This is my sample Bio" />

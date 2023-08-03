@@ -80,8 +80,7 @@ object ApiEndPoint {
     const val ENDPOINT_LOOKUP_COUNTRY = BASE_URL_LOOKUP + "Country/Countries"
     const val ENDPOINT_LOOKUP_ACTIVITY_TYPES = BASE_URL_LOOKUP + "Activity/ActivityTypes"
     const val ENDPOINT_LOOKUP_ACTIVITY_TYPES_CONTENT_PREFERENCES = BASE_URL_LOOKUP + "Activity/ActivityTypesContentPrefrences"
-    const val ENDPOINT_LOOKUP_GROUPED_ACTIVITY_TYPES =
-        BASE_URL_LOOKUP + "Activity/GroupedActivityTypes"
+    const val ENDPOINT_LOOKUP_GROUPED_ACTIVITY_TYPES = BASE_URL_LOOKUP + "Activity/GroupedActivityTypes"
     const val ENDPOINT_LOOKUP_ACTIVITY_OPTIONS = BASE_URL_LOOKUP + "Activity/Options"
 //    const val ENDPOINT_USER_OPTIONS = BASE_URL_LOOKUP + "User/Options"
     const val ENDPOINT_USER_OPTIONS = BASE_URL_LOOKUP + "User/UserOptions"

@@ -25,7 +25,7 @@ import com.frami.utils.AppConstants
         AnalysisTypes::class,
         ActivityTitle::class,
     ],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

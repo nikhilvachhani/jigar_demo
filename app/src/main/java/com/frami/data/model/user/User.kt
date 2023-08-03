@@ -2,6 +2,7 @@ package com.frami.data.model.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.frami.data.model.explore.EmployerData
 import com.frami.data.model.lookup.CountryData
 import com.frami.utils.AppConstants
 import com.google.gson.annotations.SerializedName
@@ -74,7 +75,9 @@ data class User(
     @field:SerializedName("level")
     var level: String?,
     @field:SerializedName("pointToNextLevel")
-    var pointToNextLevel: String?
+    var pointToNextLevel: String?,
+    @field:SerializedName("employer")
+    var employer: EmployerData? = null
 ) : Serializable {
 
 }

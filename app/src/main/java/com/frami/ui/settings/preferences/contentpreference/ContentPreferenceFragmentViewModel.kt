@@ -26,6 +26,31 @@ class ContentPreferenceFragmentViewModel @Inject constructor(
     var selectedActivityNames = ObservableField<String>("")
     var selectedActivityTypes = ObservableField<ActivityTypes>()
     var activityTypesList = ObservableField<List<ActivityTypes>>()
+
+    fun getContentPreferenceAPI() {
+        getNavigator()?.showLoading()
+        val disposable: Disposable = getDataManager()
+            .getContentPreferenceAPI()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .subscribe({ response ->
+                if (response != null) {
+                    getNavigator()?.hideLoading()
+//                    getNavigator()?.log("getFollowingsAPI response>>> ${Gson().toJson(response)}")
+                    if (response.isSuccess()) {
+                        getNavigator()?.contentPreferenceDataFetchSuccess(response.data)
+                    } else {
+                        getNavigator()?.showMessage(response.getMessage())
+                    }
+
+                }
+            }, { throwable ->
+                getNavigator()?.handleError(throwable)
+                getNavigator()?.hideLoading()
+            })
+        mCompositeDisposable.add(disposable)
+    }
+
     fun getAactivityTypesContentPrefrencesAPI() {
         getNavigator()?.showLoading()
         val disposable: Disposable = getDataManager()

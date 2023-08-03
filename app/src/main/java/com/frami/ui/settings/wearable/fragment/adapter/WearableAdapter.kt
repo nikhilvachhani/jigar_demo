@@ -13,7 +13,9 @@ import com.frami.data.model.user.UserDevices
 import com.frami.data.model.wearable.WearableData
 import com.frami.databinding.ListItemWearableBinding
 import com.frami.utils.AppConstants
+import com.frami.utils.extensions.hide
 import com.frami.utils.extensions.onClick
+import com.frami.utils.extensions.visible
 
 class WearableAdapter(
     private var mActivity: Activity,
@@ -49,6 +51,13 @@ class WearableAdapter(
         holder.itemBinding.data = data
         holder.itemBinding.isDeviceConnected = isDeviceConnected(data)
         holder.itemBinding.icon = getWearableImageDrawable(data)
+        if (data.id == AppConstants.WEARABLE_DEVICE.STRAVA){
+            holder.itemBinding.tvApps.visible()
+            holder.itemBinding.viewApps.visible()
+        }else{
+            holder.itemBinding.tvApps.hide()
+            holder.itemBinding.viewApps.hide()
+        }
     }
 
     fun getWearableImageDrawable(data: WearableData): Drawable? {

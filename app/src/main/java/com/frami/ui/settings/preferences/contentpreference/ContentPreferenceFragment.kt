@@ -50,7 +50,7 @@ class ContentPreferenceFragment :
     private fun init() {
         contentPreferenceListAdapter = ContentPreferenceListAdapter(arrayListOf(),this)
         mViewBinding?.recyclerView?.adapter = contentPreferenceListAdapter
-        getViewModel().getAactivityTypesContentPrefrencesAPI()
+        getViewModel().getContentPreferenceAPI()
     }
 
     private fun toolbar() {
@@ -86,7 +86,6 @@ class ContentPreferenceFragment :
 
     }
 
-
 //    override fun onItemSelect(data: ActivityTypes) {
 ////        getViewModel().selectedActivityTypes.set(data)
 //    }
@@ -104,29 +103,31 @@ class ContentPreferenceFragment :
 //        getViewModel().getContentPreferenceAPI()
 //    }
     override fun contentPreferenceDataFetchSuccess(data: ContentPreferenceResponseData?) {
-//        getViewModel().contentPreferenceResponseData.set(data)
-//        val activityTypeList = ArrayList<ActivityTypes>()
-//        getViewModel().activityTypesList.get()?.forEachIndexed { index, activityTypes ->
-//            val filter = data?.activityType?.find { it.key == activityTypes.key }
-//            activityTypes.isSelected = filter != null
-//            activityTypeList.add(activityTypes)
-//        }.apply {
-//            getViewModel().activityTypesList.set(activityTypeList)
-//            getViewModel().selectedActivityNames.set(getSelectedActivityTypeName(activityTypeList))
-//            getViewModel().selectedActivityTypes.set(getSelectedActivityTypeIcon(activityTypeList))
-//        }
+        getViewModel().contentPreferenceResponseData.set(data)
+        if (::contentPreferenceListAdapter.isInitialized && contentPreferenceListAdapter.data.isEmpty()){
+            getViewModel().getAactivityTypesContentPrefrencesAPI()
+        }
     }
 
     override fun activityTypesContentPrefrencesFetchSuccessfully(data: List<ActivityTypesOption>) {
+
+        data.forEachIndexed { index, activityTypesOption ->
+            activityTypesOption.value.forEachIndexed { childIndex, activityTypes ->
+                val find = getViewModel().contentPreferenceResponseData.get()?.activityType?.find { it.key == activityTypes.key }
+                if (find != null){
+                    data[index].value[childIndex].isSelected = true
+                }
+            }
+        }
         contentPreferenceListAdapter.data = data
     }
 
     private fun callUpdateAPI() {
         val contentPreferenceResponseData = ContentPreferenceResponseData()
-//        getViewModel().contentPreferenceResponseData.get()?.let {
-//            contentPreferenceResponseData.id = it.id
-//            contentPreferenceResponseData.userId = it.userId
-//        }
+        getViewModel().contentPreferenceResponseData.get()?.let {
+            contentPreferenceResponseData.id = it.id
+            contentPreferenceResponseData.userId = it.userId
+        }
         val list : ArrayList<ActivityTypes> = arrayListOf()
         contentPreferenceListAdapter.data.map {
             it.value.filter { it.isSelected }.also {
@@ -135,10 +136,10 @@ class ContentPreferenceFragment :
                 }
             }
         }
-
-        Log.e("jigarLogs","list = "+Gson().toJson(list))
+        
         if (list.isNotEmpty()){
-//        getViewModel().updateContentPreferenceAPI(contentPreferenceResponseData)
+            contentPreferenceResponseData.activityType = list
+            getViewModel().updateContentPreferenceAPI(contentPreferenceResponseData)
         }
 
     }

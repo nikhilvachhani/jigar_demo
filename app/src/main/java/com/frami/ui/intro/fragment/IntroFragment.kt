@@ -61,6 +61,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
     }
 
     private fun findViewById() {
+        getViewModel().saveIsWearableDeviceSkip(false)
         introPagerFragmentAdapter = IntroPagerFragmentAdapter(
             childFragmentManager,
             lifecycle
@@ -112,10 +113,10 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
     }
 
     private fun clickListener() {
-        mViewBinding!!.tvSkip.setOnClickListener {
-            mNavController?.navigate(R.id.toLoginSignupActivity)
-            activity?.finish() //Added because popUpToInclusive="true" not working properly
-        }
+//        mViewBinding!!.tvSkip.setOnClickListener {
+//            mNavController?.navigate(R.id.toLoginSignupActivity)
+//            activity?.finish() //Added because popUpToInclusive="true" not working properly
+//        }
         mViewBinding!!.btnSignUp.setOnClickListener {
             openSignupDialog()
         }
@@ -173,14 +174,14 @@ class IntroFragment : BaseFragment<FragmentIntroBinding, IntroFragmentViewModel>
 
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     var wearableDeviceActivityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-        ActivityResultCallback<ActivityResult> { result ->
-            getViewModel().getUserLiveData().observe(
-                viewLifecycleOwner,
-                Observer { user ->
-                    if (user != null) {
-                        authFlow(user, false, null, null)
-                    }
-                })
-        })
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        getViewModel().getUserLiveData().observe(
+            viewLifecycleOwner,
+            Observer { user ->
+                if (user != null) {
+                    authFlow(user, false, null, null)
+                }
+            })
+    }
 }

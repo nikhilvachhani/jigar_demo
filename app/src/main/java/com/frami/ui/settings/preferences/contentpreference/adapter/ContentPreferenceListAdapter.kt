@@ -49,12 +49,7 @@ class ContentPreferenceListAdapter(
             data = dataModel
             val contentPreferenceListChildAdapter = ContentPreferenceListChildAdapter(dataModel.value,position,object : OnChildItemClickListener{
                 override fun onItemPressChild(parentPosition: Int, childPosition: Int) {
-//                    Log.e("jigarLogs","onItemPressChild = "+listData[parentPosition].value[childPosition].isSelected)
-//                    listData[parentPosition].value[childPosition].isSelected = !listData[parentPosition].value[childPosition].isSelected
-                    Log.e("jigarLogs","onItemPressChild after = "+listData[parentPosition].value[childPosition].isSelected)
-
                     listData[parentPosition].value.filter { it.isSelected }.also {
-                        Log.e("jigarLogs","it = "+it.size)
                         if (it.isNullOrEmpty() || (it.isNotEmpty() && it.size != dataModel.value.size)){ // not any selected
                             isSelectShow = true
                             if (it.isNullOrEmpty()){
@@ -87,13 +82,19 @@ class ContentPreferenceListAdapter(
                     ivCheckmark.setImageResource(R.drawable.ic_select_checked)
                 }
             }
+            ivCheckmark.onClick {
+                if (tvSelect.isVisible){
+                    tvSelect.performClick()
+                }else{
+                    tvDeSelect.performClick()
+                }
+            }
             tvSelect.onClick {
                 listData[position].value.map {
                     it.isSelected = true
                 }
                 isSelectShow = false
                 ivCheckmark.setImageResource(R.drawable.ic_select_checked)
-                Log.e("jigarLogs","tvSelect = "+Gson().toJson(listData[position].value))
                 contentPreferenceListChildAdapter.data = listData[position].value
             }
             tvDeSelect.onClick {
@@ -102,7 +103,6 @@ class ContentPreferenceListAdapter(
                 }
                 isSelectShow = true
                 ivCheckmark.setImageResource(R.drawable.ic_select_uncheck)
-                Log.e("jigarLogs","tvDeSelect = "+Gson().toJson(listData[position].value))
                 contentPreferenceListChildAdapter.data = listData[position].value
             }
         }

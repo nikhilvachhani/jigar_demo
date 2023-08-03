@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -997,7 +998,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> :
 
     fun navigateToLogin() {
         lifecycleScope.launch {
-            mNavController?.navigate(R.id.toLoginSignupActivity)
+//            mNavController?.navigate(R.id.toLoginSignupActivity)
+            mNavController?.navigate(R.id.toIntroActivity)
             activity?.finish()
         }
     }

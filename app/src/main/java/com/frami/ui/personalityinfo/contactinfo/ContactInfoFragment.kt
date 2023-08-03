@@ -216,18 +216,27 @@ class ContactInfoFragment :
 
     override fun userInfoFetchSuccess(user: User?) {
         setUserDetails(user)
-        if (user?.workEmailAddress.isNullOrEmpty()){
-            mViewBinding?.btnNext?.visible()
-            mViewBinding?.btnResendCode?.hide()
-        }else if (!user?.workEmailAddress.isNullOrEmpty()){
-            if (user?.isWorkEmailVerified == true){
-                mViewBinding?.btnNext?.hide()
+        if (user?.employer != null){
+            mViewBinding?.name = user.employer?.name
+            mViewBinding?.description = user.employer?.description
+            mViewBinding?.imageUrl = user.employer?.imageUrl
+            mViewBinding?.nsvEmployer?.visible()
+            mViewBinding?.nsvMain?.hide()
+        }else{
+            if (user?.workEmailAddress.isNullOrEmpty()){
+                mViewBinding?.btnNext?.visible()
                 mViewBinding?.btnResendCode?.hide()
-            }else{
-                mViewBinding?.btnNext?.hide()
-                mViewBinding?.btnResendCode?.visible()
+            }else if (!user?.workEmailAddress.isNullOrEmpty()){
+                if (user?.isWorkEmailVerified == true){
+                    mViewBinding?.btnNext?.hide()
+                    mViewBinding?.btnResendCode?.hide()
+                }else{
+                    mViewBinding?.btnNext?.hide()
+                    mViewBinding?.btnResendCode?.visible()
+                }
             }
         }
+
     }
 
     override fun verificationEmailSentSuccess(workEmail: Boolean, emailId: String) {
@@ -245,7 +254,9 @@ class ContactInfoFragment :
     }
     override fun communityJoinByCode(data: CommunityData?) {
         data?.let {
-            mViewBinding?.data = data
+            mViewBinding?.name = data.communityName
+            mViewBinding?.description = data.description
+            mViewBinding?.imageUrl = data.communityImageUrl
             mViewBinding?.nsvEmployer?.visible()
             mViewBinding?.nsvMain?.hide()
 //            navigateToCommunityDetails(it.communityId)

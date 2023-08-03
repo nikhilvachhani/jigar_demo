@@ -32,16 +32,42 @@
         android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvApps"
+            style="@style/TextViewStyleBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@string/apps"
+            android:textColor="@color/dark_green"
+            android:textSize="@dimen/text_size_regular"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewApps"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/dividerNew"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tvApps"
+            tools:visibility="visible" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivIcon"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_marginTop="@dimen/margin_20"
             android:adjustViewBounds="true"
             android:src="@{icon}"
-            android:layout_marginTop="@dimen/margin_20"
             android:visibility="@{data.icon != 0 ? View.VISIBLE:View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewApps"
             tools:src="@drawable/ic_polar" />
 
         <com.google.android.material.button.MaterialButton
@@ -49,10 +75,10 @@
             style="@style/BorderlessButton.Bold"
             android:layout_width="100dp"
             android:layout_height="36dp"
-            android:padding="0dp"
             android:backgroundTint="@{!isDeviceConnected?@color/disable_green:@color/dark_to_light_green}"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:padding="0dp"
             android:text="@{!isDeviceConnected?@string/connect:@string/connected}"
             android:textColor="@color/dark_green"
             android:textSize="@dimen/text_size_small"

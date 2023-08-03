@@ -53,7 +53,6 @@
             layout="@layout/toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:visibility="@{vm.isFromLogin ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,31 +68,17 @@
             android:text="@{vm.isFromLogin ? @string/connect_device : @string/device_and_applications}"
             android:textColor="@color/dark_green"
             android:textSize="@dimen/text_size_xxlarge"
-            app:layout_constraintEnd_toStartOf="@id/tvSkip"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/toolBarLayout"
             tools:text="@string/device_and_applications" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvSkip"
-            style="@style/TextViewStyleRegular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackground"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/skip"
-            android:visibility="@{vm.isFromLogin ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-            app:layout_constraintTop_toTopOf="@id/tvTitle"
-            tools:text="@string/skip" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle">
@@ -159,6 +144,38 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDone"
+            style="@style/BorderlessButton.ThemeColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/done"
+            app:cornerRadius="30dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintBottom_toTopOf="@+id/tvSetupLater" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextViewStyleSemiBold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_green"
+            android:textSize="@dimen/text_size_small"
+            android:gravity="center"
+            android:id="@+id/tvSetupLater"
+            android:paddingTop="8dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+            android:text="@string/set_up_later" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

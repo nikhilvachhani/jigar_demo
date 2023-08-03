@@ -12,8 +12,14 @@
             type="com.frami.ui.personalityinfo.contactinfo.ContactInfoFragmentViewModel" />
 
         <variable
-            name="data"
-            type="com.frami.data.model.explore.CommunityData" />
+            name="description"
+            type="String" />
+        <variable
+            name="name"
+            type="String" />
+        <variable
+            name="imageUrl"
+            type="String" />
 
         <import type="com.frami.utils.AppConstants" />
 
@@ -88,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -328,7 +334,7 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -357,7 +363,7 @@
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivCommunityImage"
-                            loadFullWidthImage="@{data.communityImageUrl}"
+                            loadFullWidthImage="@{imageUrl}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
@@ -366,7 +372,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvMyEmployerLabel"
-                        style="@style/TextViewStyleSemiBold"
+                        style="@style/TextViewStyleBold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -383,7 +389,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{data!= null ? data.communityName : ``}"
+                        android:text="@{name!= null ? name : ``}"
                         android:textColor="@color/dark_green"
                         android:textSize="@dimen/text_size_xxlarge"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -393,11 +399,11 @@
 
                     <com.frami.utils.widget.viewmorelinetextview.MoreLineTextView
                         android:id="@+id/tvDescriptionViewMore"
-                        style="@style/TextViewStyleRegular"
+                        style="@style/TextViewStyleMedium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="@{data != null ? !TextUtils.isEmpty(data.description) ? data.description:`` :``}"
+                        android:text="@{description != null ? !TextUtils.isEmpty(description) ? description:`` :``}"
                         android:textColor="@color/dark_green"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -407,11 +413,11 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvName2"
-                        style="@style/TextViewStyleSemiBold"
+                        style="@style/TextViewStyleBold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="@{data!= null ? `Organizer: `+data.communityName : ``}"
+                        android:text="@{name!= null ? `Organizer: `+name : ``}"
                         android:textColor="@color/dark_green"
                         android:textSize="@dimen/text_size_medium"
                         app:layout_constraintEnd_toEndOf="parent"

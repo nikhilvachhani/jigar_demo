@@ -1,6 +1,7 @@
 package com.frami.ui.dialog
 
 import android.app.Activity
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import com.frami.BuildConfig
@@ -53,6 +54,10 @@ class LoginDialog(
     }
 
     private fun clickListener() {
+        bindingSheet!!.btnCancel.setOnClickListener {
+            this.dismiss()
+            onDialogActionListener?.onLoginDialogClose()
+        }
         bindingSheet!!.ivClose.setOnClickListener {
             this.dismiss()
             onDialogActionListener?.onLoginDialogClose()

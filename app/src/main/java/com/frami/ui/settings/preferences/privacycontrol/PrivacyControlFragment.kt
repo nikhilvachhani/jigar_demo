@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.frami.BR
 import com.frami.R
 import com.frami.data.model.lookup.user.SubSectionData
@@ -156,12 +160,25 @@ class PrivacyControlFragment :
         }
     }
 
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    var wearableDeviceActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        getViewModel().getUserLiveData().observe(
+            viewLifecycleOwner,
+            Observer { user ->
+                if (user != null) {
+                    authFlow(user, false, null, null)
+                }
+            })
+    }
+
     override fun privacyPreferenceDataFetchSuccess(data: PrivacyPreferenceData?) {
         getViewModel().privacyPreferenceResponseData.set(data)
         if (getViewModel().isFromLogin.get()) {
             val user = getViewModel().user.get()
             user?.isPrivacySettingCompleted = true
-            authFlow(user!!, false, null, null)
+            authFlow(user!!, false, wearableDeviceActivityResultLauncher, null)
         } else {
             mNavController?.navigateUp()
         }

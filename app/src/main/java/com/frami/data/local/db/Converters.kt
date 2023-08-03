@@ -1,6 +1,7 @@
 package com.frami.data.local.db
 
 import androidx.room.TypeConverter
+import com.frami.data.model.explore.EmployerData
 import com.frami.data.model.lookup.CountryData
 import com.frami.data.model.user.UserDevices
 import com.frami.data.model.user.UserRoles
@@ -36,6 +37,14 @@ object Converters {
     @JvmStatic
     @TypeConverter
     fun jsonToCountryData(json: String?) = Gson().fromJson(json, CountryData::class.java)
+
+    @JvmStatic
+    @TypeConverter
+    fun employerDataToJson(data: EmployerData?): String = Gson().toJson(data)
+
+    @JvmStatic
+    @TypeConverter
+    fun jsonToEmployerData(json: String?) = Gson().fromJson(json, EmployerData::class.java)
 
     @JvmStatic
     @TypeConverter

@@ -19,16 +19,16 @@
             app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
             app:popUpTo="@+id/splashFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/toLoginSignupActivity"
-            app:destination="@id/loginSignupActivity"
-            app:enterAnim="@anim/b_nav_default_enter_anim"
-            app:exitAnim="@anim/b_nav_default_exit_anim"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"
-            app:popUpTo="@+id/splashFragment"
-            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/toLoginSignupActivity"-->
+<!--            app:destination="@id/loginSignupActivity"-->
+<!--            app:enterAnim="@anim/b_nav_default_enter_anim"-->
+<!--            app:exitAnim="@anim/b_nav_default_exit_anim"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popEnterAnim="@anim/b_nav_default_pop_enter_anim"-->
+<!--            app:popExitAnim="@anim/b_nav_default_pop_exit_anim"-->
+<!--            app:popUpTo="@+id/splashFragment"-->
+<!--            app:popUpToInclusive="true" />-->
         <action
             android:id="@+id/toWearableActivity"
             app:destination="@id/wearableActivity"

@@ -512,8 +512,6 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
 
         // Finish current activity
         finishAffinity()
-
-        Log.e("jigarLogs","deleteDBSuccess")
     }
 
     // Clear all notification
