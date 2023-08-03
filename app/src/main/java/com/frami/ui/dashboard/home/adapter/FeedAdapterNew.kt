@@ -139,15 +139,17 @@ class FeedAdapterNew(
                 val viewHolderUserData = holder as ViewHolderUserData
                 with(viewHolderUserData.itemBinding){
                     userProfileData = data.userProfileData
-                    if (data.userProfileData?.isDeviceConnected == true || dataManager.isHideConnectDevice()){
-                        linearConnectDevice.hide()
-                    }else{
-                        linearConnectDevice.visible()
-                    }
+
                     if (data.userProfileData?.isEmployerConnected == true || dataManager.isHideConnectEmployee()){
                         linearConnectEmployee.hide()
+                        if (data.userProfileData?.isDeviceConnected == true || dataManager.isHideConnectDevice()){
+                            linearConnectDevice.hide()
+                        }else{
+                            linearConnectDevice.visible()
+                        }
                     }else{
                         linearConnectEmployee.visible()
+                        linearConnectDevice.hide()
                     }
                     imgConnectDevice.onClick {
                         mListener?.onItemConnectDevice()
