@@ -179,6 +179,9 @@ class ContactInfoFragment :
 //        mViewBinding!!.tvIfApplicable.setOnClickListener {
 //            showWorkEmailInstructionDialog()
 //        }
+        mViewBinding?.tvDisconnect?.onClick {
+            displayUnJoinCommunityAlert()
+        }
         mViewBinding?.btnConnectCode?.onClick {
             showAddEmployerDialog()
         }
@@ -197,6 +200,21 @@ class ContactInfoFragment :
 //                getViewModel().verifyEmail(true, workEmailId)
 //            }
 //        }
+    }
+    private fun displayUnJoinCommunityAlert() {
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme).create()
+        alertDialog.setMessage(resources.getString(R.string.un_join_community_message))
+        alertDialog.setButton(
+            AlertDialog.BUTTON_NEGATIVE, resources.getString(R.string.cancel)
+        ) { dialog, which -> }
+        alertDialog.setButton(
+            AlertDialog.BUTTON_POSITIVE, resources.getString(R.string.un_join)
+        ) { dialog, which -> getViewModel().unJoinCommunityAPI() }
+        alertDialog.show()
+    }
+    override fun communityUnjoinSuccess(message: String) {
+        showMessage(message)
+        onBack()
     }
     private fun showAddEmployerDialog() {
         val newFragment: DialogFragment = CommunityCodeDialogFragment(this)
@@ -217,12 +235,15 @@ class ContactInfoFragment :
     override fun userInfoFetchSuccess(user: User?) {
         setUserDetails(user)
         if (user?.employer != null){
+            getViewModel().communityId.set(user.employer?.id)
             mViewBinding?.name = user.employer?.name
             mViewBinding?.description = user.employer?.description
             mViewBinding?.imageUrl = user.employer?.imageUrl
             mViewBinding?.nsvEmployer?.visible()
             mViewBinding?.nsvMain?.hide()
         }else{
+            mViewBinding?.nsvEmployer?.hide()
+            mViewBinding?.nsvMain?.visible()
             if (user?.workEmailAddress.isNullOrEmpty()){
                 mViewBinding?.btnNext?.visible()
                 mViewBinding?.btnResendCode?.hide()

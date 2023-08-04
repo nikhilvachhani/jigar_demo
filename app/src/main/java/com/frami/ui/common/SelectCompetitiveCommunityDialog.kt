@@ -49,7 +49,7 @@ class SelectCompetitiveCommunityDialog(
     }
 
     private fun setData() {
-        bindingSheet!!.llTitle.hide()
+        bindingSheet!!.tvTitle.hide()
         bindingSheet!!.tvGuide.visible()
         bindingSheet!!.tvGuide.text =
             bindingSheet!!.tvGuide.context.getString(R.string.challenge_partner_limitations)

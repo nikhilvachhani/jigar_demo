@@ -59,6 +59,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         return viewModelInstance
     }
 
+    private var currentFragmentId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -95,6 +96,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         mNavController!!.setGraph(graph, intent.extras)
 
         mNavController!!.addOnDestinationChangedListener { controller, destination, arguments ->
+            currentFragmentId = destination.id
             run {
                 when (destination.id) {
 //                    R.id.chatListFragment,
@@ -257,7 +259,11 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 true
             }
             R.id.actionAdd -> {
-                showCreateMenuDialog()
+                if (currentFragmentId == R.id.homeFragment){
+                    showCreateActivityMenuDialog()
+                }else{
+                    showCreateMenuDialog()
+                }
                 false
             }
             R.id.rewardsFragment -> {

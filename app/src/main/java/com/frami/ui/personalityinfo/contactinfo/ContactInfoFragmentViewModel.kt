@@ -1,6 +1,7 @@
 package com.frami.ui.personalityinfo.contactinfo
 
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import com.frami.data.DataManager
 import com.frami.data.model.profile.contactinfo.VerificationEmailRequest
 import com.frami.data.model.user.UserRequest
@@ -20,6 +21,7 @@ class ContactInfoFragmentViewModel @Inject constructor(
     schedulerProvider,
     mCompositeDisposable
 ) {
+    var communityId = ObservableField<String>()
     var isFromEdit = ObservableBoolean(false)
     var isValidWorkEmail = ObservableBoolean(false)
     var isWorkEmailEdited = ObservableBoolean(false)
@@ -131,6 +133,33 @@ class ContactInfoFragmentViewModel @Inject constructor(
                     } else {
                     }
                     getNavigator()?.showMessage(response.getMessage())
+                }
+            }, { throwable ->
+                getNavigator()?.hideLoading()
+                getNavigator()?.handleError(throwable)
+            })
+        mCompositeDisposable.add(disposable)
+    }
+
+    fun unJoinCommunityAPI() {
+        getNavigator()?.showLoading()
+        val disposable: Disposable = getDataManager().unJoinCommunityAPI(communityId = communityId.get() ?: "")
+            .subscribeOn(schedulerProvider.io()).observeOn(schedulerProvider.ui())
+            .subscribe({ response ->
+                getNavigator()?.hideLoading()
+                if (response != null) {
+                    getNavigator()?.log(
+                        "unJoinCommunityAPI response>>> ${
+                            Gson().toJson(
+                                response
+                            )
+                        }"
+                    )
+                    if (response.isSuccess()) {
+                        getNavigator()?.communityUnjoinSuccess(response.getMessage())
+                    } else {
+                        getNavigator()?.showMessage(response.getMessage())
+                    }
                 }
             }, { throwable ->
                 getNavigator()?.hideLoading()

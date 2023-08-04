@@ -54,7 +54,6 @@ class SelectActivityTypesDialog(
     }
 
     private fun setData() {
-        bindingSheet!!.llTitle.hide()
         listAdapter = ActivityTypeWithNameAdapter(dataList, this, isMultiSelection)
         bindingSheet!!.rvList.adapter = listAdapter
         bindingSheet!!.cvSearch.visible()

@@ -8,4 +8,5 @@ interface ContactInfoFragmentNavigator :
     BaseNavigator {
     fun verificationEmailSentSuccess(workEmail: Boolean, emailId: String)
     fun communityJoinByCode(data: CommunityData?)
+    fun communityUnjoinSuccess(message: String)
 }

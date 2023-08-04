@@ -49,6 +49,7 @@ class ContentPreferenceListAdapter(
             data = dataModel
             val contentPreferenceListChildAdapter = ContentPreferenceListChildAdapter(dataModel.value,position,object : OnChildItemClickListener{
                 override fun onItemPressChild(parentPosition: Int, childPosition: Int) {
+                    Log.e("jigarLogs","icon = "+listData[parentPosition].value[childPosition].icon)
                     listData[parentPosition].value.filter { it.isSelected }.also {
                         if (it.isNullOrEmpty() || (it.isNotEmpty() && it.size != dataModel.value.size)){ // not any selected
                             isSelectShow = true

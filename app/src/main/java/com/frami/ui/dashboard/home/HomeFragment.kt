@@ -40,6 +40,8 @@ import com.frami.ui.events.details.EventDetailsDialog
 import com.frami.ui.followers.requestdailog.FollowRequestAcceptConfirmationDialog
 import com.frami.ui.settings.wearable.WearableActivity
 import com.frami.utils.AppConstants
+import com.frami.utils.extensions.hide
+import com.frami.utils.extensions.onClick
 import com.frami.utils.extensions.visible
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -207,6 +209,20 @@ class HomeFragment :
     }
 
     private fun clickListener() {
+        mViewBinding?.tvConnectDeviceHide?.onClick {
+            getViewModel().getDataManager().hideConnectDevice(true)
+            mViewBinding?.linearConnectDevice?.hide()
+        }
+        mViewBinding?.tvConnectEmployeeHide?.onClick {
+            getViewModel().getDataManager().hideConnectEmployee(true)
+            mViewBinding?.linearConnectEmployee?.hide()
+        }
+        mViewBinding?.imgConnectDevice?.onClick {
+            onItemConnectDevice()
+        }
+        mViewBinding?.imgConnectEmployee?.onClick {
+            onItemConnectEmployee()
+        }
 //        mViewBinding!!.tvPeriod.setOnClickListener {
 //            showPeriodDialog()
 //        }
@@ -319,6 +335,18 @@ class HomeFragment :
         if (user != null) {
             log("UserInfoData>> ${Gson().toJson(user)}")
             getViewModel().userProfileData.set(user)
+
+            if (user.isEmployerConnected || getViewModel().getDataManager().isHideConnectEmployee()){
+                mViewBinding?.linearConnectEmployee?.hide()
+                if (user.isDeviceConnected || getViewModel().getDataManager().isHideConnectDevice()) {
+                    mViewBinding?.linearConnectDevice?.hide()
+                }else{
+                    mViewBinding?.linearConnectDevice?.visible()
+                }
+            }else{
+                mViewBinding?.linearConnectEmployee?.visible()
+                mViewBinding?.linearConnectDevice?.hide()
+            }
             getViewModel().getHomeFeedAPI()
         }
     }
@@ -341,9 +369,6 @@ class HomeFragment :
         if (getViewModel().isLoadMore.get()) {
             listAdapter.appendData(list)
         } else {
-            val data = FeedDataNew()
-            data.userProfileData = getViewModel().userProfileData.get()
-            list.add(0,data)
             listAdapter.data = list
         }
         setIsLoadMore(false)

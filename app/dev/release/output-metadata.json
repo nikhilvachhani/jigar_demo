@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.framiactivity.frami",
+  "variantName": "devRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 50,
+      "versionName": "v_0_0_50_04Aug23",
+      "outputFile": "Frami_v_0_0_50_04Aug23.apk"
+    }
+  ],
+  "elementType": "File"
+}

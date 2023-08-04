@@ -17,10 +17,7 @@ import com.frami.data.model.home.FeedDataNew
 import com.frami.data.model.rewards.RewardsData
 import com.frami.databinding.*
 import com.frami.utils.AppConstants
-import com.frami.utils.extensions.hide
-import com.frami.utils.extensions.layoutInflater
-import com.frami.utils.extensions.onClick
-import com.frami.utils.extensions.visible
+import com.frami.utils.extensions.*
 
 
 class FeedAdapterNew(
@@ -138,8 +135,6 @@ class FeedAdapterNew(
             AppConstants.FEED_VIEW_TYPE.USER_DATA -> {
                 val viewHolderUserData = holder as ViewHolderUserData
                 with(viewHolderUserData.itemBinding){
-                    userProfileData = data.userProfileData
-
                     if (data.userProfileData?.isEmployerConnected == true || dataManager.isHideConnectEmployee()){
                         linearConnectEmployee.hide()
                         if (data.userProfileData?.isDeviceConnected == true || dataManager.isHideConnectDevice()){
@@ -180,6 +175,11 @@ class FeedAdapterNew(
                             layoutActivity.imgSingle.visible()
                             layoutActivity.vpImages.hide()
                             layoutActivity.activityPhotos = data.activity?.photoList?.first()
+                            layoutActivity.imgSingle.onClick {
+                                data.activity?.photoList?.let{
+                                    this.context.fullScreenImage(it)
+                                }
+                            }
                         }else{
                             layoutActivity.imgSingle.hide()
                             layoutActivity.vpImages.visible()
@@ -189,7 +189,9 @@ class FeedAdapterNew(
                             viewHolderHeader.itemBinding.layoutActivity.vpImages.adapter =
                                 data.activity?.photoList?.let { FeedImageViewPagerAdapter(it,object : FeedImageViewPagerAdapter.OnItemClickListener{
                                     override fun onActivityViewPagerItemPress() {
-                                        mListener?.onActivityItemPress(data.activity!!)
+                                        data.activity?.photoList?.let{
+                                            layoutActivity.vpImages.context.fullScreenImage(it)
+                                        }
                                     }
                                 })}
                         }

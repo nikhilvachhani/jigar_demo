@@ -258,6 +258,7 @@
     <string name="connect">Connect</string>
     <string name="connected">Connected</string>
     <string name="disconnect">Disconnect</string>
+    <string name="disconnect_"><u>Disconnect</u></string>
     <string name="about_us">About us</string>
     <string name="about_frami">About Frami</string>
     <string name="faq">FAQ</string>
@@ -369,6 +370,7 @@
     <string name="verify">Verify</string>
     <string name="verified">Verified</string>
     <string name="create_new_activity">Create new activity</string>
+    <string name="new_activity">New activity</string>
     <string name="activity_start">Activity Start</string>
     <string name="pace">Pace</string>
     <string name="exertion">Exertion</string>

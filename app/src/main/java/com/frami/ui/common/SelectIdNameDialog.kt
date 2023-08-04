@@ -49,7 +49,7 @@ class SelectIdNameDialog(
     }
 
     private fun setData() {
-        bindingSheet!!.llTitle.hide()
+        bindingSheet!!.tvTitle.hide()
         listAdapter = IdNameListAdapter(dataList, this)
         bindingSheet!!.rvList.adapter = listAdapter
         if (!TextUtils.isEmpty(guide)) {

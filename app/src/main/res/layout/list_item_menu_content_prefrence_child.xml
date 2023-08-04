@@ -38,9 +38,10 @@
                 android:id="@+id/ivIcon"
                 loadImage="@{data.icon}"
                 android:layout_width="16dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:src="@drawable/ic_drop_down"
                 android:tint="@color/dark_green"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvTitle" />

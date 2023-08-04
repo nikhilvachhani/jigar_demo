@@ -14,9 +14,11 @@
         <variable
             name="description"
             type="String" />
+
         <variable
             name="name"
             type="String" />
+
         <variable
             name="imageUrl"
             type="String" />
@@ -89,7 +91,7 @@
             android:id="@+id/nsvMain"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -220,9 +222,9 @@
                         android:gravity="center"
                         android:padding="6dp"
                         android:text="@{viewModel.user != null ? viewModel.user.isWorkEmailVerified &amp;&amp; !viewModel.isWorkEmailEdited ? @string/verified : @string/verify  : ``}"
-                        android:visibility="@{viewModel.user != null ? viewModel.user.isWorkEmailVerified ? View.VISIBLE : View.GONE  : View.GONE}"
                         android:textColor="@color/themeColor"
                         android:textSize="@dimen/text_size_small"
+                        android:visibility="@{viewModel.user != null ? viewModel.user.isWorkEmailVerified ? View.VISIBLE : View.GONE  : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -238,11 +240,11 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/sf_pro_regular"
                     android:text="@{viewModel.isTextHideEmail?``:@string/connect_with_mail}"
-                    tools:text="@string/connect_with_mail"
                     app:cornerRadius="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clEmail"/>
+                    app:layout_constraintTop_toBottomOf="@id/clEmail"
+                    tools:text="@string/connect_with_mail" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnResendCode"
@@ -313,13 +315,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20"
                     android:gravity="start|center_vertical"
-                    tools:text="@string/employer_bottom_text"
                     android:text="@{viewModel.user != null ? viewModel.user.isWorkEmailVerified ? @string/employer_bottom_text_verified : @string/employer_bottom_text  : ``}"
                     android:textColor="@color/dark_green"
                     android:textSize="@dimen/text_size_small"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnResendCode" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnResendCode"
+                    tools:text="@string/employer_bottom_text" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -336,100 +338,117 @@
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             tools:visibility="visible">
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/radius12"
-                app:cardElevation="0dp">
+                android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    app:cardCornerRadius="@dimen/radius12"
+                    app:cardElevation="0dp">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cvCommunityImage"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/card_round_corner"
-                        app:cardElevation="0dp"
-                        app:cardMaxElevation="0dp"
-                        app:cardUseCompatPadding="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="visible">
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivCommunityImage"
-                            loadFullWidthImage="@{imageUrl}"
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvCommunityImage"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            tools:src="@drawable/dummy_challenge_full_width" />
-                    </com.google.android.material.card.MaterialCardView>
+                            android:layout_height="180dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/card_round_corner"
+                            app:cardElevation="0dp"
+                            app:cardMaxElevation="0dp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="visible">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvMyEmployerLabel"
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/my_employer"
-                        android:textColor="@color/dark_green"
-                        android:textSize="@dimen/text_size_xsmall"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cvCommunityImage" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivCommunityImage"
+                                loadFullWidthImage="@{imageUrl}"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                tools:src="@drawable/dummy_challenge_full_width" />
+                        </com.google.android.material.card.MaterialCardView>
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvName"
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@{name!= null ? name : ``}"
-                        android:textColor="@color/dark_green"
-                        android:textSize="@dimen/text_size_xxlarge"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvMyEmployerLabel"
-                        tools:text="@string/na" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvMyEmployerLabel"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/my_employer"
+                            android:textColor="@color/dark_green"
+                            android:textSize="@dimen/text_size_xsmall"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cvCommunityImage" />
 
-                    <com.frami.utils.widget.viewmorelinetextview.MoreLineTextView
-                        android:id="@+id/tvDescriptionViewMore"
-                        style="@style/TextViewStyleMedium"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@{description != null ? !TextUtils.isEmpty(description) ? description:`` :``}"
-                        android:textColor="@color/dark_green"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvName"
-                        app:readMoreMaxLine="4"
-                        tools:text="@string/na" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvName"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@{name!= null ? name : ``}"
+                            android:textColor="@color/dark_green"
+                            android:textSize="@dimen/text_size_xxlarge"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvMyEmployerLabel"
+                            tools:text="@string/na" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvName2"
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@{name!= null ? `Organizer: `+name : ``}"
-                        android:textColor="@color/dark_green"
-                        android:textSize="@dimen/text_size_medium"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvDescriptionViewMore"
-                        tools:text="@string/na" />
+                        <com.frami.utils.widget.viewmorelinetextview.MoreLineTextView
+                            android:id="@+id/tvDescriptionViewMore"
+                            style="@style/TextViewStyleMedium"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{description != null ? !TextUtils.isEmpty(description) ? description:`` :``}"
+                            android:textColor="@color/dark_green"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvName"
+                            app:readMoreMaxLine="4"
+                            tools:text="@string/na" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvName2"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{name!= null ? `Organizer: `+name : ``}"
+                            android:textColor="@color/dark_green"
+                            android:textSize="@dimen/text_size_medium"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvDescriptionViewMore"
+                            tools:text="@string/na" />
 
 
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDisconnect"
+                    style="@style/TextViewStyleRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/disconnect_"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/text_size_xsmall" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
