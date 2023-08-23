@@ -15,6 +15,9 @@ object ApiEndPoint {
         BuildConfig.DOMAIN + "user" + BuildConfig.DOMAIN_SUFFIX
     private const val BASE_URL_USER: String = BASE_URL_USER_API + "User/"
 
+    private const val BASE_URL_USER_API: String = BuildConfig.DOMAIN + "user" + BuildConfig.DOMAIN_SUFFIX
+    private const val BASE_URL_USER: String = BASE_URL_USER_API + "User/"
+
     const val ENDPOINT_VALIDATE_USER = BASE_URL_USER + "ValidateUser"
     const val ENDPOINT_CREATE_USER = BASE_URL_USER + "Create"
 //    const val ENDPOINT_UPDATE_USER = BASE_URL_USER + "Update"

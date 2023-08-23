@@ -17,13 +17,13 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdk 31
+    compileSdk 33
     namespace 'com.frami'
 
     defaultConfig {
         applicationId "com.framiactivity.frami"
         minSdk 21
-        targetSdk 31
+        targetSdk 33
         versionCode generateVersionCode()
         versionName "${generateVersionName()}"
 
@@ -46,12 +46,12 @@ android {
             manifestPlaceholders = [usesCleartextTraffic: "true"]
             signingConfig signingConfigs.releaseConfig
 
-            buildConfigField("String", "DOMAIN", '"https://frami"')
-            buildConfigField "String", "B2C_FACEBOOK", '"B2C_1_FramiSignUpSignInFlow"'
-            buildConfigField "String", "B2C_APPLE", '"B2C_1_FramiSignUpSignInFlowApple"'
-            buildConfigField "String", "B2C_EMAIL", '"B2C_1_FramiSignUpSignInFlowEmail"'
-            buildConfigField "String", "B2C_GOOGLE", '"B2C_1_FramiSignUpSignInFlowGoogle"'
-            buildConfigField "String", "B2C_FORGOT_PASSWORD", '"B2C_1_FramiPasswordResetFlowEmail"'
+            buildConfigField("String", "DOMAIN", '')
+            buildConfigField "String", "B2C_FACEBOOK", ''
+            buildConfigField "String", "B2C_APPLE", ''
+            buildConfigField "String", "B2C_EMAIL", ''
+            buildConfigField "String", "B2C_GOOGLE", ''
+            buildConfigField "String", "B2C_FORGOT_PASSWORD", ''
         }
         debug {
             manifestPlaceholders = [usesCleartextTraffic: "true"]
@@ -61,12 +61,12 @@ android {
             applicationIdSuffix '.debug'
             versionNameSuffix '-debug'
 
-            buildConfigField("String", "DOMAIN", '"https://frami"')
-            buildConfigField "String", "B2C_FACEBOOK", '"B2C_1_FramiSignUpSignInFlow"'
-            buildConfigField "String", "B2C_APPLE", '"B2C_1_FramiSignUpSignInFlowApple"'
-            buildConfigField "String", "B2C_EMAIL", '"B2C_1_FramiSignUpSignInFlowEmail"'
-            buildConfigField "String", "B2C_GOOGLE", '"B2C_1_FramiSignUpSignInFlowGoogle"'
-            buildConfigField "String", "B2C_FORGOT_PASSWORD", '"B2C_1_FramiPasswordResetFlowEmail"'
+            buildConfigField("String", "DOMAIN", '')
+            buildConfigField "String", "B2C_FACEBOOK", ''
+            buildConfigField "String", "B2C_APPLE", ''
+            buildConfigField "String", "B2C_EMAIL", ''
+            buildConfigField "String", "B2C_GOOGLE", ''
+            buildConfigField "String", "B2C_FORGOT_PASSWORD", ''
         }
     }
 
